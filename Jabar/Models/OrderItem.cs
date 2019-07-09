@@ -10,14 +10,14 @@ namespace Jabar.Models
         public int OrderItemId { get; set; }
         public string VendorSKU { get; set; }
         //maybe change to double?
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public int QuantityOrdered { get; set; }
-        public DateTime DateDelivered { get; set; }
+        public DateTime? DateDelivered { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
         //nav
-        public int ItemId { get; set; }
+        public IEnumerable<int> ItemId { get; set; }
         public int PurchaseOrderId { get; set; }
     }
 }

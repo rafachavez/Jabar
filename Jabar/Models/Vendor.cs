@@ -14,5 +14,8 @@ namespace Jabar.Models
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
+        //nav
+        public IEnumerable<PurchaseOrder> PurchaseOrders { get; set; }
+
     }
 }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-//
+
 namespace Jabar
 {
     public class Startup

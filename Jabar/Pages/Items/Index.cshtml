@@ -1,0 +1,90 @@
+﻿@page
+@model Jabar.Pages.Items.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].OnHandQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].ListRetailCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].ReorderQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].MaxQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].MeasureAmnt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].LastModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].LastModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].MeasureID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Item) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnHandQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListRetailCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReorderQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeasureAmnt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeasureID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

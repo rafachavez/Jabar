@@ -1,0 +1,79 @@
+﻿@page
+@model Jabar.Pages.Items.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Item.ItemName" class="control-label"></label>
+                <input asp-for="Item.ItemName" class="form-control" />
+                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Description" class="control-label"></label>
+                <input asp-for="Item.Description" class="form-control" />
+                <span asp-validation-for="Item.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.OnHandQty" class="control-label"></label>
+                <input asp-for="Item.OnHandQty" class="form-control" />
+                <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                <input asp-for="Item.ListRetailCost" class="form-control" />
+                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.ReorderQty" class="control-label"></label>
+                <input asp-for="Item.ReorderQty" class="form-control" />
+                <span asp-validation-for="Item.ReorderQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.MaxQty" class="control-label"></label>
+                <input asp-for="Item.MaxQty" class="form-control" />
+                <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.MeasureAmnt" class="control-label"></label>
+                <input asp-for="Item.MeasureAmnt" class="form-control" />
+                <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.LastModifiedBy" class="control-label"></label>
+                <input asp-for="Item.LastModifiedBy" class="form-control" />
+                <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.LastModifiedDate" class="control-label"></label>
+                <input asp-for="Item.LastModifiedDate" class="form-control" />
+                <span asp-validation-for="Item.LastModifiedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.MeasureID" class="control-label"></label>
+                <input asp-for="Item.MeasureID" class="form-control" />
+                <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

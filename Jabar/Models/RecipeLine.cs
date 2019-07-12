@@ -17,6 +17,5 @@ namespace Jabar.Models
         public int AssemblyRecipeId { get; set; }
         public int ItemId { get; set; }
 
-
     }
 }

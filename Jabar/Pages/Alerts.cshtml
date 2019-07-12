@@ -1,6 +1,59 @@
 ﻿@page
 @model Jabar.Pages.AlertsModel
 @{
+    ViewData["Title"] = "Alerts";
 }
 
-This will be the alerts page
+<h1>Alerts</h1>
+
+
+
+<div id="Tabs" role="tabpanel" class="m-3">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#reconcile" aria-controls="reconcile" role="tab" data-toggle="tab" class="btn btn-outline-dark active">Reconcile</a></li>
+        <li><a href="#reorder" aria-controls="reorder" role="tab" data-toggle="tab" class="btn btn-outline-dark">Reorder</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="roconcile">
+            This will display all inventory changes that need to be updated in quickbooks
+            <!-- TODO Display all inventory change alerts -->
+            <!-- Needed >>
+                Alert description
+                Reconcile button
+                Details button
+            -->
+            <!-- When the details button is pressed >>
+                Change the details button to a hide details button,
+                Create and expand out a chart listing the inventory changes,
+                Add a button to view the order associated with the change
+
+                Revert to details button when hide details is pressed
+            -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="reorder">
+            This will display a list of items that need to be reordered
+            <!-- TODO Display all items that need to be reordered -->
+            <!-- Needed >>
+                The name of the product,
+                A Reorder button,
+                A Dismiss button,
+                A Details button
+            -->
+            <!-- When the details button is pressed >>
+                Change the details button to a hide details button,
+                Expand details on the item 
+                    Columns needed >>
+                        Total quantity (on hand + on order), 
+                        Quantity on hand, 
+                        Quantity on order, 
+                        Reorder point)
+
+                Revert to details button when hide details is pressed
+            -->
+        </div>
+    </div>
+</div>
+
+<!-- TODO create a popup box when the Reconcile button is pressed, asking the user to confirm the data has been updated in quickbooks -->
+<!-- TODO Create a popup box when the Dismiss button is pressed, asking the user to confirm dismissing the alert. -->

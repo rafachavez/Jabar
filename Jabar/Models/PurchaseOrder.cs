@@ -16,5 +16,7 @@ namespace Jabar.Models
         //navigation(foriegn keys)
         public int VendorId { get; set; }
 
+        public IEnumerable<OrderItem> OrderItems { get; set; }
+
     }
 }

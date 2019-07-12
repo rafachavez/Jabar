@@ -12,5 +12,6 @@ namespace Jabar.Data
             : base(options)
         {
         }
+
     }
 }

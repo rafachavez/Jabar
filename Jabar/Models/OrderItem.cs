@@ -19,5 +19,7 @@ namespace Jabar.Models
         //nav
         public IEnumerable<int> ItemId { get; set; }
         public int PurchaseOrderId { get; set; }
+
+        public IEnumerable<RecievedItems> RecievedItems { get; set; }
     }
 }

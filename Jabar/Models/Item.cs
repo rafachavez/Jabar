@@ -66,7 +66,7 @@ namespace Jabar.Models
         public IEnumerable<InventoryLog> InventoryLogs { get; set; }
 
         public IEnumerable<AssemblyHistory> AssemblyHistories { get; set; }
-
+        public IEnumerable<RecipeLine> RecipeLines { get; set; }
 
     }
 }

@@ -17,7 +17,7 @@ namespace Jabar.Models
         public DateTime LastModifiedDate { get; set; }
 
         //nav
-        public IEnumerable<int> ItemId { get; set; }
+        public int ItemId { get; set; }
         public int PurchaseOrderId { get; set; }
 
         public IEnumerable<RecievedItems> RecievedItems { get; set; }

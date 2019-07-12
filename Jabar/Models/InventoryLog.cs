@@ -7,7 +7,7 @@ namespace Jabar.Models
 {
     public class InventoryLog
     {
-        public int LogId { get; set; }
+        public int InventoryLogId { get; set; }
         public int PreviousQty { get; set; }
         public int NewQty { get; set; }
         public bool Reconciled { get; set; }

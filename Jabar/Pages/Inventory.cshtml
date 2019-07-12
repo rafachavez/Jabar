@@ -1,6 +1,58 @@
 ﻿@page
 @model Jabar.Pages.InventoryModel
 @{
+    ViewData["Title"] = "Inventory";
 }
 
-This will be the inventory page
+<h1>Inventory</h1>
+
+<div>
+    <label class="col-3 m-1">Filter Results:</label>
+    <input type="text" class="col-6" name="resultFilter" />
+    <!-- TODO Implement filter -->
+</div>
+
+<div id="Tabs" role="tabpanel" class="m-3">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab" class="btn btn-outline-dark active">All</a></li>
+        <li><a href="#toReorder" aria-controls="toReorder" role="tab" data-toggle="tab" class="btn btn-outline-dark">To Reorder</a></li>
+        <li><a href="#assemblies" aria-controls="assemblies" role="tab" data-toggle="tab" class="btn btn-outline-dark">Assemblies</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="all">
+            This will contain all products
+            <!-- TODO Loop through all products, checking the filter, and display all results -->
+            <!-- Columns needed >> 
+                Product name (hyperlink to associated product), 
+                On hand quantity for the product and a button that will let the user edit the quantity, 
+                In transit value for the product, 
+                Reorder value for the product, 
+                A field that includes an assembly button (only if the item can be assembled)
+            -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="toReorder">
+            This will contain all products that have an onhand quantity less than the associated reorder value
+            <!-- TODO Loop through all products, checking the filter, and display all results whose on hand quantity is less than the associated reorder quantity -->
+            <!-- Columns needed >>
+                Product name (hyperlink to associated product page),
+                On hand quantity for the product and a button that will let the user edit the quantity,
+                In transit value for the product,
+                Reorder value for the product,
+                A button that lets the user order more of the associated product
+            -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="assemblies">
+            This will contain all products that can be assembled
+            <!-- TODO Loop through all products, checking the filter, and display all products that can be assembled -->
+            <!-- Columns needed >>
+                Product name (hyperlink to associated product page),
+                On hand quantity for the product and a button that will let the user edit the quantity,
+                A button that lets the user create an assembly for the item
+            -->
+        </div>
+    </div>
+</div>
+
+<!-- TODO add create item button floating on bottom right -->
+<!-- TODO create popup box for editing an items quantity -->

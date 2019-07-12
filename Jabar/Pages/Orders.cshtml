@@ -1,6 +1,44 @@
 ﻿@page
-@model Jabar.Pages.OrdersModel
+@model Jabar.Pages.InventoryModel
 @{
+    ViewData["Title"] = "Orders";
 }
 
-This will be the Orders page
+<h1>Orders</h1>
+
+<div>
+    <label class="col-3 m-1">Filter Results:</label>
+    <input type="text" class="col-6" name="resultFilter" />
+    <!-- TODO Implement filter -->
+    <!-- Is this filter a range of dates? -->
+</div>
+
+<div id="Tabs" role="tabpanel" class="m-3">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab" class="btn btn-outline-dark active">All</a></li>
+        <li><a href="#pending" aria-controls="pending" role="tab" data-toggle="tab" class="btn btn-outline-dark">Pending</a></li>
+        <li><a href="#received" aria-controls="received" role="tab" data-toggle="tab" class="btn btn-outline-dark">Received</a></li>
+        <li><a href="#overdue" aria-controls="overdue" role="tab" data-toggle="tab" class="btn btn-outline-dark">Overdue</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="all">
+            This will display all orders
+            <!-- TODO Display all orders. They should have a central header that indicates whether the order is pending, recieved, or overdue -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pending">
+            This will display all pending orders
+            <!-- TODO Display all pending orders -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="received">
+            This will contain all orders that have been received
+            <!-- TODO Display all received orders -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="overdue">
+            This will contain all orders that are currently overdue
+            <!-- TODO Display all orders not received, but whose expected date of arrival has passed -->
+        </div>
+    </div>
+</div>
+
+<!-- TODO add create order button floating on bottom right -->

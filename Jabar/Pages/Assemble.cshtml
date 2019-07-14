@@ -1,6 +1,49 @@
 ﻿@page
 @model Jabar.Pages.AssembleModel
 @{
+    ViewData["Title"] = "Assemble";
 }
 
-This will be the assemble page
+<h1 class="text-center">Assemble</h1>
+
+<div class="container text-center p-2">
+    <div class="row">
+        <div class="col">
+            <label>Inventory to Make</label>
+        </div>
+        <div class="col">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Items
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Part 1</a>
+                    <a class="dropdown-item" href="#">Part 2</a>
+                    <a class="dropdown-item" href="#">Part 3</a>
+                </div>
+            </div>  
+        </div>
+        <div class="col">
+            <label>Qty</label>
+            <input type="text" class="col-6" name="quantity" />
+        </div>
+    </div>
+</div>
+
+<div class="row p-2 border border-dark">
+    
+    <div class="col-sm-6">
+        Name
+    </div>
+    <div class="col-sm-2">
+        Nededed
+    </div>
+    <div class="col-sm-2">
+        OnHand
+    </div>
+    <div class="col-sm-2">
+        HaveParts
+    </div>
+   
+</div>
+

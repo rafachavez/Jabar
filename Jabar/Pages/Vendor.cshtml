@@ -1,6 +1,30 @@
 ﻿@page
 @model Jabar.Pages.VendorModel
 @{
+    ViewData["Title"] = "Vendor";
 }
 
-This will be the vendor page
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<h1 class="text-center">Vendors</h1>
+
+<div class="row p-2 border border-dark">
+
+    <div class="col-sm-6">
+        Name
+    </div>
+    <div class="col-sm-3">
+        Details
+    </div>
+    <div class="col-sm-3">
+        Purchase History
+    </div>
+</div>
+
+<div class="row p-4"> 
+    <span class="glyphicon glyphicon-plus-sign"></span>
+</div>

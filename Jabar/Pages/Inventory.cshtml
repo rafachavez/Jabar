@@ -22,14 +22,15 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="all">
             This will contain all products
+            
             <!-- TODO Loop through all products, checking the filter, and display all results -->
-            <!-- Columns needed >> 
-                Product name (hyperlink to associated product), 
-                On hand quantity for the product and a button that will let the user edit the quantity, 
-                In transit value for the product, 
-                Reorder value for the product, 
-                A field that includes an assembly button (only if the item can be assembled)
-            -->
+            <!-- Columns needed >>
+        Product name (hyperlink to associated product),
+        On hand quantity for the product and a button that will let the user edit the quantity,
+        In transit value for the product,
+        Reorder value for the product,
+        A field that includes an assembly button (only if the item can be assembled)
+    -->
         </div>
         <div role="tabpanel" class="tab-pane" id="toReorder">
             This will contain all products that have an onhand quantity less than the associated reorder value
@@ -53,6 +54,8 @@
         </div>
     </div>
 </div>
+<!-- TODO add create item button floating on bottom right done ish!, this will need to link to the final items create page, not the 
+    fake one in the items folder-->
+<a asp-page="ItemCreate" class="floating_circle_button">+</a>
 
-<!-- TODO add create item button floating on bottom right -->
 <!-- TODO create popup box for editing an items quantity -->

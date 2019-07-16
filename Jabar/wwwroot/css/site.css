@@ -54,3 +54,27 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*some css code for a floating button*/
+.floating_circle_button {
+    
+    text-align: center;
+    line-height: 37px;
+    vertical-align: text-bottom;
+    font-size: 55px;
+    color: white;
+    background-color: black;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: fixed;
+    top: 80%;
+    right: 5%;
+}
+
+    .floating_circle_button:hover {
+        color: #212529;
+        background-color: #e2e6ea;
+        border-color: transparent;
+    }
+

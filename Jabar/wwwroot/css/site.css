@@ -72,8 +72,12 @@ body {
 }
 
     .floating_circle_button:hover {
-        color: #212529;
+        color:black;
+        text-underline-position:left;
         background-color: #e2e6ea;
         border-color: transparent;
+    }
+    .floating_circle_button:link{
+        text-decoration: none;
     }
 

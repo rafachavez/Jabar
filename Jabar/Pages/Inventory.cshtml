@@ -22,7 +22,72 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="all">
             This will contain all products
-            
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item[0].ItemName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item[0].Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item[0].OnHandQty)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item[0].ListRetailCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item[0].ReorderQty)
+                        </th>
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @if (item.OnHandQty <= item.ReorderQty)
+                                {
+                                    <span style="color:red; font-weight:bold">
+                                        @item.OnHandQty
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span style="color:black; ">
+                                        @item.OnHandQty
+                                    </span>
+                                }
+                               
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ListRetailCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReorderQty)
+                            </td>
+                   
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                                <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
             <!-- TODO Loop through all products, checking the filter, and display all results -->
             <!-- Columns needed >>
         Product name (hyperlink to associated product),

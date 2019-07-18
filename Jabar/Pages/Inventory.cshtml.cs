@@ -63,6 +63,10 @@ namespace Jabar.Pages
             Items = await _context.Items.ToListAsync();
             Item = Items[id - 1];
             Item.OnHandQty--;
+            if(Item.OnHandQty < 0)
+            {
+                Item.OnHandQty = 0;
+            }
             _context.Attach(Item).State = EntityState.Modified;
 
             try

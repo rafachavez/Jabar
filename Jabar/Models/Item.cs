@@ -59,6 +59,8 @@ namespace Jabar.Models
         /// </summary>
         public int MeasureID { get; set; }
 
+        public Vendor PreferredVendor { get; set; }
+
         public IEnumerable<AssemblyRecipe> AssemblyRecipes { get; set; }
 
         public IEnumerable<OrderItem> OrderItems { get; set; }

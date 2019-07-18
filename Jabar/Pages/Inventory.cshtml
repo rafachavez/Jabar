@@ -59,24 +59,23 @@
                             <td>
                                 @if (item.OnHandQty <= item.ReorderQty)
                                 {
-                                    <span style="color:red; font-weight:bold">
-
-                                        @item.OnHandQty
-                                    </span>
-                                    <form method="post">
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId">Add</button>
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId">Subtract</button>
+                                    <form method="post" class="list-group-horizontal">
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId">-</button>
+                                        <span style="color:red; font-weight:bold">
+                                            @item.OnHandQty
+                                        </span>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId">+</button>
                                     </form>
 
                                 }
                                 else
-                                {
-                                    <span style="color:black; ">
-                                        @item.OnHandQty
-                                    </span>
-                                    <form method="post">
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId">Add</button>
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId">Subtract</button>
+                                { 
+                                    <form method="post" class="list-group-horizontal">
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="rounded-circle">-</button>
+                                        <span style="color:black; ">
+                                            @item.OnHandQty
+                                        </span>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId">+</button>                                        
                                     </form>
                                 }
 

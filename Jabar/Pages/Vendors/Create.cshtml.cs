@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Jabar.Models;
 
-namespace Jabar.Pages
+namespace Jabar.Pages.Vendors
 {
-    public class CreateOrderModel : PageModel
+    
+
+    public class CreateModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public CreateOrderModel(Jabar.Data.ApplicationDbContext context)
+        public CreateModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +25,7 @@ namespace Jabar.Pages
         }
 
         [BindProperty]
-        public OrderItem Order { get; set; }
+        public Vendor Vendor { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -32,11 +34,10 @@ namespace Jabar.Pages
                 return Page();
             }
 
-            _context.OrderItems.Add(Order);
+            _context.Vendors.Add(Vendor);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
-
     }
 }

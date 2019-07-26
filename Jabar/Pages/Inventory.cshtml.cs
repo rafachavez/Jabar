@@ -118,6 +118,10 @@ namespace Jabar.Pages
             return RedirectToPage();
         }
 
+        public void SetIndex(int newIndex)
+        {
+            Index = newIndex;
+        }
         //used by getDetailsModal
         public async Task<IActionResult> OnGetItemDetailsAsync(int? id)
         {
@@ -127,11 +131,13 @@ namespace Jabar.Pages
             }
 
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            
 
             if (Item == null)
             {
                 return NotFound();
             }
+            Index = Items.IndexOf(Item);
             return Page();
         }
 

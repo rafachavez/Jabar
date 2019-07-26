@@ -42,7 +42,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Items[0].ReorderQty)
                         </th>
-                       
+
                         <th></th>
                     </tr>
                 </thead>
@@ -64,23 +64,22 @@
                                         <!-- looks for an onpost or onpostasync method with subtract in it, so in this case it goes to  -->
                                         <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
                                         <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
-                                        <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code-->
+                                        <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
                                         <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
                                         <span style="color:red; font-weight:bold">
                                             @item.OnHandQty
                                         </span>
                                         <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">add</button>
                                     </form>
-
                                 }
                                 else
-                                { 
+                                {
                                     <form method="post" class="list-group-horizontal">
                                         <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">sub</button>
                                         <span style="color:black; ">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">add</button>                                        
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">add</button>
                                     </form>
                                 }
 
@@ -91,11 +90,11 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ReorderQty)
                             </td>
-                   
+
                             <td>
                                 @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                                <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                                <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>*@
+                                    <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                                    <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>*@
                             </td>
                         </tr>
                     }
@@ -104,12 +103,12 @@
 
             <!-- TODO Loop through all products, checking the filter, and display all results -->
             <!-- Columns needed >>
-        Product name (hyperlink to associated product),
-        On hand quantity for the product and a button that will let the user edit the quantity,
-        In transit value for the product,
-        Reorder value for the product,
-        A field that includes an assembly button (only if the item can be assembled)
-    -->
+                Product name (hyperlink to associated product),
+                On hand quantity for the product and a button that will let the user edit the quantity,
+                In transit value for the product,
+                Reorder value for the product,
+                A field that includes an assembly button (only if the item can be assembled)
+            -->
         </div>
         <div role="tabpanel" class="tab-pane" id="toReorder">
             This will contain all products that have an onhand quantity less than the associated reorder value
@@ -133,8 +132,94 @@
         </div>
     </div>
 </div>
-<!-- TODO add create item button floating on bottom right done ish!, this will need to link to the final items create page, not the 
-    fake one in the items folder-->
-<a asp-page="ItemCreate" class="floating_circle_button">+</a>
 
-<!-- TODO create popup box for editing an items quantity -->
+<a asp-page="ItemCreate" class="floating_circle_button" data-toggle="modal" data-target="#createItemModal">+</a>
+
+<!-- Modal -->
+    <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Item.ItemName" class="control-label"></label>
+                                    <input asp-for="Item.ItemName" class="form-control" />
+                                    <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.Description" class="control-label"></label>
+                                    <input asp-for="Item.Description" class="form-control" />
+                                    <span asp-validation-for="Item.Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.OnHandQty" class="control-label"></label>
+                                    <input asp-for="Item.OnHandQty" class="form-control" />
+                                    <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                                    <input asp-for="Item.ListRetailCost" class="form-control" />
+                                    <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.ReorderQty" class="control-label"></label>
+                                    <input asp-for="Item.ReorderQty" class="form-control" />
+                                    <span asp-validation-for="Item.ReorderQty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.MaxQty" class="control-label"></label>
+                                    <input asp-for="Item.MaxQty" class="form-control" />
+                                    <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.MeasureAmnt" class="control-label"></label>
+                                    <input asp-for="Item.MeasureAmnt" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.LastModifiedBy" class="control-label"></label>
+                                    <input asp-for="Item.LastModifiedBy" class="form-control" />
+                                    <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.LastModifiedDate" class="control-label"></label>
+                                    <input asp-for="Item.LastModifiedDate" class="form-control" />
+                                    <span asp-validation-for="Item.LastModifiedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.MeasureID" class="control-label"></label>
+                                    <input asp-for="Item.MeasureID" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <button asp-page-handler="Create" class="btn btn-primary">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO create popup box for editing an items quantity -->
+    <script>
+    $('#exampleModal').on('hidden.bs.modal', function (e) {
+       $('#exampleModal modal-body').load('@Url.Page("Index")');
+    })
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    </script>

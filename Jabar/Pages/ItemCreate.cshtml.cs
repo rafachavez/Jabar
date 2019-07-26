@@ -27,7 +27,7 @@ namespace Jabar.Pages
         [BindProperty]
         public Item Item { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCreateAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -39,5 +39,8 @@ namespace Jabar.Pages
 
             return RedirectToPage("./Index");
         }
+
+        
+
     }
 }

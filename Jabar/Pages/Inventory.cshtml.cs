@@ -99,7 +99,20 @@ namespace Jabar.Pages
             //stay on current page
             return RedirectToPage();
         }
-       
+
+        public async Task<IActionResult> OnPostCreateAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
+            _context.Items.Add(Item);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
 
         private bool ItemExists(int id)
         {

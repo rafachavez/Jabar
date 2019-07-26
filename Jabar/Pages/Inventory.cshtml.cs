@@ -103,11 +103,21 @@ namespace Jabar.Pages
         //used by createItemModal
         public async Task<IActionResult> OnPostCreateAsync()
         {
-
+            Items = await _context.Items.ToListAsync();
             Item.LastModifiedDate = DateTime.Today;
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();
+            }
+
+            //dont add duplicately named items
+            foreach (var item in Items)
+            {
+                if(item.ItemName == Item.ItemName)
+                {
+                    //indicate failure due to identical items
+                    return RedirectToPage();
+                }
             }
 
             _context.Items.Add(Item);

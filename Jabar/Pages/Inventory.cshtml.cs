@@ -73,10 +73,10 @@ namespace Jabar.Pages
             Item = Items[id - 1];
             //subtract one from it
             Item.OnHandQty--;
-            if(Item.OnHandQty < 0)
-            {
-                Item.OnHandQty = 0;//no negative inventory
-            }
+            //if(Item.OnHandQty < 0)
+            //{
+            //    Item.OnHandQty = 0;//no negative inventory
+            //}
             //get db stuff, I copied the rest of this code from the scaffolding
             //so I can only follow it, not really create it yet
             _context.Attach(Item).State = EntityState.Modified;
@@ -105,6 +105,9 @@ namespace Jabar.Pages
         {
             Items = await _context.Items.ToListAsync();
             Item.LastModifiedDate = DateTime.Today;
+            Item.LastModifiedBy = "Jabar Team";//this has to come out later
+            Item.MeasureID = 1;//this will need to be changed later
+           
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();

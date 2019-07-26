@@ -19,7 +19,7 @@
         <li><a href="#assemblies" aria-controls="assemblies" role="tab" data-toggle="tab" class="btn btn-outline-dark">Assemblies</a></li>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content col-12">
         <div role="tabpanel" class="tab-pane active" id="all">
             This will contain all products
 
@@ -51,10 +51,10 @@
                     {
 
                         <tr>
-                            <td>
+                            <td class="col-2">
                                 @Html.DisplayFor(modelItem => item.ItemName)
                             </td>
-                            <td>
+                            <td class="col-3">
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
@@ -85,14 +85,14 @@
                                 }
 
                             </td>
-                            <td>
+                            <td class="col-1">
                                 @Html.DisplayFor(modelItem => item.ListRetailCost)
                             </td>
-                            <td>
+                            <td class="col-1">
                                 @Html.DisplayFor(modelItem => item.ReorderQty)
                             </td>
 
-                            <td>
+                            <td class="col-2">
                                
                                 <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
                                <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
@@ -247,11 +247,11 @@
                                 <input asp-for="Item.OnHandQty" class="form-control" />
                                 <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <label asp-for="Item.ListRetailCost" class="control-label"></label>
                                 <input asp-for="Item.ListRetailCost" class="form-control" />
                                 <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
-                            </div>
+                            </div>*@
                             <div class="form-group">
                                 <label asp-for="Item.ReorderQty" class="control-label"></label>
                                 <input asp-for="Item.ReorderQty" class="form-control" />
@@ -262,7 +262,7 @@
                                 <input asp-for="Item.MaxQty" class="form-control" />
                                 <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <label asp-for="Item.MeasureAmnt" class="control-label"></label>
                                 <input asp-for="Item.MeasureAmnt" class="form-control" />
                                 <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
@@ -276,7 +276,7 @@
                                 <label asp-for="Item.MeasureID" class="control-label"></label>
                                 <input asp-for="Item.MeasureID" class="form-control" />
                                 <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
-                            </div>
+                            </div>*@
                             <div class="form-group">
                                 <button asp-page-handler="Create" class="btn btn-primary">Create</button>
                             </div>

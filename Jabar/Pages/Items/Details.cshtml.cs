@@ -21,7 +21,7 @@ namespace Jabar.Pages.Items
 
         public Item Item { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetDetailsAsync(int? id)
         {
             if (id == null)
             {

@@ -49,6 +49,7 @@
                 <tbody>
                     @foreach (var item in Model.Items)
                     {
+
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ItemName)
@@ -92,6 +93,7 @@
                             </td>
 
                             <td>
+                                <a asp-page-handler="ItemDetails" data-ItemId="@item.ItemId" asp-route-id="@item.ItemId" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
                                 @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
                                     <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
                                     <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>*@
@@ -135,91 +137,157 @@
 
 <a asp-page="ItemCreate" class="floating_circle_button" data-toggle="modal" data-target="#createItemModal">+</a>
 
-<!-- Modal -->
-    <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true" >
-        <div class="modal-dialog" role="form">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <form method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="Item.ItemName" class="control-label"></label>
-                                    <input asp-for="Item.ItemName" class="form-control" />
-                                    <span asp-validation-for="Item.ItemName" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.Description" class="control-label"></label>
-                                    <input asp-for="Item.Description" class="form-control" />
-                                    <span asp-validation-for="Item.Description" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.OnHandQty" class="control-label"></label>
-                                    <input asp-for="Item.OnHandQty" class="form-control" />
-                                    <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.ListRetailCost" class="control-label"></label>
-                                    <input asp-for="Item.ListRetailCost" class="form-control" />
-                                    <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.ReorderQty" class="control-label"></label>
-                                    <input asp-for="Item.ReorderQty" class="form-control" />
-                                    <span asp-validation-for="Item.ReorderQty" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.MaxQty" class="control-label"></label>
-                                    <input asp-for="Item.MaxQty" class="form-control" />
-                                    <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.MeasureAmnt" class="control-label"></label>
-                                    <input asp-for="Item.MeasureAmnt" class="form-control" />
-                                    <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.LastModifiedBy" class="control-label"></label>
-                                    <input asp-for="Item.LastModifiedBy" class="form-control" />
-                                    <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.LastModifiedDate" class="control-label"></label>
-                                    <input asp-for="Item.LastModifiedDate" class="form-control" />
-                                    <span asp-validation-for="Item.LastModifiedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Item.MeasureID" class="control-label"></label>
-                                    <input asp-for="Item.MeasureID" class="form-control" />
-                                    <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
+<!--Get Details Modal-->
+
+<div class="modal fade" id="getDetailsModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <!--start of my stuff-->
+                       
+                            <div>
+                                <h4>Item details, this modal is still broken</h4>
+                                <hr />
+                              
+                                <dl class="row">
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Item.ItemName)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(modelItem => modelItem.Item.ItemName)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Item.Description)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Item.Description)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Item.OnHandQty)
+                                    </dt>
+                                    <dd class="detailcontent">
+                                        
+                                    </dd>
                                     
-                                    <button asp-page-handler="Create" class="btn btn-primary">Create</button>
-                                </div>
-                            </form>
+                                    
+                                </dl>
+                            </div>
+                        <div>
+                             
+                            
                         </div>
+                        <!--bottom of my stuff-->
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
+</div>
 
-    <!-- TODO create popup box for editing an items quantity -->
-    <script>
-    $('#exampleModal').on('hidden.bs.modal', function (e) {
-       $('#exampleModal modal-body').load('@Url.Page("Index")');
+<script>
+    $('#getDetailsModal').on('show.bs.modal', function (event) {
+      
+        var itemId = event.relatedTarget.dataset.ItemId
+        var modal = $(this)
+        modal.find('.modal-body detailcontent').val(itemId)
+    })
+
+ 
+</script>
+
+<!--Create Item Modal -->
+<div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-10">
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Item.ItemName" class="control-label"></label>
+                                <input asp-for="Item.ItemName" class="form-control" />
+                                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.Description" class="control-label"></label>
+                                <input asp-for="Item.Description" class="form-control" />
+                                <span asp-validation-for="Item.Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.OnHandQty" class="control-label"></label>
+                                <input asp-for="Item.OnHandQty" class="form-control" />
+                                <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                                <input asp-for="Item.ListRetailCost" class="form-control" />
+                                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.ReorderQty" class="control-label"></label>
+                                <input asp-for="Item.ReorderQty" class="form-control" />
+                                <span asp-validation-for="Item.ReorderQty" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.MaxQty" class="control-label"></label>
+                                <input asp-for="Item.MaxQty" class="form-control" />
+                                <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.MeasureAmnt" class="control-label"></label>
+                                <input asp-for="Item.MeasureAmnt" class="form-control" />
+                                <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Item.LastModifiedBy" class="control-label"></label>
+                                <input asp-for="Item.LastModifiedBy" class="form-control" />
+                                <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
+                            </div>  
+                            <div class="form-group">
+                                <label asp-for="Item.MeasureID" class="control-label"></label>
+                                <input asp-for="Item.MeasureID" class="form-control" />
+                                <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <button asp-page-handler="Create" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TODO create popup box for editing an items quantity -->
+<script>
+    $('#createItemModal').on('hidden.bs.modal', function (e) {
+       $('#createItemModal modal-body').load('@Url.Page("Index")');
     })
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    </script>
+</script>

@@ -22,8 +22,8 @@ namespace Jabar.Pages
         public IList<Item> Items { get; set; }
         [BindProperty]
         public Item Item { get; set; }
-        //[BindProperty]
-        //public int Index { get; set; }
+        [BindProperty]
+        public int Index { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -100,12 +100,17 @@ namespace Jabar.Pages
             return RedirectToPage();
         }
 
+        //used by createItemModal
         public async Task<IActionResult> OnPostCreateAsync()
         {
+
+            Item.LastModifiedDate = DateTime.Today;
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();
             }
+
+            
 
             _context.Items.Add(Item);
             await _context.SaveChangesAsync();
@@ -113,6 +118,22 @@ namespace Jabar.Pages
             return RedirectToPage();
         }
 
+        //used by getDetailsModal
+        public async Task<IActionResult> OnGetItemDetailsAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+
+            if (Item == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
 
         private bool ItemExists(int id)
         {

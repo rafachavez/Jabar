@@ -110,20 +110,22 @@ namespace Jabar.Pages
                 return RedirectToPage();
             }
 
-            
-
             _context.Items.Add(Item);
             await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }
 
-        public void SetIndex(int newIndex)
+        public bool SetIndex(int newIndex)
         {
             Index = newIndex;
+            return true;
         }
         //used by getDetailsModal
-        public async Task<IActionResult> OnGetItemDetailsAsync(int? id)
+   
+      
+
+        public async Task<IActionResult> OnGetDetailsAsync(int? id)
         {
             if (id == null)
             {
@@ -131,7 +133,6 @@ namespace Jabar.Pages
             }
 
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
-            
 
             if (Item == null)
             {

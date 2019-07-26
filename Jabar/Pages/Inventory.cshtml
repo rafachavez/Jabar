@@ -94,10 +94,11 @@
 
                             <td>
                                
-                                <button asp-page-handler="SetIndex" onclick="@Model.OnGetItemDetailsAsync(item.ItemId)" asp-route-newIndex="@item.ItemId" data-ItemId="@item.ItemId" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</button>
+                                <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
+                               <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
                                 @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
         <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-        <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>*@
+        >*@
                             </td>
                         </tr>
                     }
@@ -141,7 +142,7 @@
 <!--Get Details Modal-->
 
 <div class="modal fade" id="getDetailsModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="form">
+    <div class="modal-dialog modal-lg" role="contentinfo">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
@@ -159,13 +160,13 @@
                                 <h4>Item details, this modal is still broken</h4>
                                 <hr />
                               
-                                <dl class="row">
+                                <dl class="row indexinput">
                                     <dt class="col-sm-2">
                                         @Html.DisplayNameFor(model => model.Item.ItemName)
                                     </dt>
                                     <dt class="col-sm-10">
                                        
-                                        @Html.DisplayFor(modelItem => modelItem.Items[Model.Index].ItemName)
+                                        @Html.DisplayFor(model=> model.Item.ItemName)
                                     </dt>
                                     <dt class="col-sm-2">
                                         @Html.DisplayNameFor(model => model.Item.Description)
@@ -176,8 +177,8 @@
                                     <dt class="col-sm-2">
                                         @Html.DisplayNameFor(model => model.Item.OnHandQty)
                                     </dt>
-                                    <dd class="detailcontent">
-                                        
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Item.OnHandQty)
                                     </dd>
                                     
                                     
@@ -200,16 +201,21 @@
     </div>
 </div>
 
-@*<script>
+<script>
     $('#getDetailsModal').on('show.bs.modal', function (event) {
       
-        var itemId = event.relatedTarget.dataset.ItemId
+        var item = event.relatedTarget.dataset.ItemIndex
+        //parseInt(item);
+        int itemindex = 0
+       
         var modal = $(this)
+        @Model.Index = parseInt(item)
+       
         modal.find('.modal-body detailcontent').val(itemId)
     })
 
  
-</script>*@
+</script>
 
 <!--Create Item Modal -->
 <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">

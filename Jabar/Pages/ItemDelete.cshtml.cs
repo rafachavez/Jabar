@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jabar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Jabar.Data;
-using Jabar.Models;
 
-namespace Jabar.Pages.Items
+namespace Jabar.Pages
 {
-    public class DeleteModel : PageModel
+    public class ItemDeleteModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public DeleteModel(Jabar.Data.ApplicationDbContext context)
+        public ItemDeleteModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }

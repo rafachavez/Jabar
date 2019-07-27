@@ -90,3 +90,8 @@ body {
         background-color:black;
     }
 
+
+/*Used to make a div into a scrollbox*/
+.div_scrollbox {
+    overflow-y:auto;
+}

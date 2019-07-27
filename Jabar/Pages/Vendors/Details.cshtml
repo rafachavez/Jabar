@@ -25,7 +25,7 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./" class="btn btn-primary col-sm-3">Purchase History</a> <!-- TODO Link to Purchase History Page -->
+    <a asp-page="./PurchaseHistory" asp-route-id="@Model.Vendor.VendorId" class="btn btn-primary col-sm-3">Purchase History</a> <!-- TODO Link to Purchase History Page -->
     <a class="col-sm-1"></a><!--Spacing-->
     <a asp-page="./Edit" asp-route-id="@Model.Vendor.VendorId" class="btn btn-outline-dark col-sm-3">Edit</a>
     <a class="col-sm-1"></a><!--Spacing-->

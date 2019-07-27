@@ -2,11 +2,11 @@
 @model Jabar.Pages.Vendors.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vendors";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Vendors</h1>
 
 
 <table class="table">
@@ -27,7 +27,8 @@
             <td class="float-right">
                 <a asp-page="./Edit" asp-route-id="@item.VendorId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.VendorId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.VendorId">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.VendorId">Delete</a> |
+                <a asp-page="./PurchaseHistory" asp-route-id="@item.VendorId">Purchase History</a>
             </td>
         </tr>
 }

@@ -21,11 +21,20 @@ namespace Jabar.Pages.Vendors
         public Vendor Vendor { get; set; }
         public List<PurchaseOrder> PurchaseOrders { get; set; }
         public List<PurchaseOrderList> PurchaseItems { get; set; }
+        public List<Item> Items { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             // Validate Id was passed in
             if(id == null)
+            {
+                return NotFound();
+            }
+
+            // Populate and validate Items
+            Items = await _context.Items.ToListAsync();
+
+            if(Items == null)
             {
                 return NotFound();
             }

@@ -10,13 +10,13 @@
     <h4>Vendor Details</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class="col-sm-2 text-right">
             Name:
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Vendor.VendorName)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2 text-right">
             Address:
         </dt>
         <dd class="col-sm-10">
@@ -29,5 +29,5 @@
     <a class="col-sm-1"></a><!--Spacing-->
     <a asp-page="./Edit" asp-route-id="@Model.Vendor.VendorId" class="btn btn-outline-dark col-sm-3">Edit</a>
     <a class="col-sm-1"></a><!--Spacing-->
-    <a asp-page="./Index" class="btn btn-outline-dark col-sm-3">Back to List</a>
+    <a asp-page="./Index" class="btn btn-outline-dark col-sm-3">Return to List</a>
 </div>

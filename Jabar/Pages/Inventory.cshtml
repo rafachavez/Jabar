@@ -125,12 +125,83 @@
             This will contain all products that have an onhand quantity less than the associated reorder value
             <!-- TODO Loop through all products, checking the filter, and display all results whose on hand quantity is less than the associated reorder quantity -->
             <!-- Columns needed >>
-                Product name (hyperlink to associated product page),
-                On hand quantity for the product and a button that will let the user edit the quantity,
-                In transit value for the product,
-                Reorder value for the product,
-                A button that lets the user order more of the associated product
-            -->
+        Product name (hyperlink to associated product page),
+        On hand quantity for the product and a button that will let the user edit the quantity,
+        In transit value for the product,
+        Reorder value for the product,
+        A button that lets the user order more of the associated product
+    -->
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Items[0].ItemName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Items[0].Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Items[0].OnHandQty)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Items[0].ListRetailCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Items[0].ReorderQty)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+
+                        @if(item.OnHandQty <= item.ReorderQty)
+                        {
+                        <tr class="border">
+                            <td class="col-2">
+                                <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                            </td>
+                            <td class="col-3">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                               
+                                    <form method="post" class="list-group-horizontal align-self-stretch">
+                                        <!-- since this is in a post method asp-page-handler="subtract" goes to the razor page code and -->
+                                        <!-- looks for an onpost or onpostasync method with subtract in it, so in this case it goes to  -->
+                                        <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
+                                        <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
+                                        <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
+                                        <span style="color:red; font-weight:bold" class="align-self-center">
+                                            @item.OnHandQty
+                                        </span>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill badge-dark">add</button>
+                                    </form>     
+
+                            </td>
+                            <td class="col-1">
+                                @Html.DisplayFor(modelItem => item.ListRetailCost)
+                            </td>
+                            <td class="col-1">
+                                @Html.DisplayFor(modelItem => item.ReorderQty)
+                            </td>
+
+                            <td class="col-2">
+
+                                <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
+                                <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
+                                @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                            >*@
+                            </td>
+                        </tr>
+                         }
+                    }
+                </tbody>
+            </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="assemblies">
             This will contain all products that can be assembled
@@ -145,6 +216,8 @@
 </div>
 
 <a asp-page="ItemCreate" class="floating_circle_button" data-toggle="modal" data-target="#createItemModal">+</a>
+
+
 
 <!--Get Details Modal-->
 

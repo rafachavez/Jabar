@@ -48,8 +48,8 @@ namespace Jabar.Pages
 
         public async Task<IActionResult> OnPostAddAsync(int id)
         {
-            Items = await _context.Items.ToListAsync();
-            Item = Items[id-1];
+           
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
             Item.OnHandQty++;
             _context.Attach(Item).State = EntityState.Modified;
 
@@ -77,13 +77,13 @@ namespace Jabar.Pages
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> OnPostSubtractAsync(int id)
+        public async Task<IActionResult> OnPostSubtractAsync(int id, string tab = "")
         {
             //got to get all the items.... maybe a better developer doesnt but I did
-            Items = await _context.Items.ToListAsync();
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
             //get the exact item that is being interacted with
             //the id passed in isnt 0 based so you have to subtract 1
-            Item = Items[id - 1];
+            //Item = Items[id - 1];
             //subtract one from it
             Item.OnHandQty--;
             //if(Item.OnHandQty < 0)
@@ -109,7 +109,8 @@ namespace Jabar.Pages
                     throw;
                 }
             }
-            //stay on current page
+            //stay on current pageRedirectResult(Url.Action("Details", "OInfoes", new { id = phase.OID ,
+            //tab = "phases"}));
             return RedirectToPage();
         }
 

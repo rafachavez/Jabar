@@ -54,8 +54,9 @@
                 <input asp-for="Item.MeasureID" class="form-control" />
                 <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
             </div>
-            @if (Model.Item.AssemblyRecipeId != 0)
+            @if (Model.Item.RecipeLines != null)
             {
+                <p>is assembled</p>
                 <div class="form-group">
                     <label asp-for="Item.RecipeLines" class="control-label">is assembled</label>
 

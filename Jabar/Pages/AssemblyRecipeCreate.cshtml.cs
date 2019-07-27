@@ -37,6 +37,7 @@ namespace Jabar.Pages
             Items = await _context.Items.ToListAsync();
             //AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == Item.AssemblyRecipeId);
             //RecipeLines = AssemblyRecipe.RecipeLines.ToList();
+            
             ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
             ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
             return Page();
@@ -56,6 +57,8 @@ namespace Jabar.Pages
 
         [BindProperty]
         public IList<RecipeLine> RecipeLines { get; set; }
+
+        [BindProperty]
         public Item Item { get; set; }
 
         //used by recipeline create modal
@@ -64,11 +67,11 @@ namespace Jabar.Pages
            
             RecipeLine.LastModifiedBy = "AlphaTech";//change this to whoever is logged in
             RecipeLine.LastModifiedDate = DateTime.Today;//this is probably good
-            RecipeLine.AssemblyRecipeId = AssemblyRecipe.AssemblyRecipeId;
+            //RecipeLine.AssemblyRecipeId = AssemblyRecipe.AssemblyRecipeId;
            
             //these need an item and a recipe to post to the db
-            RecipeLine.Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == RecipeLine.ItemId);//itemid is chosen by user
-            RecipeLine.AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == RecipeLine.AssemblyRecipeId);
+            //RecipeLine.Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == RecipeLine.ItemId);//itemid is chosen by user
+            //RecipeLine.AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == RecipeLine.AssemblyRecipeId);
                                  
             //await _context.SaveChangesAsync();
 
@@ -91,6 +94,7 @@ namespace Jabar.Pages
         {
            
             //should check for circular logic here too.
+            //Im getting this far!!!
             if (!ModelState.IsValid)
             {
                 return Page();

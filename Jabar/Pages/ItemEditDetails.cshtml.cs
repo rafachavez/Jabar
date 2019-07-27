@@ -41,6 +41,8 @@ namespace Jabar.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Item.LastModifiedBy = "AlphaTech";//change to current user
+            Item.LastModifiedDate = DateTime.Today;
             if (!ModelState.IsValid)
             {
                 return Page();

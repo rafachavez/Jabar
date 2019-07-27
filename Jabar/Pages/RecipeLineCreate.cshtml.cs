@@ -20,14 +20,15 @@ namespace Jabar.Pages
             _context = context;            
         }
 
-        public async Task<IActionResult> OnGetAsync(int assemblyRecipeId)
+        public async Task<IActionResult> OnGetAsync(int Id)
         {
             Items = await _context.Items.ToListAsync();
-            AssemblyRecipeId = assemblyRecipeId;
-            ViewData["Item"] = new SelectList(_context.Items, "Item", "Item");
+            RecipeLine = new RecipeLine();
+            RecipeLine.AssemblyRecipeId = Id;
+            //ViewData["Item"] = new SelectList(_context.Items, "Item", "Item");
 
             ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
-            ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
+            //ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
             //ViewBag.Classifications = dbCC.Classifications
             //.Select(c => new SelectListItem { Value = c.ClassificationId, Text = c.Description })
             //.ToList();
@@ -38,16 +39,16 @@ namespace Jabar.Pages
         public RecipeLine RecipeLine { get; set; }
 
         public IList<Item> Items { get; set; }
-
-        public int AssemblyRecipeId { get; set; }
+              
 
         public async Task<IActionResult> OnPostAsync()
         {
             RecipeLine.LastModifiedBy = "AlphaTech";//change to current user
             RecipeLine.LastModifiedDate = DateTime.Today;
-            RecipeLine.Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == RecipeLine.ItemId);
+            //these need an item and a recipe to post to the db
+            RecipeLine.Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == RecipeLine.ItemId);//itemid is chosen by user
             RecipeLine.AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == RecipeLine.AssemblyRecipeId);
-
+            
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -56,7 +57,7 @@ namespace Jabar.Pages
             _context.RecipeLines.Add(RecipeLine);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage();
         }
     }
 }

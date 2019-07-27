@@ -2,43 +2,32 @@
 @model Jabar.Pages.Vendors.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Vendor Details";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Vendor</h4>
+    <h4>Vendor Details</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor.VendorName)
+            Name:
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Vendor.VendorName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor.VendorAddress)
+            Address:
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Vendor.VendorAddress)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor.LastModifiedBy)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.LastModifiedBy)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor.LastModifiedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.LastModifiedDate)
-        </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Vendor.VendorId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./" class="btn btn-primary col-sm-3">Purchase History</a> <!-- TODO Link to Purchase History Page -->
+    <a class="col-sm-1"></a><!--Spacing-->
+    <a asp-page="./Edit" asp-route-id="@Model.Vendor.VendorId" class="btn btn-outline-dark col-sm-3">Edit</a>
+    <a class="col-sm-1"></a><!--Spacing-->
+    <a asp-page="./Index" class="btn btn-outline-dark col-sm-3">Back to List</a>
 </div>

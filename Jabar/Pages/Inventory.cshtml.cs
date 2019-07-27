@@ -79,11 +79,9 @@ namespace Jabar.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnPostSubtractAsync(int id, string tab = "")
         {
-            //got to get all the items.... maybe a better developer doesnt but I did
+            
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
-            //get the exact item that is being interacted with
-            //the id passed in isnt 0 based so you have to subtract 1
-            //Item = Items[id - 1];
+           
             //subtract one from it
             Item.OnHandQty--;
             //if(Item.OnHandQty < 0)
@@ -119,7 +117,7 @@ namespace Jabar.Pages
         {
             Items = await _context.Items.ToListAsync();
             Item.LastModifiedDate = DateTime.Today;
-            Item.LastModifiedBy = "Jabar Team";//this has to come out later
+            Item.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
             Item.MeasureID = 1;//this will need to be changed later
            
             if (!ModelState.IsValid)

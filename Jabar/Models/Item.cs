@@ -61,6 +61,8 @@ namespace Jabar.Models
 
         public Vendor PreferredVendor { get; set; }
 
+        public int? AssemblyRecipeId { get; set; }
+
         public IEnumerable<AssemblyRecipe> AssemblyRecipes { get; set; }
 
         public IEnumerable<OrderItem> OrderItems { get; set; }

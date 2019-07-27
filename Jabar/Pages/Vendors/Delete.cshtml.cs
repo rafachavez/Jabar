@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages.Items
+namespace Jabar.Pages.Vendors
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Jabar.Pages.Items
         }
 
         [BindProperty]
-        public Item Item { get; set; }
+        public Vendor Vendor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace Jabar.Pages.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            Vendor = await _context.Vendors.FirstOrDefaultAsync(m => m.VendorId == id);
 
-            if (Item == null)
+            if (Vendor == null)
             {
                 return NotFound();
             }
@@ -45,15 +45,15 @@ namespace Jabar.Pages.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FindAsync(id);
+            Vendor = await _context.Vendors.FindAsync(id);
 
-            if (Item != null)
+            if (Vendor != null)
             {
-                _context.Items.Remove(Item);
+                _context.Vendors.Remove(Vendor);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Inventory");
+            return RedirectToPage("./Index");
         }
     }
 }

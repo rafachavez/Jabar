@@ -1,0 +1,96 @@
+﻿@page
+@model Jabar.Pages.Vendors.PurchaseHistoryModel
+@{
+}
+
+<h4>@Model.Vendor.VendorName Purchase History</h4>
+<hr />
+
+<div id="Tabs" role="tabpanel">
+    <ul id="NavTabs" role="tablist" class="col-5 float-left div_scrollbox">
+        @{ int count = 1; }
+        @foreach (var po in Model.PurchaseOrders)
+        {
+            
+            @if(count == 1 )
+            {
+                <li class="active"><a href="#invoice+@po.PurchaseOrderId" aria-controls="invoice+@po.PurchaseOrderId" role="tab" class="btn btn-outline-dark active">Order @count @po.DateOrdered</a></li>
+            }
+            else
+            {
+                <li><a href="#invoice+@po.PurchaseOrderId" aria-controls="invoice+@po.PurchaseOrderId" role="tab" class="btn btn-outline-dark">Order @count @po.DateOrdered</a></li>
+            }
+
+            count++;
+        }
+    </ul>
+    <div id="NavItems" class="col-6 float-right tab-content" style="border:solid">
+        @{ int count2 = 1; }
+        @foreach (var po in Model.PurchaseOrders)
+        {
+            @if (count2 == 1)
+            {
+
+            }
+            else
+            {
+                <div id="invoice+@po.PurchaseOrderId" class="tab-pane">
+                    <h6>Order @count2</h6>
+                    <hr />
+                    <div class="col-4 float-left text-right">Order Date:</div>
+                    <div class="col-5 float-right text-right">@po.DateOrdered</div>
+                    <div class="col-4 float-left text-right">Total:</div>
+                    <div class="col-5 float-left text-right">
+                        @{ double linetotal = 0.0; }
+                        
+                        @foreach(var orderlines in Model.PurchaseItems)
+                        {
+                            if(orderlines.PurchaseOrderId == po.PurchaseOrderId)
+                            {
+                                foreach(var line in orderlines.PurchaseOrderItems)
+                                {
+                                    linetotal += (double)line.QuantityOrdered * line.Price;
+                                }
+                            }
+                        }
+
+                        $+@linetotal
+                    </div>
+                    <table class="table col-10 m-1" style="border:solid;border-width:thin">
+                        <thead>
+                            <tr>
+                                <th class="col-5">Part Name</th>
+                                <th class="col-2">Qty</th>
+                                <th class="col-4">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody class="div_scrollbox">
+                            @foreach(var orderlines in Model.PurchaseItems)
+                            {
+                                if(orderlines.PurchaseOrderId == po.PurchaseOrderId)
+                                {
+                                    foreach(var line in orderlines.PurchaseOrderItems)
+                                    {
+                                        <tr>
+                                            <td class="col-5">
+                                                @Model.Items[Model.Items.FindIndex(i => i.ItemId == line.ItemId)].ItemName
+                                            </td>
+                                            <td class="col-2">@line.QuantityOrdered</td>
+                                            <td class="col-4">@line.Price</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            count2++;
+        }
+    </div>
+</div>
+
+<p style="clear:both">
+    <a asp-page="./Index" class="btn btn-outline-dark col-md-4">Vendor List</a>
+</p>

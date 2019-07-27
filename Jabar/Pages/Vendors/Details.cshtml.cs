@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages.Items
+namespace Jabar.Pages.Vendors
 {
     public class DetailsModel : PageModel
     {
@@ -19,18 +19,18 @@ namespace Jabar.Pages.Items
             _context = context;
         }
 
-        public Item Item { get; set; }
+        public Vendor Vendor { get; set; }
 
-        public async Task<IActionResult> OnGetDetailsAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            Vendor = await _context.Vendors.FirstOrDefaultAsync(m => m.VendorId == id);
 
-            if (Item == null)
+            if (Vendor == null)
             {
                 return NotFound();
             }

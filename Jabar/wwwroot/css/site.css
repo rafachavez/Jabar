@@ -81,3 +81,17 @@ body {
         text-decoration: none;
     }
 
+
+.my_item_highlight{
+
+}
+    .my_item_highlight:hover{
+        height: 200px;
+        background-color:black;
+    }
+
+
+/*Used to make a div into a scrollbox*/
+.div_scrollbox {
+    overflow-y:auto;
+}

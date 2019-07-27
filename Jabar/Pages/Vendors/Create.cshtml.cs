@@ -1,20 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages
+namespace Jabar.Pages.Vendors
 {
-    public class ItemCreateModel : PageModel
+    
+
+    public class CreateModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public ItemCreateModel(Jabar.Data.ApplicationDbContext context)
+        public CreateModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace Jabar.Pages
         }
 
         [BindProperty]
-        public Item Item { get; set; }
+        public Vendor Vendor { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,7 +34,7 @@ namespace Jabar.Pages
                 return Page();
             }
 
-            _context.Items.Add(Item);
+            _context.Vendors.Add(Vendor);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

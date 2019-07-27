@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jabar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Jabar.Data;
-using Jabar.Models;
 
-namespace Jabar.Pages.Items
+namespace Jabar.Pages
 {
-    public class DetailsModel : PageModel
+    public class ItemDeleteModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public DetailsModel(Jabar.Data.ApplicationDbContext context)
+        public ItemDeleteModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public Item Item { get; set; }
 
-        public async Task<IActionResult> OnGetDetailsAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -35,6 +35,24 @@ namespace Jabar.Pages.Items
                 return NotFound();
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Item = await _context.Items.FindAsync(id);
+
+            if (Item != null)
+            {
+                _context.Items.Remove(Item);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Inventory");
         }
     }
 }

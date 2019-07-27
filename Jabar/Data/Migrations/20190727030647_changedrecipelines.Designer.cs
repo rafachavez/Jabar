@@ -4,14 +4,16 @@ using Jabar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Jabar.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190727030647_changedrecipelines")]
+    partial class changedrecipelines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,8 +91,6 @@ namespace Jabar.Data.Migrations
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AssemblyRecipeId");
 
                     b.Property<string>("Description");
 
@@ -469,7 +469,7 @@ namespace Jabar.Data.Migrations
 
             modelBuilder.Entity("Jabar.Models.RecipeLine", b =>
                 {
-                    b.HasOne("Jabar.Models.AssemblyRecipe", "AssemblyRecipe")
+                    b.HasOne("Jabar.Models.AssemblyRecipe", "Recipe")
                         .WithMany("RecipeLines")
                         .HasForeignKey("AssemblyRecipeId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -4,17 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages.Items
+namespace Jabar.Pages
 {
-    public class DeleteModel : PageModel
+    public class ItemEditDetailsModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public DeleteModel(Jabar.Data.ApplicationDbContext context)
+        public ItemEditDetailsModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -38,22 +39,39 @@ namespace Jabar.Pages.Items
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null)
+            Item.LastModifiedBy = "AlphaTech";//change to current user
+            Item.LastModifiedDate = DateTime.Today;
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return Page();
             }
 
-            Item = await _context.Items.FindAsync(id);
+            _context.Attach(Item).State = EntityState.Modified;
 
-            if (Item != null)
+            try
             {
-                _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExists(Item.ItemId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return RedirectToPage("./Inventory");
+        }
+
+        private bool ItemExists(int id)
+        {
+            return _context.Items.Any(e => e.ItemId == id);
         }
     }
 }

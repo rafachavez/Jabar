@@ -25,9 +25,22 @@ namespace Jabar.Pages
         [BindProperty]
         public int Index { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+
         public async Task OnGetAsync()
         {
-            Items = await _context.Items.ToListAsync();
+            var items = from i in _context.Items
+                         select i;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(s => s.ItemName.Contains(SearchString));
+            }
+
+            Items = await items.ToListAsync();
+
+            //Items = await _context.Items.ToListAsync();           
+            
         }
 
         //////////////////////////////////////////////

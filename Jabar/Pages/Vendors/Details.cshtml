@@ -1,0 +1,33 @@
+﻿@page
+@model Jabar.Pages.Vendors.DetailsModel
+
+@{
+    ViewData["Title"] = "Vendor Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Vendor Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2 text-right">
+            Name:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vendor.VendorName)
+        </dd>
+        <dt class="col-sm-2 text-right">
+            Address:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vendor.VendorAddress)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./PurchaseHistory" asp-route-id="@Model.Vendor.VendorId" class="btn btn-primary col-sm-3">Purchase History</a> <!-- TODO Link to Purchase History Page -->
+    <a class="col-sm-1"></a><!--Spacing-->
+    <a asp-page="./Edit" asp-route-id="@Model.Vendor.VendorId" class="btn btn-outline-dark col-sm-3">Edit</a>
+    <a class="col-sm-1"></a><!--Spacing-->
+    <a asp-page="./Index" class="btn btn-outline-dark col-sm-3">Return to List</a>
+</div>

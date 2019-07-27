@@ -1,27 +1,31 @@
 ﻿@page
-@model Jabar.Pages.Vendors.CreateModel
+@model Jabar.Pages.Vendors.EditModel
+
 @{
-    ViewData["Title"] = "New Vendor";
+    ViewData["Title"] = "Edit Vendor";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center p-4">New Vendor</h1>
+<h4>Edit Vendor</h4>
+<hr />
 <div class="row">
     <div class="col-md-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vendor.VendorId" />
             <div class="form-group">
-                <label asp-for="Vendor.VendorName" class="control-label">Name:</label>
+                <label asp-for="Vendor.VendorName" class="control-label"></label>
                 <input asp-for="Vendor.VendorName" class="form-control" />
                 <span asp-validation-for="Vendor.VendorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vendor.VendorAddress" class="control-label">Address:</label>
+                <label asp-for="Vendor.VendorAddress" class="control-label"></label>
                 <input asp-for="Vendor.VendorAddress" class="form-control" />
                 <span asp-validation-for="Vendor.VendorAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add" class="btn btn-success col-md-4" />
-                <a asp-page="./Index" class="btn btn-outline-dark col-md-4 float-right">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-success col-3" />
+                <a asp-page="./Index" class="btn btn-outline-dark col-3 float-right">Cancel</a>
             </div>
         </form>
     </div>

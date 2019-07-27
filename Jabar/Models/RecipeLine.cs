@@ -20,11 +20,13 @@ namespace Jabar.Models
         public int ItemId { get; set; }
 
         [ForeignKey("AssemblyRecipeId")]
-        public virtual AssemblyRecipe Recipe { get; set; }
+        public virtual AssemblyRecipe AssemblyRecipe { get; set; }
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
 
-        /*
+        /* SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint 
+         * "FK_RecipeLines_AssemblyRecipes_AssemblyRecipeId". The conflict occurred in 
+         * database "WhoLives_Jabar", table "dbo.AssemblyRecipes", column 'AssemblyRecipeId'.
          *  [Display(Name="Product Type")]
         public int ProductTypeId { get; set; }
 

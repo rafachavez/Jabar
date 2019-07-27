@@ -20,9 +20,10 @@ namespace Jabar.Pages
             _context = context;            
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int assemblyRecipeId)
         {
             Items = await _context.Items.ToListAsync();
+            AssemblyRecipeId = assemblyRecipeId;
             ViewData["Item"] = new SelectList(_context.Items, "Item", "Item");
 
             ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
@@ -38,8 +39,15 @@ namespace Jabar.Pages
 
         public IList<Item> Items { get; set; }
 
+        public int AssemblyRecipeId { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
+            RecipeLine.LastModifiedBy = "AlphaTech";//change to current user
+            RecipeLine.LastModifiedDate = DateTime.Today;
+            RecipeLine.Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == RecipeLine.ItemId);
+            RecipeLine.AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == RecipeLine.AssemblyRecipeId);
+
             if (!ModelState.IsValid)
             {
                 return Page();

@@ -1,0 +1,58 @@
+﻿@page
+@model Jabar.Pages.Orders.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>OrderItem</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.VendorSKU)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.VendorSKU)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.QuantityOrdered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.QuantityOrdered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.DateDelivered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.DateDelivered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.LastModifiedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.LastModifiedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.LastModifiedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.LastModifiedDate)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="OrderItem.OrderItemId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

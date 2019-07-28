@@ -1,18 +1,20 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages
+namespace Jabar.Pages.Orders
 {
-    public class CreateOrderModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
 
-        public CreateOrderModel(Jabar.Data.ApplicationDbContext context)
+        public CreateModel(Jabar.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +25,7 @@ namespace Jabar.Pages
         }
 
         [BindProperty]
-        public OrderItem Order { get; set; }
+        public OrderItem OrderItem { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -32,11 +34,10 @@ namespace Jabar.Pages
                 return Page();
             }
 
-            _context.OrderItems.Add(Order);
+            _context.OrderItems.Add(OrderItem);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
-
     }
 }

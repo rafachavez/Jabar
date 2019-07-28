@@ -1,0 +1,55 @@
+﻿@page
+@model Jabar.Pages.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>OrderItem</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.VendorSKU)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.VendorSKU)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.QuantityOrdered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.QuantityOrdered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.DateDelivered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.DateDelivered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.LastModifiedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.LastModifiedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderItem.LastModifiedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderItem.LastModifiedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.OrderItem.OrderItemId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -7,9 +7,10 @@
 <h1>Inventory</h1>
 
 <div>
-    
+
     <form>
-        <p><!--This ties into the ongetasync method in the cs file-->
+        <p>
+            <!--This ties into the ongetasync method in the cs file-->
             Filter: <input type="text" asp-for="SearchString" />
             <input type="submit" value="Filter" />
         </p>
@@ -54,8 +55,8 @@
                 <tbody>
                     @foreach (var item in Model.Items)
                     {
-                        
-                        
+
+
                         <tr class="border">
                             <td class="col-2">
                                 <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
@@ -100,14 +101,14 @@
 
                             <td class="col-2">
 
-                                <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
+                                @*<a asp-page-handler="Details" asp-route-id="@item.ItemId" onclick="@Model.getDetails(@item.ItemId)" data-ItemIndex="@item" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>*@
                                 <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
                                 @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                                <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                                >*@
+                                    <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                                    >*@
                             </td>
                         </tr>
-                    
+
                     }
                 </tbody>
             </table>
@@ -125,12 +126,12 @@
             This will contain all products that have an onhand quantity less than the associated reorder value
             <!-- TODO Loop through all products, checking the filter, and display all results whose on hand quantity is less than the associated reorder quantity -->
             <!-- Columns needed >>
-        Product name (hyperlink to associated product page),
-        On hand quantity for the product and a button that will let the user edit the quantity,
-        In transit value for the product,
-        Reorder value for the product,
-        A button that lets the user order more of the associated product
-    -->
+                Product name (hyperlink to associated product page),
+                On hand quantity for the product and a button that will let the user edit the quantity,
+                In transit value for the product,
+                Reorder value for the product,
+                A button that lets the user order more of the associated product
+            -->
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -157,17 +158,17 @@
                     @foreach (var item in Model.Items)
                     {
 
-                        @if(item.OnHandQty <= item.ReorderQty)
+                        @if (item.OnHandQty <= item.ReorderQty)
                         {
-                        <tr class="border">
-                            <td class="col-2">
-                                <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
-                            </td>
-                            <td class="col-3">
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                               
+                            <tr class="border">
+                                <td class="col-2">
+                                    <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                                </td>
+                                <td class="col-3">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+
                                     <form method="post" class="list-group-horizontal align-self-stretch">
                                         <!-- since this is in a post method asp-page-handler="subtract" goes to the razor page code and -->
                                         <!-- looks for an onpost or onpostasync method with subtract in it, so in this case it goes to  -->
@@ -179,26 +180,26 @@
                                             @item.OnHandQty
                                         </span>
                                         <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill badge-dark">add</button>
-                                    </form>     
+                                    </form>
 
-                            </td>
-                            <td class="col-1">
-                                @Html.DisplayFor(modelItem => item.ListRetailCost)
-                            </td>
-                            <td class="col-1">
-                                @Html.DisplayFor(modelItem => item.ReorderQty)
-                            </td>
+                                </td>
+                                <td class="col-1">
+                                    @Html.DisplayFor(modelItem => item.ListRetailCost)
+                                </td>
+                                <td class="col-1">
+                                    @Html.DisplayFor(modelItem => item.ReorderQty)
+                                </td>
 
-                            <td class="col-2">
+                                <td class="col-2">
 
-                                <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
-                                <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
-                                @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                            >*@
-                            </td>
-                        </tr>
-                         }
+                                    <a asp-page-handler="Details" asp-route-id="@item.ItemId" data-ItemIndex="@Model.Items.IndexOf(item)" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>
+                                    <a asp-page="./ItemDelete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
+                                    @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                                        <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                                        >*@
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -219,83 +220,74 @@
 
 
 
-<!--Get Details Modal-->
+@*<!--Get Details Modal-->
 
-<div class="modal fade" id="getDetailsModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="contentinfo">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createItemModalLabel">Create Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-10">
+    <div class="modal fade" id="getDetailsModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="contentinfo">
+            <input type="hidden" asp-for="Item" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createItemModalLabel">Item Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
 
-                        <!--start of my stuff-->
-                       
-                            <div>
-                                <h4>Item details, this modal is still broken</h4>
-                                <hr />
-                              
-                                <dl class="row indexinput">
-                                    <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.Item.ItemName)
-                                    </dt>
-                                    <dt class="col-sm-10">
-                                       
-                                        @Html.DisplayFor(model=> model.Item.ItemName)
-                                    </dt>
-                                    <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.Item.Description)
-                                    </dt>
-                                    <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.Item.Description)
-                                    </dd>
-                                    <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.Item.OnHandQty)
-                                    </dt>
-                                    <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.Item.OnHandQty)
-                                    </dd>
-                                    
-                                    
-                                </dl>
-                            </div>
-                        <div>
-                             
-                            
+                            <!--start of my stuff-->
+
+                            @for(int x=0; x<Model.Items.Count; x++)
+                            {
+                                var item = Model.Items.ElementAt(x);
+                                if (item.ItemId == Model.Index.IndexOf(item.ItemId))
+                                {
+                                    <div>
+                                        <h4>Item details, this modal is still broken</h4>
+                                        <hr />
+
+                                        <dl class="row indexinput">
+                                            <dt class="col-sm-2">
+                                                @Html.DisplayNameFor(model => model.Item.ItemName)
+                                            </dt>
+                                            <dt class="col-sm-10">
+
+                                                @Html.DisplayFor(modelItem => item.ItemName)
+                                            </dt>
+                                            <dt class="col-sm-2">
+                                                @Html.DisplayNameFor(model => model.Item.Description)
+                                            </dt>
+                                            <dd class="col-sm-10">
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </dd>
+                                            <dt class="col-sm-2">
+                                                @Html.DisplayNameFor(model => model.Item.OnHandQty)
+                                            </dt>
+                                            <dd class="col-sm-10">
+                                                @Html.DisplayFor(modelItem => item.OnHandQty)
+                                            </dd>
+
+
+                                        </dl>
+                                    </div>
+                                }
+
+                            }
+                            <!--bottom of my stuff-->
+
                         </div>
-                        <!--bottom of my stuff-->
-
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 
-<script>
-    $('#getDetailsModal').on('show.bs.modal', function (event) {
-      
-        var item = event.relatedTarget.dataset.ItemIndex
-        //parseInt(item);
-        int itemindex = 0
-       
-        var modal = $(this)
-        @Model.Index = parseInt(item)
-       
-        modal.find('.modal-body detailcontent').val(itemId)
-    })
-
- 
-</script>
+<script>@Model.Index</script>
 
 <!--Create Item Modal -->
 <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
@@ -328,10 +320,10 @@
                                 <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
                             </div>
                             @*<div class="form-group">
-                                <label asp-for="Item.ListRetailCost" class="control-label"></label>
-                                <input asp-for="Item.ListRetailCost" class="form-control" />
-                                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
-                            </div>*@
+                                    <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                                    <input asp-for="Item.ListRetailCost" class="form-control" />
+                                    <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+                                </div>*@
                             <div class="form-group">
                                 <label asp-for="Item.ReorderQty" class="control-label"></label>
                                 <input asp-for="Item.ReorderQty" class="form-control" />
@@ -343,20 +335,20 @@
                                 <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
                             </div>
                             @*<div class="form-group">
-                                <label asp-for="Item.MeasureAmnt" class="control-label"></label>
-                                <input asp-for="Item.MeasureAmnt" class="form-control" />
-                                <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Item.LastModifiedBy" class="control-label"></label>
-                                <input asp-for="Item.LastModifiedBy" class="form-control" />
-                                <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
-                            </div>  
-                            <div class="form-group">
-                                <label asp-for="Item.MeasureID" class="control-label"></label>
-                                <input asp-for="Item.MeasureID" class="form-control" />
-                                <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
-                            </div>*@
+                                    <label asp-for="Item.MeasureAmnt" class="control-label"></label>
+                                    <input asp-for="Item.MeasureAmnt" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.LastModifiedBy" class="control-label"></label>
+                                    <input asp-for="Item.LastModifiedBy" class="form-control" />
+                                    <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.MeasureID" class="control-label"></label>
+                                    <input asp-for="Item.MeasureID" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
+                                </div>*@
                             <div class="form-group">
                                 <button asp-page-handler="Create" class="btn btn-primary">Create</button>
                             </div>
@@ -373,9 +365,4 @@
 </div>
 
 <!-- TODO create popup box for editing an items quantity -->
-<script>
-    $('#createItemModal').on('hidden.bs.modal', function (e) {
-       $('#createItemModal modal-body').load('@Url.Page("Index")');
-    })
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-</script>
+<script>@Url.Page("Index")@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}</script>

@@ -94,16 +94,20 @@
 
                     </div>
                 }
-                <a asp-page="AssemblyRecipeCreate" asp-route-id="@Model.Item.ItemId">Create Assembly for this Item</a>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
+        <div class="text-center pb-4">
+            <a asp-page="AssemblyRecipeCreate" asp-route-id="@Model.Item.ItemId">Create Assembly for this Item</a>
+        </div>
+        <div class="form-inline">
+            <div class="col">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <div class="col">
+                <a asp-page="./Index">Back to List</a>
+            </div>
+
+        </div>
 </form>
 
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

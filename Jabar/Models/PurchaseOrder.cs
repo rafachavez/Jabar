@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Jabar.Models
     public class PurchaseOrder
     {
         public int PurchaseOrderId { get; set; }
+        [Display(Name = "Date Ordered")]
         public DateTime DateOrdered { get; set; }
         public string VendorPO { get; set; }
         public string LastModifiedBy { get; set; }

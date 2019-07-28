@@ -36,6 +36,8 @@ namespace Jabar.Pages.Orders
 
         [BindProperty]
         public OrderItem OrderItem { get; set; }
+        [BindProperty]
+        public PurchaseOrder PurchaseOrder { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {

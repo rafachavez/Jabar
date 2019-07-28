@@ -17,9 +17,19 @@
                 <label asp-for="OrderItem.VendorSKU" class="control-label"></label>
                 <select asp-for="VendorsModel" asp-items="@Model.VendorsModelId">
                     <option>Select one</option>
-                    </select>
+                </select>
                 <span asp-validation-for="OrderItem.VendorSKU" class="text-danger"></span>
                 <a asp-page="../Vendors/Create" class="btn btn-primary">Add Vendor</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseOrder.DateOrdered" class="control-label"></label>
+                <input asp-for="PurchaseOrder.DateOrdered" class="form-control" />
+                <span asp-validation-for="PurchaseOrder.DateOrdered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderItem.DateDelivered" class="control-label"></label>
+                <input asp-for="OrderItem.DateDelivered" class="form-control" />
+                <span asp-validation-for="OrderItem.DateDelivered" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OrderItem.Price" class="control-label"></label>
@@ -31,11 +41,7 @@
                 <input asp-for="OrderItem.QuantityOrdered" class="form-control" />
                 <span asp-validation-for="OrderItem.QuantityOrdered" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrderItem.DateDelivered" class="control-label"></label>
-                <input asp-for="OrderItem.DateDelivered" class="form-control" />
-                <span asp-validation-for="OrderItem.DateDelivered" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="OrderItem.LastModifiedBy" class="control-label"></label>
                 <input asp-for="OrderItem.LastModifiedBy" class="form-control" />
@@ -48,11 +54,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="OrderItem.ItemId" class="control-label"></label>
-                <select asp-for="OrderItem.ItemId" class ="form-control" asp-items="ViewBag.ItemId"></select>
+                <select asp-for="OrderItem.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="OrderItem.PurchaseOrderId" class="control-label"></label>
-                <select asp-for="OrderItem.PurchaseOrderId" class ="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
+                <select asp-for="OrderItem.PurchaseOrderId" class="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

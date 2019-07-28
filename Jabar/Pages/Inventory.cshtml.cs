@@ -20,10 +20,10 @@ namespace Jabar.Pages
         }
 
         public IList<Item> Items { get; set; }
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
-        [BindProperty]
-        public int Index { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public IList<int> Index { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
@@ -141,14 +141,25 @@ namespace Jabar.Pages
             return RedirectToPage();
         }
 
-        public bool SetIndex(int newIndex)
-        {
-            Index = newIndex;
-            return true;
-        }
+      
         //used by getDetailsModal
    
-      
+      public bool getDetails(int id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
+
+            Item =  _context.Items.FirstOrDefault(m => m.ItemId == id);
+            
+            if (Item == null)
+            {
+                return false;
+            }
+            Index.Add(Item.ItemId);
+            return true;
+        }
 
         public async Task<IActionResult> OnGetDetailsAsync(int? id)
         {
@@ -163,8 +174,8 @@ namespace Jabar.Pages
             {
                 return NotFound();
             }
-            Index = Items.IndexOf(Item);
-            return Page();
+            //Index = Items.IndexOf(Item);
+            return RedirectToPage("Inventory", id);
         }
 
         private bool ItemExists(int id)

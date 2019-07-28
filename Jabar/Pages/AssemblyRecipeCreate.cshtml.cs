@@ -83,7 +83,7 @@ namespace Jabar.Pages
             RecipeLines.Add(RecipeLine);
 
             _context.RecipeLines.Add(RecipeLine);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }

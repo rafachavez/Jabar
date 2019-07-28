@@ -12,20 +12,23 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+            @*<input type="hidden" value="@Model.AssemblyRecipe.AssemblyRecipeId" name="Id" />
+            <input type="hidden" value="@Model.Item.ItemId" name="ItemId" />*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RecipeLine.RequiredItemQty" class="control-label"></label>
                 <input asp-for="RecipeLine.RequiredItemQty" class="form-control" />
                 <span asp-validation-for="RecipeLine.RequiredItemQty" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="RecipeLine.ItemId" class="control-label"></label>
                 <select asp-for="RecipeLine.ItemId" class="form-control" asp-items="ViewBag.ItemName"></select>
-            </div>           
+            </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button asp-page-handler="Add" asp-route-ItemId="@ViewData["ItemId"]" asp-route-Id="@ViewData["Id"]" class="btn btn-primary">add</button>
+
             </div>
         </form>
     </div>

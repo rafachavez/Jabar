@@ -33,10 +33,10 @@
                 </thead>
                 <tbody>
 
-                    @if (Model.RecipeLines != null)
+                    @if (Model.Item.RecipeLines != null)
                     {
 
-                        @foreach (var line in Model.RecipeLines)
+                        @foreach (var line in Model.Item.RecipeLines)
                         {
                             <tr class="border">
                                 <td class="col-2">
@@ -54,7 +54,7 @@
 
                 </tbody>
             </table>
-            <a asp-page="RecipeLineCreate" asp-route-id="AssemblyRecipe.AssemblyRecipeId">Add Item page</a>
+            <a asp-page="RecipeLineCreate" asp-route-ItemId="@Model.Item.ItemId">Add Item page</a>
             <a asp-action="" class="btn btn-dark" data-toggle="modal" data-target="#createAssemblyModal">Add Item</a>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

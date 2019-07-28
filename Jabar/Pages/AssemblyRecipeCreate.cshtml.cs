@@ -50,15 +50,15 @@ namespace Jabar.Pages
 
         
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public RecipeLine RecipeLine { get; set; }
 
         public IList<Item> Items { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public IList<RecipeLine> RecipeLines { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
 
         //used by recipeline create modal

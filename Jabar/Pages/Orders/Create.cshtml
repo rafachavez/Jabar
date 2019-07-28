@@ -15,7 +15,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="OrderItem.VendorSKU" class="control-label"></label>
-                <input asp-for="OrderItem.VendorSKU" class="form-control" />
+                <select asp-for="VendorsModel" asp-items="@Model.VendorsModelId">
+                    <option>Select one</option>
+                    </select>
                 <span asp-validation-for="OrderItem.VendorSKU" class="text-danger"></span>
                 <a asp-page="../Vendors/Create" class="btn btn-primary">Add Vendor</a>
             </div>

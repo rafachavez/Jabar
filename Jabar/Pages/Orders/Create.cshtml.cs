@@ -19,8 +19,18 @@ namespace Jabar.Pages.Orders
             _context = context;
         }
 
+        
+        public Vendor VendorsModel { get; set; }
+        public List<SelectListItem> VendorsModelId { get; set; }
+
         public IActionResult OnGet()
         {
+            VendorsModelId = _context.Vendors.Select(x => new SelectListItem
+            {
+                Value = x.VendorId.ToString(),
+                Text = x.VendorName
+            })
+                .ToList();
             return Page();
         }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Jabar.Data;
 using Jabar.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jabar.Pages.Orders
 {
@@ -19,16 +20,28 @@ namespace Jabar.Pages.Orders
             _context = context;
         }
 
-        
+        //This is for the Vendor select list
         public Vendor VendorsModel { get; set; }
         public List<SelectListItem> VendorsModelId { get; set; }
-
+        
+        //These are for the item list
+        public Item Items { get; set; }
+        public List<SelectListItem> ItemName { get; set; }
+        public IList<Item> ItemList { get; set; }
+        public IList<int> Index { get; set; }
         public IActionResult OnGet()
         {
             VendorsModelId = _context.Vendors.Select(x => new SelectListItem
             {
                 Value = x.VendorId.ToString(),
                 Text = x.VendorName
+            })
+                .ToList();
+
+            ItemName = _context.Items.Select(x => new SelectListItem
+            {
+                Value = x.ItemId.ToString(),
+                Text = x.ItemName
             })
                 .ToList();
             return Page();
@@ -51,5 +64,35 @@ namespace Jabar.Pages.Orders
 
             return RedirectToPage("./Index");
         }
+
+        public async Task<IActionResult> OnPostCreateAsync()
+        {
+            
+            ItemList = await _context.Items.ToListAsync();
+            Items.LastModifiedDate = DateTime.Today;
+            Items.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
+            Items.MeasureID = 1;//this will need to be changed later
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
+            //dont add duplicately named items
+            foreach (var item in ItemList)
+            {
+                if (item.ItemName == Items.ItemName)
+                {
+                    //indicate failure due to identical items
+                    return RedirectToPage();
+                }
+            }
+
+            _context.Items.Add(Items);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
     }
 }

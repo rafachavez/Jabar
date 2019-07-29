@@ -208,10 +208,52 @@
             This will contain all products that can be assembled
             <!-- TODO Loop through all products, checking the filter, and display all products that can be assembled -->
             <!-- Columns needed >>
-                Product name (hyperlink to associated product page),
-                On hand quantity for the product and a button that will let the user edit the quantity,
-                A button that lets the user create an assembly for the item
-            -->
+        Product name (hyperlink to associated product page),
+        On hand quantity for the product and a button that will let the user edit the quantity,
+        A button that lets the user create an assembly for the item
+        -->
+        <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].OnHandQty)
+                </th>
+               
+                <th>
+                    Assembly
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+
+                @if (item.AssemblyRecipeId != null)
+                {
+                    <tr class="border">
+                        <td class="col-2">
+                            <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                        </td>
+                        
+                        <td class="col-2">
+                            @Html.DisplayFor(modelItem => item.OnHandQty)
+                        </td>
+                        <td class="col-2">
+                            <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId" class="alert-success" >Assembly</a>
+                        </td>
+
+                        
+                    </tr>
+                 }
+             }
+        </tbody>
+        </table>
+        
         </div>
     </div>
 </div>

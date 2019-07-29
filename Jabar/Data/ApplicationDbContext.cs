@@ -23,6 +23,8 @@ namespace Jabar.Data
         public DbSet<RecievedItems> RecievedItems { get; set; }
         public DbSet<RecipeLine> RecipeLines { get; set; }
         public DbSet<Vendor> Vendors { get; set; }   
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
 
     }
 }

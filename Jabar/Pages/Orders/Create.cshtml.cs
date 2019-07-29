@@ -23,11 +23,14 @@ namespace Jabar.Pages.Orders
         //This is for the Vendor select list
         public Vendor VendorsModel { get; set; }
         public List<SelectListItem> VendorsModelId { get; set; }
-        
+        public IList<Vendor> VendorList { get; set; }
+
         //These are for the item list
+        [BindProperty(SupportsGet = true)]
         public Item Items { get; set; }
         public List<SelectListItem> ItemName { get; set; }
         public IList<Item> ItemList { get; set; }
+        [BindProperty(SupportsGet = true)]
         public IList<int> Index { get; set; }
         public IActionResult OnGet()
         {
@@ -67,29 +70,36 @@ namespace Jabar.Pages.Orders
 
         public async Task<IActionResult> OnPostCreateAsync()
         {
+            //New Item 
+          
             
             ItemList = await _context.Items.ToListAsync();
-            Items.LastModifiedDate = DateTime.Today;
-            Items.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
-            Items.MeasureID = 1;//this will need to be changed later
-
-            if (!ModelState.IsValid)
+            if (ItemList != null)
             {
-                return RedirectToPage();
-            }
+                Items.LastModifiedDate = DateTime.Today;
+                Items.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
+                Items.MeasureID = 1;//this will need to be changed later
 
-            //dont add duplicately named items
-            foreach (var item in ItemList)
-            {
-                if (item.ItemName == Items.ItemName)
+                if (!ModelState.IsValid)
                 {
-                    //indicate failure due to identical items
                     return RedirectToPage();
                 }
-            }
 
-            _context.Items.Add(Items);
-            await _context.SaveChangesAsync();
+                //dont add duplicately named items
+                foreach (var item in ItemList)
+                {
+                    if (item.ItemName == Items.ItemName)
+                    {
+                        //indicate failure due to identical items
+                        return RedirectToPage();
+                    }
+                }
+
+                _context.Items.Add(Items);
+                await _context.SaveChangesAsync();
+
+            }
+            
 
             return RedirectToPage();
         }

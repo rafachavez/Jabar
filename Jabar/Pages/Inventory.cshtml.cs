@@ -115,6 +115,7 @@ namespace Jabar.Pages
         //used by createItemModal
         public async Task<IActionResult> OnPostCreateAsync()
         {
+            
             Items = await _context.Items.ToListAsync();
             Item.LastModifiedDate = DateTime.Today;
             Item.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in

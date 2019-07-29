@@ -21,6 +21,7 @@ namespace Jabar.Pages.Orders
         }
 
         //This is for the Vendor select list
+        [BindProperty(SupportsGet = true)]
         public Vendor VendorsModel { get; set; }
         public List<SelectListItem> VendorsModelId { get; set; }
         public IList<Vendor> VendorList { get; set; }
@@ -68,14 +69,41 @@ namespace Jabar.Pages.Orders
             return RedirectToPage("./Index");
         }
 
+        /// <summary>
+        /// Item Create
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostCreateAsync()
         {
-            //New Item 
-          
-            
-            ItemList = await _context.Items.ToListAsync();
-            if (ItemList != null)
+            //NewVendor
+            if(VendorsModel.VendorName != null)
             {
+                VendorList = await _context.Vendors.ToListAsync();
+                VendorsModel.LastModifiedDate = DateTime.Today;
+                VendorsModel.LastModifiedBy = "AlphaTech Team";
+
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToPage();
+                }
+
+                foreach(var item in VendorList)
+                {
+                    if(item.VendorName == VendorsModel.VendorName)
+                    {
+                        return RedirectToPage();
+                    }
+                }
+                _context.Vendors.Add(VendorsModel);
+                await _context.SaveChangesAsync();
+            }
+            
+
+            //New Item 
+            if (Items.ItemName != null)
+            {
+                ItemList = await _context.Items.ToListAsync();
+            
                 Items.LastModifiedDate = DateTime.Today;
                 Items.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
                 Items.MeasureID = 1;//this will need to be changed later

@@ -1,0 +1,54 @@
+﻿@page
+@model Jabar.Pages.Assemblies.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Assembly[0].AssemblyRecipeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assembly[0].AssemblyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assembly[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assembly[0].OnHandQty)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Assembly) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssemblyRecipeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssemblyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnHandQty)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AssemblyId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AssemblyId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AssemblyId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

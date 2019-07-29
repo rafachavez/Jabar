@@ -213,43 +213,42 @@
         A button that lets the user create an assembly for the item
         -->
         <table class="table table-striped">
-        @*<thead class="thead-dark">
+        <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].ItemName)
+                    @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].OnHandQty)
+                    @Html.DisplayNameFor(model => model.Assemblies[0].Description)
                 </th>
-               
+                    Items
                 <th>
                     Assembly
                 </th>
 
                 <th></th>
             </tr>
-        </thead>*@
+        </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var assembly in Model.Assemblies)
             {
 
-                @*@if (item.AssemblyRecipeId != null)
-                {
+               
                     <tr class="border">
                         <td class="col-2">
-                            <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                             @Html.DisplayFor(modelItem => assembly.AssemblyName)
                         </td>
                         
                         <td class="col-2">
-                            @Html.DisplayFor(modelItem => item.OnHandQty)
+                            @Html.DisplayFor(modelItem => assembly.Description)
                         </td>
                         <td class="col-2">
-                            <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId" class="alert-success" >Assembly</a>
+                            @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>*@
                         </td>
 
                         
                     </tr>
-                 }*@
+                 
              }
         </tbody>
         </table>

@@ -1,0 +1,60 @@
+﻿@page
+@model Jabar.Pages.RecipeLines.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeLine[0].RequiredItemQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeLine[0].LastModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeLine[0].LastModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeLine[0].Item)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeLine[0].AssemblyRecipe)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RecipeLine) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredItemQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.ItemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssemblyRecipe.AssemblyRecipeId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.RecipeLineId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.RecipeLineId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.RecipeLineId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

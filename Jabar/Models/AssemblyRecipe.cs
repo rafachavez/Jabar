@@ -14,8 +14,7 @@ namespace Jabar.Models
             RecipeLines = new HashSet<RecipeLine>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int AssemblyRecipeId { get; set; }
         public int AssemblyId { get; set; }
 

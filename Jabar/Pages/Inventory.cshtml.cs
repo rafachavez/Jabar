@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Jabar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jabar.Pages
@@ -26,6 +27,9 @@ namespace Jabar.Pages
         public IList<int> Index { get; set; }
 
         [BindProperty(SupportsGet = true)]
+        public IList<Assembly> Assemblies { get; set; }
+
+        [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
         public async Task OnGetAsync()
@@ -39,8 +43,11 @@ namespace Jabar.Pages
 
             Items = await items.ToListAsync();
 
-            //Items = await _context.Items.ToListAsync();           
-            
+            //Items = await _context.Items.ToListAsync();   
+
+            Assemblies = await _context.Assemblies.ToListAsync();
+            //ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
+
         }
 
         //////////////////////////////////////////////

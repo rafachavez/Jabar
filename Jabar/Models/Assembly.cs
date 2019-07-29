@@ -15,8 +15,7 @@ namespace Jabar.Models
 
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int AssemblyId { get; set; }
         public int AssemblyRecipeId { get; set; }
 

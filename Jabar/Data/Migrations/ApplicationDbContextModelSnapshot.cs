@@ -19,25 +19,6 @@ namespace Jabar.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Jabar.Models.Assembly", b =>
-                {
-                    b.Property<int>("AssemblyId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssemblyName");
-
-                    b.Property<int>("AssemblyRecipeId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("OnHandQty");
-
-                    b.HasKey("AssemblyId");
-
-                    b.ToTable("Assemblies");
-                });
-
             modelBuilder.Entity("Jabar.Models.AssemblyHistory", b =>
                 {
                     b.Property<int>("AssemblyHistoryId")
@@ -69,14 +50,9 @@ namespace Jabar.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AssemblyId");
-
-                    b.Property<int?>("ItemId");
+                    b.Property<int>("ItemId");
 
                     b.HasKey("AssemblyRecipeId");
-
-                    b.HasIndex("AssemblyId")
-                        .IsUnique();
 
                     b.HasIndex("ItemId");
 
@@ -228,7 +204,7 @@ namespace Jabar.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AssemblyRecipeId");
+                    b.Property<int?>("AssemblyRecipeId");
 
                     b.Property<int>("ItemId");
 
@@ -388,9 +364,11 @@ namespace Jabar.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -421,9 +399,11 @@ namespace Jabar.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -451,14 +431,10 @@ namespace Jabar.Data.Migrations
 
             modelBuilder.Entity("Jabar.Models.AssemblyRecipe", b =>
                 {
-                    b.HasOne("Jabar.Models.Assembly", "Assembly")
-                        .WithOne("AssemblyRecipe")
-                        .HasForeignKey("Jabar.Models.AssemblyRecipe", "AssemblyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Jabar.Models.Item")
                         .WithMany("AssemblyRecipes")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Jabar.Models.InventoryLog", b =>
@@ -507,12 +483,11 @@ namespace Jabar.Data.Migrations
 
             modelBuilder.Entity("Jabar.Models.RecipeLine", b =>
                 {
-                    b.HasOne("Jabar.Models.AssemblyRecipe", "AssemblyRecipe")
+                    b.HasOne("Jabar.Models.AssemblyRecipe")
                         .WithMany("RecipeLines")
-                        .HasForeignKey("AssemblyRecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AssemblyRecipeId");
 
-                    b.HasOne("Jabar.Models.Item", "Item")
+                    b.HasOne("Jabar.Models.Item")
                         .WithMany("RecipeLines")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);

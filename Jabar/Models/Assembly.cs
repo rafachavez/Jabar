@@ -7,24 +7,25 @@ using System.Threading.Tasks;
 
 namespace Jabar.Models
 {
-    public class RecipeLine
+    public class Assembly
     {
-        public RecipeLine()
+
+        public Assembly()
         {
 
         }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RecipeLineId { get; set; }       
-        public int ItemId { get; set; }  
+        public int AssemblyId { get; set; }
         public int AssemblyRecipeId { get; set; }
+
+
+        public string AssemblyName { get; set; }        
+        public string Description { get; set; }        
+        public int OnHandQty { get; set; }
         
 
-        public int RequiredItemQty { get; set; }
-        public string LastModifiedBy { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-
-        public virtual Item Item { get; set; }
         public virtual AssemblyRecipe AssemblyRecipe { get; set; }
 
     }

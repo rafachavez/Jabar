@@ -145,7 +145,7 @@ namespace Jabar.Pages
       
         //used by getDetailsModal
    
-      public bool getDetails(int id)
+      public bool getDetails(int? id)
         {
             if (id == null)
             {

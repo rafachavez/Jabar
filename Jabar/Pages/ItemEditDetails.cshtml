@@ -86,16 +86,16 @@
                 </div>
                 <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
             </div>
-                @if (Model.Item.RecipeLines != null)
+                @*@if (Model.Item.RecipeLines != null)
                 {
                     <p>is assembled</p>
                     <div class="form-group">
                         <label asp-for="Item.RecipeLines" class="control-label">is assembled</label>
 
                     </div>
-                }
+                }*@
         <div class="text-center pb-4">
-            <a asp-page="AssemblyRecipeCreate" asp-route-id="@Model.Item.ItemId">Create Assembly for this Item</a>
+            
         </div>
         <div class="form-inline">
             <div class="col">

@@ -213,7 +213,7 @@
         A button that lets the user create an assembly for the item
         -->
         <table class="table table-striped">
-        <thead class="thead-dark">
+        @*<thead class="thead-dark">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Items[0].ItemName)
@@ -228,12 +228,12 @@
 
                 <th></th>
             </tr>
-        </thead>
+        </thead>*@
         <tbody>
             @foreach (var item in Model.Items)
             {
 
-                @if (item.AssemblyRecipeId != null)
+                @*@if (item.AssemblyRecipeId != null)
                 {
                     <tr class="border">
                         <td class="col-2">
@@ -249,7 +249,7 @@
 
                         
                     </tr>
-                 }
+                 }*@
              }
         </tbody>
         </table>

@@ -28,8 +28,6 @@
     <div class="tab-content col-12">
         <div role="tabpanel" class="tab-pane active" id="all">
             This will contain all products
-
-
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -77,17 +75,17 @@
                                         <span style="color:red; font-weight:bold" class="align-self-center">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill badge-dark">add</button>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill border-dark">add</button>
                                     </form>
                                 }
                                 else
                                 {
                                     <form method="post" class="list-group-horizontal">
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">sub</button>
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">sub</button>
                                         <span style="color:black; ">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">add</button>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">add</button>
                                     </form>
                                 }
 

@@ -63,14 +63,14 @@ namespace Jabar.Models
 
         public int? AssemblyRecipeId { get; set; }
 
-        public IEnumerable<AssemblyRecipe> AssemblyRecipes { get; set; }
+        public virtual AssemblyRecipe AssemblyRecipe { get; set; }
 
         public IEnumerable<OrderItem> OrderItems { get; set; }
 
         public IEnumerable<InventoryLog> InventoryLogs { get; set; }
 
         public IEnumerable<AssemblyHistory> AssemblyHistories { get; set; }
-        public IEnumerable<RecipeLine> RecipeLines { get; set; }
+        //public IEnumerable<RecipeLine> RecipeLines { get; set; }
 
     }
 }

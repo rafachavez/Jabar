@@ -79,12 +79,12 @@ namespace Jabar.Pages
                 return Page();
             }
 
-            if (Item.RecipeLines == null)
+            //if (Item.RecipeLines == null)
             {
-                Item.RecipeLines = Enumerable.Empty<RecipeLine>();
+             //   Item.RecipeLines = Enumerable.Empty<RecipeLine>();
             }
 
-            Item.RecipeLines.Append(RecipeLine);
+            //Item.RecipeLines.Append(RecipeLine);
            
             RecipeLines.Add(RecipeLine);
 

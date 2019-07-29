@@ -41,7 +41,8 @@
             <tbody>
                 @foreach (var line in Model.RecipeLines)
                 {
-
+                    //this is used to populate itemId on the page model...
+                    //it allows the single Item to be selected
                     <input type="hidden" id="itemId" name="itemId" value="@line.ItemId." />
 
                     <tr class="border">

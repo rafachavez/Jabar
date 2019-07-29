@@ -32,7 +32,7 @@ namespace Jabar.Pages.AssemblyRecipes
         public Item Item { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int itemId { get; set; }
+        public int itemId { get; set; }//this is populated by the hidden input
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

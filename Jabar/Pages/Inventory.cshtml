@@ -77,21 +77,21 @@
                                         <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
                                         <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
                                         <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="btn btn-danger">sub</button>
                                         <span style="color:red; font-weight:bold" class="align-self-center">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill badge-dark">add</button>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="btn btn-dark">add</button>
                                     </form>
                                 }
                                 else
                                 {
                                     <form method="post" class="list-group-horizontal">
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">sub</button>
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="btn btn-dark">sub</button>
                                         <span style="color:black; ">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill badge-dark">add</button>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="btn btn-dark">add</button>
                                     </form>
                                 }
 
@@ -179,11 +179,11 @@
                                         <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
                                         <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
                                         <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
-                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="btn-danger btn">sub</button>
                                         <span style="color:red; font-weight:bold" class="align-self-center">
                                             @item.OnHandQty
                                         </span>
-                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill badge-dark">add</button>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="btn btn-dark">add</button>
                                     </form>
 
                                 </td>
@@ -234,26 +234,27 @@
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var assembly in Model.Assemblies)
-        {
+            @foreach (var item in Model.Items)
+            {
+                @if(item.AssemblyRecipeId > 0)
+                { 
+
+                    <tr class="border">
+                        <td class="col-2">
+                             @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+
+                        <td class="col-2">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td class="col-2">
+                            @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>*@
+                        </td>
 
 
-                <tr class="border">
-                    <td class="col-2">
-                         @Html.DisplayFor(modelItem => assembly.AssemblyName)
-                    </td>
-
-                    <td class="col-2">
-                        @Html.DisplayFor(modelItem => assembly.Description)
-                    </td>
-                    <td class="col-2">
-                        @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>
-                    </td>
-
-
-                </tr>
-
-         }*@
+                    </tr>
+                }
+            }
         </tbody>
         </table>
         

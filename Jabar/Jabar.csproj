@@ -8,13 +8,9 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Assemblies\**" />
-    <Compile Remove="Pages\RecipeLines\**" />
     <Content Remove="Pages\Assemblies\**" />
-    <Content Remove="Pages\RecipeLines\**" />
     <EmbeddedResource Remove="Pages\Assemblies\**" />
-    <EmbeddedResource Remove="Pages\RecipeLines\**" />
     <None Remove="Pages\Assemblies\**" />
-    <None Remove="Pages\RecipeLines\**" />
   </ItemGroup>
 
   <ItemGroup>

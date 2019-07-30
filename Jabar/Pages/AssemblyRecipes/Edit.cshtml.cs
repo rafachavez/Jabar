@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Jabar.Models;
 
-namespace Jabar.Pages.RecipeLines
+namespace Jabar.Pages.AssemblyRecipes
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace Jabar.Pages.RecipeLines
         }
 
         [BindProperty]
-        public RecipeLine RecipeLine { get; set; }
+        public AssemblyRecipe AssemblyRecipe { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,15 +30,13 @@ namespace Jabar.Pages.RecipeLines
                 return NotFound();
             }
 
-            RecipeLine = await _context.RecipeLines
-                .Include(r => r.AssemblyRecipe)
-                .Include(r => r.Item).FirstOrDefaultAsync(m => m.RecipeLineId == id);
+            AssemblyRecipe = await _context.AssemblyRecipes
+                .Include(a => a.Item).FirstOrDefaultAsync(m => m.AssemblyRecipeId == id);
 
-            if (RecipeLine == null)
+            if (AssemblyRecipe == null)
             {
                 return NotFound();
             }
-           ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
            ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemId");
             return Page();
         }
@@ -50,7 +48,7 @@ namespace Jabar.Pages.RecipeLines
                 return Page();
             }
 
-            _context.Attach(RecipeLine).State = EntityState.Modified;
+            _context.Attach(AssemblyRecipe).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace Jabar.Pages.RecipeLines
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecipeLineExists(RecipeLine.RecipeLineId))
+                if (!AssemblyRecipeExists(AssemblyRecipe.AssemblyRecipeId))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace Jabar.Pages.RecipeLines
             return RedirectToPage("./Index");
         }
 
-        private bool RecipeLineExists(int id)
+        private bool AssemblyRecipeExists(int id)
         {
-            return _context.RecipeLines.Any(e => e.RecipeLineId == id);
+            return _context.AssemblyRecipes.Any(e => e.AssemblyRecipeId == id);
         }
     }
 }

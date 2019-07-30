@@ -21,6 +21,21 @@ namespace Jabar.Pages
             _context = context;
         }
 
+        [BindProperty(SupportsGet = true)]
+        public AssemblyRecipe AssemblyRecipe { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public IList<RecipeLine> RecipeLines { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public IList<Item> Items { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public Item Item { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int itemId { get; set; }//this is populated by the hidden input
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -28,16 +43,23 @@ namespace Jabar.Pages
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            //AssemblyRecipe = await _context.AssemblyRecipes
+              //  .Include(a => a.Assembly).FirstOrDefaultAsync(m => m.AssemblyRecipeId == id);
 
-            if (Item == null)
+            if (AssemblyRecipe == null)
             {
                 return NotFound();
             }
+            //populate assembly lines
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+
             Items = await _context.Items.ToListAsync();
-            //AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == Item.AssemblyRecipeId);
-            //RecipeLines = AssemblyRecipe.RecipeLines.ToList();
-            RecipeLine = new RecipeLine();
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);
             ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
             ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
             return Page();
@@ -45,23 +67,13 @@ namespace Jabar.Pages
 
        
 
-        [BindProperty(SupportsGet = true)]
-        public AssemblyRecipe AssemblyRecipe { get; set; }
-
+       
         [BindProperty(SupportsGet = true)]
         public int id { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public RecipeLine RecipeLine { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public IList<Item> Items { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public IList<RecipeLine> RecipeLines { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public Item Item { get; set; }
+        
 
         //used by recipeline create modal
         public async Task<IActionResult> OnPostCreateLineAsync(int ItemToAdd, int? id)

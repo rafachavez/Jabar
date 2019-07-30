@@ -13,7 +13,7 @@
     
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Item.ItemId" />
+            <input type="hidden" id="itemId" name="itemId" value="Item.ItemId." />
             <div class="form-inline pb-4">
                 <div class="col">
                     <label asp-for="Item.ItemName" class="control-label"></label>
@@ -101,8 +101,12 @@
             <div class="col">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-            <div class="col">
+            <div class="col">               
                 <a asp-page="./Inventory">Back to List</a>
+            </div>
+            <div class="col">
+                @*<a asp-page="./AssemblyRecipeCreate" class="btn btn-dark">Edit Assembly</a>*@
+                <a asp-page="/AssemblyRecipes/Index" asp-route-ItemId="@Model.Item.ItemId" class="btn btn-dark">Edit Assembly</a>
             </div>
 
         </div>

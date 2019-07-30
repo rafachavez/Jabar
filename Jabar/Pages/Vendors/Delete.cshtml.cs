@@ -22,6 +22,9 @@ namespace Jabar.Pages.Vendors
         [BindProperty]
         public Vendor Vendor { get; set; }
 
+        [BindProperty(SupportsGet =true)]
+        public IList<Item> Items { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -46,6 +49,22 @@ namespace Jabar.Pages.Vendors
             }
 
             Vendor = await _context.Vendors.FindAsync(id);
+            Items = await _context.Items.ToListAsync();
+
+            foreach (var item in Items)
+            {
+                if(item.VendorId == Vendor.VendorId)
+                {
+                    Vendor vendor =  _context.Vendors.FirstOrDefault();
+                    item.PreferredVendor = vendor;
+                    item.VendorId = vendor.VendorId;
+                    item.LastModifiedBy = "db change"; //change to user
+                    item.LastModifiedDate = DateTime.Today;
+                    _context.Attach(item).State = EntityState.Modified;
+                }
+            }
+            
+            
 
             if (Vendor != null)
             {

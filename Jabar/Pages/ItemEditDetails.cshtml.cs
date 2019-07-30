@@ -20,7 +20,7 @@ namespace Jabar.Pages
             _context = context;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -43,11 +43,13 @@ namespace Jabar.Pages
         {
             Item.LastModifiedBy = "AlphaTech";//change to current user
             Item.LastModifiedDate = DateTime.Today;
+       
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            
+            
             _context.Attach(Item).State = EntityState.Modified;
 
             try

@@ -61,7 +61,7 @@
 
                         <tr class="border">
                             <td class="col-2">
-                                <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                                <a asp-page="/Items/Details" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
                             </td>
                             <td class="col-3">
                                 @Html.DisplayFor(modelItem => item.Description)
@@ -164,7 +164,7 @@
                         {
                             <tr class="border">
                                 <td class="col-2">
-                                    <a asp-page="ItemEditDetails" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
+                                    <a asp-page="/Items/Details" asp-route-id="@item.ItemId">   @Html.DisplayFor(modelItem => item.ItemName)</a>
                                 </td>
                                 <td class="col-3">
                                     @Html.DisplayFor(modelItem => item.Description)

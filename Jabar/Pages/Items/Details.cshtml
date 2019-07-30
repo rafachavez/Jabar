@@ -1,6 +1,12 @@
 ﻿@page
 @model Jabar.Pages.Items.DetailsModel
 
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
 <div>
     <h4>Item</h4>
     <hr />
@@ -64,6 +70,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Item.MeasureID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.IsAssembled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.IsAssembled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.AssemblyRecipeId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.AssemblyRecipeId)
         </dd>
     </dl>
 </div>

@@ -1,6 +1,12 @@
 ﻿@page
 @model Jabar.Pages.Items.EditModel
 
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
 <h4>Item</h4>
 <hr />
 <div class="row">
@@ -58,7 +64,18 @@
                 <input asp-for="Item.MeasureID" class="form-control" />
                 <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Item.IsAssembled" /> @Html.DisplayNameFor(model => model.Item.IsAssembled)
+                </label>
+            </div>
             <div class="form-group">
+                <label asp-for="Item.AssemblyRecipeId" class="control-label"></label>
+                <input asp-for="Item.AssemblyRecipeId" class="form-control" />
+                <span asp-validation-for="Item.AssemblyRecipeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-page="./AssemblyRecipes/Index" asp-route-ItemId="@Model.Item.ItemId" class="btn btn-dark">Edit Assembly</a>
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

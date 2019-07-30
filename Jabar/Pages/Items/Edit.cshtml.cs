@@ -64,7 +64,7 @@ namespace Jabar.Pages.Items
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Inventory");
         }
 
         private bool ItemExists(int id)

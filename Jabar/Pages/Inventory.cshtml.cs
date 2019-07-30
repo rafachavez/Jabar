@@ -33,8 +33,14 @@ namespace Jabar.Pages
         [BindProperty(SupportsGet = true)]
         public IList<int> Index { get; set; }
 
-        //[BindProperty(SupportsGet = true)]
-        //public IList<Assembly> Assemblies { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int itemId { get; set; }//this is populated by the hidden input
+
+        [BindProperty(SupportsGet = true)]
+        public IList<AssemblyRecipe> AssemblyRecipes { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public IList<RecipeLine> RecipeLines { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
@@ -71,10 +77,10 @@ namespace Jabar.Pages
             }
 
             Items = await items.AsNoTracking().ToListAsync();
-
-            //Items = await _context.Items.ToListAsync();   
-
-            //Assemblies = await _context.Assemblies.ToListAsync();
+            
+            AssemblyRecipes = await _context.AssemblyRecipes.ToListAsync();
+            RecipeLines = await _context.RecipeLines.ToListAsync();
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);//get an item :D
             //ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
 
         }

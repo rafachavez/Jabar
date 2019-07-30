@@ -37,7 +37,7 @@ namespace Jabar.Pages.AssemblyRecipes
             {
                 return NotFound();
             }
-           ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemId");
+           ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
             return Page();
         }
 

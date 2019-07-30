@@ -13,6 +13,7 @@ namespace Jabar.Models
             OrderItems = new HashSet<OrderItem>();
             InventoryLogs = new HashSet<InventoryLog>();
             AssemblyHistories = new HashSet<AssemblyHistory>();
+            IsAssembled = false;
         }
         /// <summary>
         /// id for use in data context
@@ -62,9 +63,11 @@ namespace Jabar.Models
 
         //nav
         /// <summary>
-        /// how is it measured... imperial or metric
+        /// how is it measured... imperial or metric, eaches, per crate...
         /// </summary>
         public int MeasureID { get; set; }
+
+        public bool IsAssembled { get; set; }
 
         public Vendor PreferredVendor { get; set; }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Jabar.Data;
 using Jabar.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jabar.Pages.AssemblyRecipes
 {
@@ -19,11 +20,15 @@ namespace Jabar.Pages.AssemblyRecipes
             _context = context;
         }
 
+        
+
         public IActionResult OnGet()
         {
-        ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemId");
+        ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
             return Page();
         }
+
+        public Item Item { get; set; }
 
         [BindProperty]
         public AssemblyRecipe AssemblyRecipe { get; set; }
@@ -34,7 +39,8 @@ namespace Jabar.Pages.AssemblyRecipes
             {
                 return Page();
             }
-
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == AssemblyRecipe.ItemId);
+            Item.IsAssembled = true;
             _context.AssemblyRecipes.Add(AssemblyRecipe);
             await _context.SaveChangesAsync();
 

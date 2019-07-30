@@ -2,12 +2,11 @@
 @model Jabar.Pages.Orders.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create New Order";
 }
 
-<h1>Create Order</h1>
+<h1 class="text-center p-4">Create New Order</h1>
 
-<h4>OrderItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +18,7 @@
                     <option>Select one</option>
                 </select>
                 <span asp-validation-for="OrderItem.VendorSKU" class="text-danger"></span>
-                <a asp-page="ItemCreate" class="btn btn-primary" data-toggle="modal" data-target="#createVendorModal">Add Vendor</a>
+                <a asp-page="ItemCreate" class="btn btn-dark" data-toggle="modal" data-target="#createVendorModal">+</a>
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseOrder.DateOrdered" class="control-label"></label>
@@ -37,7 +36,7 @@
                     <option>Select one</option>
                 </select>
                 <span asp-validation-for="Items.ItemName" class="text-danger"></span>
-                <a asp-page="ItemCreate"class="btn btn-primary" data-toggle="modal" data-target="#createItemModal">Add Part</a>
+                <a asp-page="ItemCreate"class="btn btn-dark" data-toggle="modal" data-target="#createItemModal">+</a>
             </div>
             <div class="form-group">
                 <label asp-for="OrderItem.Price" class="control-label"></label>
@@ -69,14 +68,14 @@
                 <select asp-for="OrderItem.PurchaseOrderId" class="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-dark col-12" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index" class="btn btn-outline-dark col-md-4">Back to Order List</a>
 </div>
 
 

@@ -69,6 +69,8 @@ namespace Jabar.Models
 
         public bool IsAssembled { get; set; }
 
+        public int VendorId { get; set; }
+
         public virtual Vendor PreferredVendor { get; set; }
 
         public int? AssemblyRecipeId { get; set; }

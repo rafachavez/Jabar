@@ -30,12 +30,14 @@ namespace Jabar.Pages.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            Item = await _context.Items
+                .Include(i => i.PreferredVendor).FirstOrDefaultAsync(m => m.ItemId == id);
 
             if (Item == null)
             {
                 return NotFound();
             }
+           ViewData["VendorId"] = new SelectList(_context.Vendors, "VendorId", "VendorName");
             return Page();
         }
 
@@ -45,7 +47,8 @@ namespace Jabar.Pages.Items
             {
                 return Page();
             }
-
+            Item.LastModifiedBy = "AlphaTech"; //change to user
+            Item.LastModifiedDate = DateTime.Today;
             _context.Attach(Item).State = EntityState.Modified;
 
             try

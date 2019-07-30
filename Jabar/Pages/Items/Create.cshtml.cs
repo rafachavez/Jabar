@@ -21,7 +21,7 @@ namespace Jabar.Pages.Items
 
         public IActionResult OnGet()
         {
-            
+        ViewData["VendorId"] = new SelectList(_context.Vendors, "VendorId", "VendorName");
             return Page();
         }
 
@@ -34,11 +34,12 @@ namespace Jabar.Pages.Items
             {
                 return Page();
             }
-
+            Item.LastModifiedBy = "AlphaTech";//TODO: change this to the logged in user
+            Item.LastModifiedDate = DateTime.Today;
             _context.Items.Add(Item);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Inventory");
         }
     }
 }

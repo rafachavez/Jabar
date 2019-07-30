@@ -35,11 +35,12 @@ namespace Jabar.Pages.RecipeLines
             {
                 return Page();
             }
-
+            RecipeLine.LastModifiedBy = "AlphaTech";
+            RecipeLine.LastModifiedDate = DateTime.Today;
             _context.RecipeLines.Add(RecipeLine);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/AssemblyRecipes/Details", new { id = RecipeLine.AssemblyRecipeId });
         }
     }
 }

@@ -57,13 +57,13 @@
                             @Html.DisplayFor(modelItem => line.RequiredItemQty)
                         </td>
                     </tr>
-
                 }
             </tbody>
         </table>
     </form>
 </div>
 <div>
+    <a asp-page="/RecipeLines/Create" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId">Add Item</a> |
     <a asp-page="./Edit" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

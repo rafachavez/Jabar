@@ -30,7 +30,7 @@ namespace Jabar.Pages.AssemblyRecipes
 
         public Item Item { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet =true)]
         public AssemblyRecipe AssemblyRecipe { get; set; }
 
         public async Task<IActionResult> OnPostAsync()

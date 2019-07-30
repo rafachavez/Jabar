@@ -21,6 +21,7 @@ namespace Jabar.Pages.Items
 
         public IActionResult OnGet()
         {
+            
             return Page();
         }
 

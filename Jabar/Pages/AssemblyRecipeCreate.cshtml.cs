@@ -35,7 +35,7 @@ namespace Jabar.Pages
                 return NotFound();
             }
             Items = await _context.Items.ToListAsync();
-            AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == Item.AssemblyRecipeId);
+            //AssemblyRecipe = await _context.AssemblyRecipes.FirstOrDefaultAsync(m => m.AssemblyRecipeId == Item.AssemblyRecipeId);
             //RecipeLines = AssemblyRecipe.RecipeLines.ToList();
             RecipeLine = new RecipeLine();
             ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");

@@ -7,6 +7,13 @@ namespace Jabar.Models
 {
     public class Item
     {
+
+        public Item()
+        {
+            OrderItems = new HashSet<OrderItem>();
+            InventoryLogs = new HashSet<InventoryLog>();
+            AssemblyHistories = new HashSet<AssemblyHistory>();
+        }
         /// <summary>
         /// id for use in data context
         /// </summary>

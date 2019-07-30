@@ -6,6 +6,22 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Pages\Assemblies\**" />
+    <Compile Remove="Pages\RecipeLines\**" />
+    <Content Remove="Pages\Assemblies\**" />
+    <Content Remove="Pages\RecipeLines\**" />
+    <EmbeddedResource Remove="Pages\Assemblies\**" />
+    <EmbeddedResource Remove="Pages\RecipeLines\**" />
+    <None Remove="Pages\Assemblies\**" />
+    <None Remove="Pages\RecipeLines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190730000715_slightchangetoassemblyrecipe.cs" />
+    <Compile Remove="Data\Migrations\20190730000715_slightchangetoassemblyrecipe.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />

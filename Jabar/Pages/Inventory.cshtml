@@ -215,12 +215,12 @@
         <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Assemblies[0].Description)
-                </th>
+                </th>*@
                     Items
                 <th>
                     Assembly
@@ -230,26 +230,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var assembly in Model.Assemblies)
-            {
+            @*@foreach (var assembly in Model.Assemblies)
+        {
 
-               
-                    <tr class="border">
-                        <td class="col-2">
-                             @Html.DisplayFor(modelItem => assembly.AssemblyName)
-                        </td>
-                        
-                        <td class="col-2">
-                            @Html.DisplayFor(modelItem => assembly.Description)
-                        </td>
-                        <td class="col-2">
-                            @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>*@
-                        </td>
 
-                        
-                    </tr>
-                 
-             }
+                <tr class="border">
+                    <td class="col-2">
+                         @Html.DisplayFor(modelItem => assembly.AssemblyName)
+                    </td>
+
+                    <td class="col-2">
+                        @Html.DisplayFor(modelItem => assembly.Description)
+                    </td>
+                    <td class="col-2">
+                        @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>
+                    </td>
+
+
+                </tr>
+
+         }*@
         </tbody>
         </table>
         

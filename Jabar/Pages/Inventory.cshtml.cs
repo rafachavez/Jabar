@@ -26,8 +26,8 @@ namespace Jabar.Pages
         [BindProperty(SupportsGet = true)]
         public IList<int> Index { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public IList<Assembly> Assemblies { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public IList<Assembly> Assemblies { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
@@ -45,7 +45,7 @@ namespace Jabar.Pages
 
             //Items = await _context.Items.ToListAsync();   
 
-            Assemblies = await _context.Assemblies.ToListAsync();
+            //Assemblies = await _context.Assemblies.ToListAsync();
             //ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
 
         }

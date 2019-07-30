@@ -16,9 +16,9 @@ namespace Jabar.Models
 
         
         public int AssemblyRecipeId { get; set; }
-        public int AssemblyId { get; set; }//change this to ItemId for items
+        public int ItemId { get; set; }//change this to ItemId for items
 
-        public virtual Assembly Assembly { get; set; }//change this to public virtual Item Item
+        public virtual Item Item { get; set; }//change this to public virtual Item Item
        
         public virtual IEnumerable<RecipeLine> RecipeLines { get; set; }
     }

@@ -214,47 +214,48 @@
         On hand quantity for the product and a button that will let the user edit the quantity,
         A button that lets the user create an assembly for the item
         -->
-        <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Assemblies[0].Description)
-                </th>*@
-                    Items
-                <th>
-                    Assembly
-                </th>
+            <form>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            @*<th>
+                        @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assemblies[0].Description)
+                    </th>*@
+                            Items
+                            <th>
+                                Assembly
+                            </th>
 
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @*@foreach (var assembly in Model.Assemblies)
-        {
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <input type="hidden" id="itemId" name="itemId" value="@item.ItemId." />
+                            @if (item.IsAssembled)
+                            {
+                                <tr class="border">
+                                    <td class="col-2">
+                                        @Html.DisplayFor(modelItem => item.ItemName)
+                                    </td>
 
+                                    <td class="col-2">
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td class="col-2">
+                                       
+                                    </td>
+                                </tr>
+                            }
 
-                <tr class="border">
-                    <td class="col-2">
-                         @Html.DisplayFor(modelItem => assembly.AssemblyName)
-                    </td>
-
-                    <td class="col-2">
-                        @Html.DisplayFor(modelItem => assembly.Description)
-                    </td>
-                    <td class="col-2">
-                        @*<a asp-page="/RecipeLines/Details" asp-route-id="@assembly.AssemblyId" class="btn btn-info">Items</a>
-                    </td>
-
-
-                </tr>
-
-         }*@
-        </tbody>
-        </table>
-        
+                        }
+                    </tbody>
+                </table>
+            </form>
         </div>
     </div>
 </div>

@@ -95,3 +95,11 @@ body {
 .div_scrollbox {
     overflow-y:auto;
 }
+
+/*used to make some links not look like links*/
+.clean_link_white{
+    color: white;
+}
+    .clean_link_white:hover{
+        text-decoration: none;
+    }

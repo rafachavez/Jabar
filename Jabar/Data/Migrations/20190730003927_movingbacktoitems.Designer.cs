@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jabar.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190729193848_tryingsomestuff")]
-    partial class tryingsomestuff
+    [Migration("20190730003927_movingbacktoitems")]
+    partial class movingbacktoitems
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,25 +20,6 @@ namespace Jabar.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Jabar.Models.Assembly", b =>
-                {
-                    b.Property<int>("AssemblyId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssemblyName");
-
-                    b.Property<int>("AssemblyRecipeId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("OnHandQty");
-
-                    b.HasKey("AssemblyId");
-
-                    b.ToTable("Assemblies");
-                });
 
             modelBuilder.Entity("Jabar.Models.AssemblyHistory", b =>
                 {
@@ -71,16 +52,12 @@ namespace Jabar.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AssemblyId");
-
-                    b.Property<int?>("ItemId");
+                    b.Property<int>("ItemId");
 
                     b.HasKey("AssemblyRecipeId");
 
-                    b.HasIndex("AssemblyId")
+                    b.HasIndex("ItemId")
                         .IsUnique();
-
-                    b.HasIndex("ItemId");
 
                     b.ToTable("AssemblyRecipes");
                 });
@@ -453,14 +430,10 @@ namespace Jabar.Data.Migrations
 
             modelBuilder.Entity("Jabar.Models.AssemblyRecipe", b =>
                 {
-                    b.HasOne("Jabar.Models.Assembly", "Assembly")
+                    b.HasOne("Jabar.Models.Item", "Item")
                         .WithOne("AssemblyRecipe")
-                        .HasForeignKey("Jabar.Models.AssemblyRecipe", "AssemblyId")
+                        .HasForeignKey("Jabar.Models.AssemblyRecipe", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Jabar.Models.Item")
-                        .WithMany("AssemblyRecipes")
-                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("Jabar.Models.InventoryLog", b =>
@@ -515,7 +488,7 @@ namespace Jabar.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Jabar.Models.Item", "Item")
-                        .WithMany("RecipeLines")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

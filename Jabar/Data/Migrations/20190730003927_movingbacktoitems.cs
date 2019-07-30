@@ -2,10 +2,25 @@
 
 namespace Jabar.Data.Migrations
 {
-    public partial class assemblyrecipeidupdate : Migration
+    public partial class movingbacktoitems : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_RecipeLines_AssemblyRecipes_AssemblyRecipeId",
+                table: "RecipeLines");
+
+            migrationBuilder.DropIndex(
+                name: "IX_AssemblyRecipes_ItemId",
+                table: "AssemblyRecipes");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "AssemblyRecipeId",
+                table: "RecipeLines",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldNullable: true);
+
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "AspNetUserTokens",
@@ -33,10 +48,38 @@ namespace Jabar.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(string),
                 oldMaxLength: 128);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssemblyRecipes_ItemId",
+                table: "AssemblyRecipes",
+                column: "ItemId",
+                unique: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_RecipeLines_AssemblyRecipes_AssemblyRecipeId",
+                table: "RecipeLines",
+                column: "AssemblyRecipeId",
+                principalTable: "AssemblyRecipes",
+                principalColumn: "AssemblyRecipeId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_RecipeLines_AssemblyRecipes_AssemblyRecipeId",
+                table: "RecipeLines");
+
+            migrationBuilder.DropIndex(
+                name: "IX_AssemblyRecipes_ItemId",
+                table: "AssemblyRecipes");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "AssemblyRecipeId",
+                table: "RecipeLines",
+                nullable: true,
+                oldClrType: typeof(int));
+
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "AspNetUserTokens",
@@ -64,6 +107,19 @@ namespace Jabar.Data.Migrations
                 maxLength: 128,
                 nullable: false,
                 oldClrType: typeof(string));
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssemblyRecipes_ItemId",
+                table: "AssemblyRecipes",
+                column: "ItemId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_RecipeLines_AssemblyRecipes_AssemblyRecipeId",
+                table: "RecipeLines",
+                column: "AssemblyRecipeId",
+                principalTable: "AssemblyRecipes",
+                principalColumn: "AssemblyRecipeId",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

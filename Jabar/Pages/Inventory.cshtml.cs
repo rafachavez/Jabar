@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Jabar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jabar.Pages
@@ -19,32 +20,80 @@ namespace Jabar.Pages
             _context = context;
         }
 
+        public string NameSort { get; set; }
+        public string QtySort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
+
         public IList<Item> Items { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public IList<int> Index { get; set; }
+
+        //[BindProperty(SupportsGet = true)]
+        //public IList<Assembly> Assemblies { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            QtySort = sortOrder == "OnHandQty" ? "OnHandQty_desc" : "OnHandQty";
             var items = from i in _context.Items
                          select i;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    items = items.OrderByDescending(s => s.ItemName);
+                    break;
+                case "OnHandQty":
+                    items = items.OrderBy(s => s.OnHandQty);
+                    break;
+                case "OnHandQty_desc":
+                    items = items.OrderByDescending(s => s.OnHandQty);
+                    break;
+                case "name":
+                    items = items.OrderBy(s => s.ItemName);
+                    break;
+                default:
+                    //no reorder
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(s => s.ItemName.Contains(SearchString));
+            }
+
+            Items = await items.AsNoTracking().ToListAsync();
+
+            //Items = await _context.Items.ToListAsync();   
+
+            //Assemblies = await _context.Assemblies.ToListAsync();
+            //ViewData["ItemName"] = new SelectList(_context.Items, "ItemId", "ItemName");
+
+        }
+
+        //////////////////////////////////////////////
+        public async Task<IActionResult> OnPostAlphaAsync()
+        {
+            var items = from i in _context.Items
+                        select i;
             if (!string.IsNullOrEmpty(SearchString))
             {
                 items = items.Where(s => s.ItemName.Contains(SearchString));
             }
 
             Items = await items.ToListAsync();
+            Items.OrderBy(item => item.OnHandQty);
 
-            //Items = await _context.Items.ToListAsync();           
-            
+            return RedirectToPage("/Inventory");
         }
-
-        //////////////////////////////////////////////
-
 
         public async Task<IActionResult> OnPostAddAsync(int id)
         {

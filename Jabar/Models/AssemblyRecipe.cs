@@ -14,12 +14,11 @@ namespace Jabar.Models
             RecipeLines = new HashSet<RecipeLine>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int AssemblyRecipeId { get; set; }
-        public int AssemblyId { get; set; }
+        public int ItemId { get; set; }//change this to ItemId for items
 
-        public virtual Assembly Assembly { get; set; }
+        public virtual Item Item { get; set; }//change this to public virtual Item Item
        
         public virtual IEnumerable<RecipeLine> RecipeLines { get; set; }
     }

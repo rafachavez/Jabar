@@ -13,8 +13,7 @@ namespace Jabar.Models
         {
 
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+       
         public int RecipeLineId { get; set; }       
         public int ItemId { get; set; }  
         public int AssemblyRecipeId { get; set; }

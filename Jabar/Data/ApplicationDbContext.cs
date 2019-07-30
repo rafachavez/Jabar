@@ -24,16 +24,16 @@ namespace Jabar.Data
         public DbSet<RecipeLine> RecipeLines { get; set; }
         public DbSet<Vendor> Vendors { get; set; }   
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<Assembly> Assemblies { get; set; }
+        //public DbSet<Assembly> Assemblies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Assembly>()
+            modelBuilder.Entity<Item>()
             .HasOne(a => a.AssemblyRecipe)
-            .WithOne(ar =>ar.Assembly)
-            .HasForeignKey<AssemblyRecipe>(ar => ar.AssemblyId);
+            .WithOne(ar => ar.Item)
+            .HasForeignKey<AssemblyRecipe>(ar => ar.ItemId);
         }
 
 

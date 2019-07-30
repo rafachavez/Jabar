@@ -7,6 +7,13 @@ namespace Jabar.Models
 {
     public class Item
     {
+
+        public Item()
+        {
+            OrderItems = new HashSet<OrderItem>();
+            InventoryLogs = new HashSet<InventoryLog>();
+            AssemblyHistories = new HashSet<AssemblyHistory>();
+        }
         /// <summary>
         /// id for use in data context
         /// </summary>
@@ -63,14 +70,14 @@ namespace Jabar.Models
 
         public int? AssemblyRecipeId { get; set; }
 
-        public IEnumerable<AssemblyRecipe> AssemblyRecipes { get; set; }
+        public virtual AssemblyRecipe AssemblyRecipe { get; set; }
 
         public IEnumerable<OrderItem> OrderItems { get; set; }
 
         public IEnumerable<InventoryLog> InventoryLogs { get; set; }
 
         public IEnumerable<AssemblyHistory> AssemblyHistories { get; set; }
-        public IEnumerable<RecipeLine> RecipeLines { get; set; }
+        //public IEnumerable<RecipeLine> RecipeLines { get; set; }
 
     }
 }

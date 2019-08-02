@@ -14,6 +14,8 @@ namespace Jabar.Models
         public string VendorSKU { get; set; }
         //maybe change to double?
         public double Price { get; set; }
+
+        [Display(Name ="Quantity")]
         public int QuantityOrdered { get; set; }
         [Display(Name ="Delivery Date")]
         public DateTime? DateDelivered { get; set; }

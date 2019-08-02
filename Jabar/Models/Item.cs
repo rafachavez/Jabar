@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jabar.Models
 {
@@ -15,10 +16,13 @@ namespace Jabar.Models
             AssemblyHistories = new HashSet<AssemblyHistory>();
             IsAssembled = false;
         }
+
         /// <summary>
         /// id for use in data context
         /// </summary>
         public int ItemId { get; set; }
+
+        [Display(Name ="Part")]
         /// <summary>
         /// Name of item eg 'Drill' or 'Bolt'
         /// </summary>
@@ -62,6 +66,7 @@ namespace Jabar.Models
         public DateTime LastModifiedDate { get; set; }
 
         //nav
+        [Display(Name ="Unit of Measurement")]
         /// <summary>
         /// how is it measured... imperial or metric, eaches, per crate...
         /// </summary>

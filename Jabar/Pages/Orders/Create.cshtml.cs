@@ -63,6 +63,9 @@ namespace Jabar.Pages.Orders
                 return Page();
             }
 
+            OrderItem.LastModifiedDate = DateTime.Today;
+            OrderItem.LastModifiedBy = "AlphaTech Team";
+
             _context.OrderItems.Add(OrderItem);
             await _context.SaveChangesAsync();
 

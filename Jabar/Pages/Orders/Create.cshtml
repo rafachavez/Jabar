@@ -8,9 +8,10 @@
 <h1 class="text-center p-4">Create New Order</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+<form method="post">
+    <div class="row">
+        <div class="col-md-4">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="OrderItem.VendorSKU" class="control-label"></label>
@@ -30,7 +31,12 @@
                 <input asp-for="OrderItem.DateDelivered" class="form-control" />
                 <span asp-validation-for="OrderItem.DateDelivered" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row form-group">
                 <label asp-for="Items.ItemName" class="control-label"></label>
                 <select asp-for="Items" asp-items="@Model.ItemName">
                     <option>Select one</option>
@@ -52,20 +58,37 @@
                 <input asp-for="OrderItem.QuantityOrdered" class="form-control" />
                 <span asp-validation-for="OrderItem.QuantityOrdered" class="text-danger"></span>
             </div>
+        </div>
+
+
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="OrderItem.ItemId" class="control-label"></label>
-                <select asp-for="OrderItem.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
+                <div class="container">
+                    <h2>Parts</h2>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <p class="list-group-item-text">List Group Item Text</p>
+                        </a>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OrderItem.PurchaseOrderId" class="control-label"></label>
-                <select asp-for="OrderItem.PurchaseOrderId" class="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-outline-dark col-12" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+
+    <div class="form-group">
+        <label asp-for="OrderItem.ItemId" class="control-label"></label>
+        <select asp-for="OrderItem.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="OrderItem.PurchaseOrderId" class="control-label"></label>
+        <select asp-for="OrderItem.PurchaseOrderId" class="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-outline-dark col-12" />
+    </div>
+</form>
+
 
 <div>
     <a asp-page="Index" class="btn btn-outline-dark col-md-4">Back to Order List</a>
@@ -99,40 +122,40 @@
                                 <span asp-validation-for="VendorsModel.VendorAddress" class="text-danger"></span>
                             </div>
                             @*<div class="form-group">
-                                <label asp-for="Items.OnHandQty" class="control-label"></label>
-                                <input asp-for="Items.OnHandQty" class="form-control" />
-                                <span asp-validation-for="Items.OnHandQty" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Item.ListRetailCost" class="control-label"></label>
-                                <input asp-for="Item.ListRetailCost" class="form-control" />
-                                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Items.ReorderQty" class="control-label"></label>
-                                <input asp-for="Items.ReorderQty" class="form-control" />
-                                <span asp-validation-for="Items.ReorderQty" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Items.MaxQty" class="control-label"></label>
-                                <input asp-for="Items.MaxQty" class="form-control" />
-                                <span asp-validation-for="Items.MaxQty" class="text-danger"></span>
-                            </div>*@
+                                    <label asp-for="Items.OnHandQty" class="control-label"></label>
+                                    <input asp-for="Items.OnHandQty" class="form-control" />
+                                    <span asp-validation-for="Items.OnHandQty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                                    <input asp-for="Item.ListRetailCost" class="form-control" />
+                                    <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Items.ReorderQty" class="control-label"></label>
+                                    <input asp-for="Items.ReorderQty" class="form-control" />
+                                    <span asp-validation-for="Items.ReorderQty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Items.MaxQty" class="control-label"></label>
+                                    <input asp-for="Items.MaxQty" class="form-control" />
+                                    <span asp-validation-for="Items.MaxQty" class="text-danger"></span>
+                                </div>*@
                             @*<div class="form-group">
-            <label asp-for="Item.MeasureAmnt" class="control-label"></label>
-            <input asp-for="Item.MeasureAmnt" class="form-control" />
-            <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Item.LastModifiedBy" class="control-label"></label>
-            <input asp-for="Item.LastModifiedBy" class="form-control" />
-            <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Item.MeasureID" class="control-label"></label>
-            <input asp-for="Item.MeasureID" class="form-control" />
-            <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
-        </div>*@
+                                    <label asp-for="Item.MeasureAmnt" class="control-label"></label>
+                                    <input asp-for="Item.MeasureAmnt" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.LastModifiedBy" class="control-label"></label>
+                                    <input asp-for="Item.LastModifiedBy" class="form-control" />
+                                    <span asp-validation-for="Item.LastModifiedBy" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Item.MeasureID" class="control-label"></label>
+                                    <input asp-for="Item.MeasureID" class="form-control" />
+                                    <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
+                                </div>*@
                             <div class="form-group">
                                 <button asp-page-handler="Create" class="btn btn-primary">Create</button>
                             </div>

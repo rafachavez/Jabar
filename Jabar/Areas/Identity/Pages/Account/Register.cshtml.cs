@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Jabar.Models;
+using Jabar.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -84,6 +85,24 @@ namespace Jabar.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if(!await _roleManager.RoleExistsAsync(StaticData.AdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticData.AdminEndUser));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(StaticData.SuperAdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticData.SuperAdminEndUser));
+                    }
+
+                    if(Input.IsSuperAdmin)
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticData.SuperAdminEndUser);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticData.AdminEndUser);
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

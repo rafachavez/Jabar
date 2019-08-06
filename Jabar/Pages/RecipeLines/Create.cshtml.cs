@@ -29,12 +29,16 @@ namespace Jabar.Pages.RecipeLines
         [BindProperty]
         public RecipeLine RecipeLine { get; set; }
 
+        [BindProperty(SupportsGet =true)]
+        public int RecipeId { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            RecipeLine.AssemblyRecipeId = RecipeId;
             RecipeLine.LastModifiedBy = "AlphaTech";
             RecipeLine.LastModifiedDate = DateTime.Today;
             _context.RecipeLines.Add(RecipeLine);

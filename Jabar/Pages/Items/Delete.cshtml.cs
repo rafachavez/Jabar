@@ -22,6 +22,9 @@ namespace Jabar.Pages.Items
         [BindProperty]
         public Item Item { get; set; }
 
+        [BindProperty]
+        public AssemblyRecipe AssemblyRecipe { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -49,6 +52,12 @@ namespace Jabar.Pages.Items
 
             if (Item != null)
             {
+                if(Item.IsAssembled)
+                {
+                    AssemblyRecipe = await _context.AssemblyRecipes.FindAsync(Item.AssemblyRecipeId);
+                    _context.AssemblyRecipes.Remove(AssemblyRecipe);
+                    await _context.SaveChangesAsync();
+                }
                 _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
             }

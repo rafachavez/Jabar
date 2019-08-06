@@ -22,6 +22,9 @@ namespace Jabar.Pages.AssemblyRecipes
         [BindProperty]
         public AssemblyRecipe AssemblyRecipe { get; set; }
 
+        [BindProperty]
+        public Item Item { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -47,14 +50,18 @@ namespace Jabar.Pages.AssemblyRecipes
             }
 
             AssemblyRecipe = await _context.AssemblyRecipes.FindAsync(id);
-
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == AssemblyRecipe.ItemId);
             if (AssemblyRecipe != null)
             {
+                Item.AssemblyRecipeId = null;
+                Item.IsAssembled = false;
+                Item.LastModifiedBy = "AlphaTech"; //change to user
+                Item.LastModifiedDate = DateTime.Today;
                 _context.AssemblyRecipes.Remove(AssemblyRecipe);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Items/Details", id);
         }
     }
 }

@@ -247,7 +247,7 @@
                                         @Html.DisplayFor(modelItem => item.Description)
                                     </td>
                                     <td class="col-2">
-                                       
+                                        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-dark">Edit Assembly</a>
                                     </td>
                                 </tr>
                             }

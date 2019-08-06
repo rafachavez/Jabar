@@ -41,7 +41,12 @@ namespace Jabar.Pages.AssemblyRecipes
             }
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == AssemblyRecipe.ItemId);
             Item.IsAssembled = true;
+            
+            Item.LastModifiedBy = "AlphaTech"; //change to user
+            Item.LastModifiedDate = DateTime.Today;
             _context.AssemblyRecipes.Add(AssemblyRecipe);
+            await _context.SaveChangesAsync();
+            Item.AssemblyRecipeId = AssemblyRecipe.AssemblyRecipeId;//this isnt set until after the context is saved
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

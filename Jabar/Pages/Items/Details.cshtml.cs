@@ -28,7 +28,8 @@ namespace Jabar.Pages.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
+            Item = await _context.Items
+                .Include(i => i.PreferredVendor).FirstOrDefaultAsync(m => m.ItemId == id);
 
             if (Item == null)
             {

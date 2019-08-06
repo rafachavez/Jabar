@@ -78,6 +78,12 @@
             @Html.DisplayFor(model => model.Item.IsAssembled)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.PreferredVendor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.PreferredVendor.VendorName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Item.AssemblyRecipeId)
         </dt>
         <dd class="col-sm-10">

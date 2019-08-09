@@ -56,6 +56,9 @@
                         <td class="col-2">
                             @Html.DisplayFor(modelItem => line.RequiredItemQty)
                         </td>
+                        <td>
+                            <a asp-page="/RecipeLines/Delete" asp-route-id="@line.RecipeLineId" class="btn btn-dark">Delete</a>
+                        </td>
                     </tr>
                 }
             </tbody>

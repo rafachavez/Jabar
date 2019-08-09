@@ -92,6 +92,15 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Item.ItemId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @if (Model.Item.IsAssembled)
+    {
+        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@Model.Item.AssemblyRecipeId" class="btn btn-dark">Edit Assembly</a>
+    }
+    else
+    {
+        <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark">Create Assembly</a>
+    }
+
+    <a asp-page="./Edit" asp-route-id="@Model.Item.ItemId" class="btn btn-outline-dark">Edit</a>
+    <a asp-page="/Inventory" class="btn btn-outline-dark">Back to List</a>
 </div>

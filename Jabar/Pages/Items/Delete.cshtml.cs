@@ -52,7 +52,8 @@ namespace Jabar.Pages.Items
 
             if (Item != null)
             {
-                if(Item.IsAssembled)
+
+                if (Item.IsAssembled)
                 {
                     AssemblyRecipe = await _context.AssemblyRecipes.FindAsync(Item.AssemblyRecipeId);
                     _context.AssemblyRecipes.Remove(AssemblyRecipe);
@@ -62,7 +63,7 @@ namespace Jabar.Pages.Items
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Inventory");
         }
     }
 }

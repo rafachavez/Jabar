@@ -28,6 +28,7 @@ namespace Jabar.Pages.AssemblyRecipes
             return Page();
         }
 
+        [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
 
         [BindProperty(SupportsGet =true)]

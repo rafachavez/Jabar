@@ -57,7 +57,7 @@
                             @Html.DisplayFor(modelItem => line.RequiredItemQty)
                         </td>
                         <td>
-                            <a asp-page="/RecipeLines/Delete" asp-route-id="@line.RecipeLineId" class="btn btn-dark">Delete</a>
+                            <a asp-page="/RecipeLines/Delete" asp-route-id="@line.RecipeLineId" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
@@ -67,8 +67,7 @@
 </div>
 <div>
 
-    <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-dark">Add Item</a>
-    @*<a asp-page="/RecipeLines/Create">Add Item</a> *@|
-    <a asp-page="./Edit" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-dark">Add Item</a>    
+    
+    <a asp-page="/Inventory" class="btn btn-dark">Inventory</a>
 </div>

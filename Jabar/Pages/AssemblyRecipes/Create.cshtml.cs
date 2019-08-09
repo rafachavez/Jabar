@@ -24,7 +24,11 @@ namespace Jabar.Pages.AssemblyRecipes
 
         public IActionResult OnGet()
         {
-        ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
+            var items = from i in _context.Items
+                        where i.IsAssembled == false
+                        select i;
+            //RecipeLines = await lines.ToListAsync();
+            ViewData["ItemId"] = new SelectList(items, "ItemId", "ItemName");//this should now only show items that arent already assemblies
             return Page();
         }
 

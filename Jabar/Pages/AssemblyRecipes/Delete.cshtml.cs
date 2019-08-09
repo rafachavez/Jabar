@@ -61,7 +61,7 @@ namespace Jabar.Pages.AssemblyRecipes
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Items/Details", id);
+            return RedirectToPage("/Items/Details",new  { id = Item.ItemId });
         }
     }
 }

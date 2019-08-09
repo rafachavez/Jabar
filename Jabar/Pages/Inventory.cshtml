@@ -207,7 +207,7 @@
             </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="assemblies">
-            This will contain all products that can be assembled
+            
             <!-- TODO Loop through all products, checking the filter, and display all products that can be assembled -->
             <!-- Columns needed >>
         Product name (hyperlink to associated product page),
@@ -215,22 +215,24 @@
         A button that lets the user create an assembly for the item
         -->
             <form>
+                <br />
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
                             @*<th>
-            @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Assemblies[0].Description)
-        </th>*@
-                            Items
+                        @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assemblies[0].Description)
+                    </th>*@
+                            <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark">Create New Assembly</a>
                             <th>
-                                Assembly
+                                Assemblies
                             </th>
 
                             <th></th>
                             <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -252,10 +254,11 @@
                                     </td>
                                 </tr>
                             }
-
                         }
+                        
                     </tbody>
                 </table>
+                
             </form>
         </div>
     </div>

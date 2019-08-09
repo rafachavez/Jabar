@@ -67,7 +67,8 @@
 </div>
 <div>
 
-    <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-dark">Add Item</a>    
-    
+    <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-dark">Add Item</a>
+
     <a asp-page="/Inventory" class="btn btn-dark">Inventory</a>
+    <a asp-page="./Delete" class="btn btn-danger" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId">Delete Assembly</a>
 </div>

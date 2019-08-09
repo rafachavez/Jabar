@@ -54,7 +54,7 @@ namespace Jabar.Pages.AssemblyRecipes
             Item.AssemblyRecipeId = AssemblyRecipe.AssemblyRecipeId;//this isnt set until after the context is saved
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Item.AssemblyRecipeId });
         }
     }
 }

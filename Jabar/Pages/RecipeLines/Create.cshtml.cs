@@ -57,6 +57,16 @@ namespace Jabar.Pages.RecipeLines
             if(AssemblyRecipe.ItemId != RecipeLine.ItemId)
             {
                 //need to increase count when adding items that are already a part of the assembly recipe
+                foreach (var line in RecipeLines)
+                {
+                    if (RecipeLine.ItemId == line.ItemId)
+                    {
+                        line.RequiredItemQty += RecipeLine.RequiredItemQty;
+                        _context.RecipeLines.Update(line);
+                        await _context.SaveChangesAsync();
+                        return RedirectToPage("/AssemblyRecipes/Details", new { id = RecipeId });
+                    }
+                }
                 RecipeLine.AssemblyRecipeId = RecipeId;
                 RecipeLine.LastModifiedBy = "AlphaTech";//set to logged in user
                 RecipeLine.LastModifiedDate = DateTime.Today;

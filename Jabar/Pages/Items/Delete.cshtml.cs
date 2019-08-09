@@ -63,7 +63,7 @@ namespace Jabar.Pages.Items
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Inventory");
+            return RedirectToPage("/Inventory");
         }
     }
 }

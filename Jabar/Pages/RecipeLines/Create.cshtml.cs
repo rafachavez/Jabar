@@ -27,7 +27,7 @@ namespace Jabar.Pages.RecipeLines
             return Page();
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet =true)]
         public RecipeLine RecipeLine { get; set; }
 
         [BindProperty(SupportsGet =true)]
@@ -59,7 +59,8 @@ namespace Jabar.Pages.RecipeLines
             //need to make sure its not adding itself
             if(notCircular(AssemblyRecipe, RecipeLines))//.ItemId != RecipeLine.ItemId)
             {
-                //need to increase count when adding items that are already a part of the assembly recipe
+                //need to increase count when adding items that are 
+                //already a part of the assembly recipe
                 //instead of adding a new line
                 foreach (var line in RecipeLines)
                 {
@@ -91,10 +92,14 @@ namespace Jabar.Pages.RecipeLines
             {
                 return false;
             }
-            
-            //not working, checking for circular assemblies.
+
+            //check loops... NOT WORKING
             //foreach (var line in recipeLines)
             //{
+            //    if (line.ItemId == RecipeLine.ItemId)
+            //    {
+            //        return false;
+            //    }
             //    Item = _context.Items.FirstOrDefault(m => m.ItemId == line.ItemId);
             //    if (Item.IsAssembled)
             //    {
@@ -106,8 +111,8 @@ namespace Jabar.Pages.RecipeLines
             //        AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == Item.AssemblyRecipeId);
             //        return notCircular(assembly, newLines);
             //    }
-            //}            
-
+            //}
+          
             return true;
         }
     }

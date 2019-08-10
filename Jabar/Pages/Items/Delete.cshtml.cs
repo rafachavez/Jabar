@@ -68,11 +68,12 @@ namespace Jabar.Pages.Items
                     _context.AssemblyRecipes.Remove(AssemblyRecipe);
                     await _context.SaveChangesAsync();
                 }
-                //need to handle deleting items that are part of an assembly recipe
+                //delete all recipe lines that contained this item
                 foreach (var line in RecipeLines)
                 {
                     _context.RecipeLines.Remove(line);
                 }
+                //delete the item
                 _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
             }

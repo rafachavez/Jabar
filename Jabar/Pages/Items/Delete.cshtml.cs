@@ -52,13 +52,14 @@ namespace Jabar.Pages.Items
 
             if (Item != null)
             {
-
+                //if its an assemble item then delete its recipe first
                 if (Item.IsAssembled)
                 {
                     AssemblyRecipe = await _context.AssemblyRecipes.FindAsync(Item.AssemblyRecipeId);
                     _context.AssemblyRecipes.Remove(AssemblyRecipe);
                     await _context.SaveChangesAsync();
                 }
+                //need to handle deleting items that are part of an assembly recipe
                 _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
             }

@@ -22,8 +22,9 @@ namespace Jabar.Pages.RecipeLines
 
         public IActionResult OnGet()
         {
-        ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
-        ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
+            ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
+
+            ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
             return Page();
         }
 

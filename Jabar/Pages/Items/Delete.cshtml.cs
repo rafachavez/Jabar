@@ -22,6 +22,9 @@ namespace Jabar.Pages.Items
         [BindProperty]
         public Item Item { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public IList<RecipeLine> RecipeLines { get; set; }
+
         [BindProperty]
         public AssemblyRecipe AssemblyRecipe { get; set; }
 
@@ -50,6 +53,12 @@ namespace Jabar.Pages.Items
 
             Item = await _context.Items.FindAsync(id);
 
+            //get all recipe lines that contain this item
+            var lines = from i in _context.RecipeLines
+                        where i.ItemId == Item.ItemId
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
             if (Item != null)
             {
                 //if its an assemble item then delete its recipe first
@@ -60,6 +69,10 @@ namespace Jabar.Pages.Items
                     await _context.SaveChangesAsync();
                 }
                 //need to handle deleting items that are part of an assembly recipe
+                foreach (var line in RecipeLines)
+                {
+                    _context.RecipeLines.Remove(line);
+                }
                 _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
             }

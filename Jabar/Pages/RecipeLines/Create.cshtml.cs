@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Jabar.Data;
 using Jabar.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace Jabar.Pages.RecipeLines
 {
@@ -28,10 +29,10 @@ namespace Jabar.Pages.RecipeLines
             return Page();
         }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public RecipeLine RecipeLine { get; set; }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public int RecipeId { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -49,7 +50,7 @@ namespace Jabar.Pages.RecipeLines
             {
                 return Page();
             }
-            
+
             AssemblyRecipe = await _context.AssemblyRecipes
                 .Include(a => a.Item).FirstOrDefaultAsync(m => m.AssemblyRecipeId == RecipeId);
 
@@ -57,15 +58,20 @@ namespace Jabar.Pages.RecipeLines
                         where i.AssemblyRecipeId == RecipeId
                         select i;
             RecipeLines = await lines.ToListAsync();
+
+            IList<RecipeLine> recipeLines = lines.ToList();
+
+            recipeLines.Insert(0, RecipeLine);
+
             //need to make sure its not adding itself
-            if(notCircular(AssemblyRecipe, RecipeLines))//.ItemId != RecipeLine.ItemId)
+            if (notCircular(AssemblyRecipe, recipeLines))//.ItemId != RecipeLine.ItemId)
             {
                 //need to increase count when adding items that are 
                 //already a part of the assembly recipe
                 //instead of adding a new line
                 foreach (var line in RecipeLines)
                 {
-                   
+
                     if (RecipeLine.ItemId == line.ItemId)
                     {
                         line.RequiredItemQty += RecipeLine.RequiredItemQty;
@@ -86,34 +92,39 @@ namespace Jabar.Pages.RecipeLines
             return RedirectToPage("/AssemblyRecipes/Details", new { id = RecipeId });
         }
 
+        /// <summary>
+        /// This is a recursive method to stop an assembly from adding an assembly that contains the first assembly
+        /// </summary>
+        /// <param name="assemblyRecipe"></param>
+        /// <param name="recipeLines"></param>
+        /// <returns></returns>
         private bool notCircular(AssemblyRecipe assemblyRecipe, IList<RecipeLine> recipeLines)
         {
             //stop if it's itself... working
-            if(assemblyRecipe.ItemId == RecipeLine.ItemId)
+            if (assemblyRecipe.ItemId == RecipeLine.ItemId)
             {
                 return false;
             }
 
             //check loops... NOT WORKING
-            //foreach (var line in recipeLines)
-            //{
-            //    if (line.ItemId == RecipeLine.ItemId)
-            //    {
-            //        return false;
-            //    }
-            //    Item = _context.Items.FirstOrDefault(m => m.ItemId == line.ItemId);
-            //    if (Item.IsAssembled)
-            //    {
-            //        var lines = from i in _context.RecipeLines
-            //                    where i.AssemblyRecipeId == Item.AssemblyRecipeId
-            //                    select i;
-            //        IList<RecipeLine> newLines = lines.ToList();
+            foreach (var line in recipeLines)
+            {
 
-            //        AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == Item.AssemblyRecipeId);
-            //        return notCircular(assembly, newLines);
-            //    }
-            //}
-          
+                Item myItem = _context.Items.FirstOrDefault(m => m.ItemId == line.ItemId);
+                if (myItem.IsAssembled)
+                {
+                    var lines = from i in _context.RecipeLines
+                                where i.AssemblyRecipeId == myItem.AssemblyRecipeId
+                                select i;
+                    IList<RecipeLine> newLines = lines.ToList();
+
+                    AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == myItem.AssemblyRecipeId);
+                    return notCircular(assembly, newLines);
+                }
+
+                
+            }
+
             return true;
         }
     }

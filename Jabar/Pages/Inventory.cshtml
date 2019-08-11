@@ -15,7 +15,7 @@
             <input type="submit" value="Filter" />
         </p>
     </form>
-
+   
 </div>
 
 <div id="Tabs" role="tabpanel" class="m-3">
@@ -160,7 +160,7 @@
                     @foreach (var item in Model.Items)
                     {
 
-                        @if (item.OnHandQty <= item.ReorderQty && item.IsAssembled == false)//I think we wont be reordering whole assemblies
+                        @if (item.OnHandQty <= item.ReorderQty  && item.IsAssembled == false)//I think we wont be reordering whole assemblies
                         {
                             <tr class="border">
                                 <td class="col-2">
@@ -195,7 +195,7 @@
                                 <td class="col-2">
 
                                     <a asp-page="/Vendors/Details" asp-route-id="@item.VendorId" class="btn btn-outline-dark">Vendor</a>
-
+                                    
                                     @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
                                         <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
                                         >*@
@@ -207,24 +207,24 @@
             </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="assemblies">
-
+            
             <!-- TODO Loop through all products, checking the filter, and display all products that can be assembled -->
             <!-- Columns needed >>
-            Product name (hyperlink to associated product page),
-            On hand quantity for the product and a button that will let the user edit the quantity,
-            A button that lets the user create an assembly for the item
-            -->
+        Product name (hyperlink to associated product page),
+        On hand quantity for the product and a button that will let the user edit the quantity,
+        A button that lets the user create an assembly for the item
+        -->
             <form>
                 <br />
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
                             @*<th>
-                                    @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Assemblies[0].Description)
-                                </th>*@
+                        @Html.DisplayNameFor(model => model.Assemblies[0].AssemblyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assemblies[0].Description)
+                    </th>*@
                             <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark">Create New Assembly</a>
                             <th>
                                 Assemblies
@@ -232,7 +232,7 @@
 
                             <th></th>
                             <th></th>
-
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -255,10 +255,10 @@
                                 </tr>
                             }
                         }
-
+                        
                     </tbody>
                 </table>
-
+                
             </form>
         </div>
     </div>
@@ -269,6 +269,7 @@
 
 
 @*<!--Get Details Modal-->
+
     <div class="modal fade" id="getDetailsModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="contentinfo">
             <input type="hidden" asp-for="Item" />
@@ -282,7 +283,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-10">
+
                             <!--start of my stuff-->
+
                             @for(int x=0; x<Model.Items.Count; x++)
                             {
                                 var item = Model.Items.ElementAt(x);
@@ -291,11 +294,13 @@
                                     <div>
                                         <h4>Item details, this modal is still broken</h4>
                                         <hr />
+
                                         <dl class="row indexinput">
                                             <dt class="col-sm-2">
                                                 @Html.DisplayNameFor(model => model.Item.ItemName)
                                             </dt>
                                             <dt class="col-sm-10">
+
                                                 @Html.DisplayFor(modelItem => item.ItemName)
                                             </dt>
                                             <dt class="col-sm-2">
@@ -310,16 +315,21 @@
                                             <dd class="col-sm-10">
                                                 @Html.DisplayFor(modelItem => item.OnHandQty)
                                             </dd>
+
+
                                         </dl>
                                     </div>
                                 }
+
                             }
                             <!--bottom of my stuff-->
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
                 </div>
             </div>
         </div>

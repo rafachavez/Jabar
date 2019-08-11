@@ -22,6 +22,12 @@ namespace Jabar.Pages.Items
         [BindProperty]
         public Item Item { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public IList<RecipeLine> RecipeLines { get; set; }
+
+        [BindProperty]
+        public AssemblyRecipe AssemblyRecipe { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -47,13 +53,33 @@ namespace Jabar.Pages.Items
 
             Item = await _context.Items.FindAsync(id);
 
+            //get all recipe lines that contain this item
+            var lines = from i in _context.RecipeLines
+                        where i.ItemId == Item.ItemId
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
             if (Item != null)
             {
+                //if its an assemble item then delete its recipe first
+                if (Item.IsAssembled)
+                {
+                    AssemblyRecipe = await _context.AssemblyRecipes.FindAsync(Item.AssemblyRecipeId);
+                    _context.AssemblyRecipes.Remove(AssemblyRecipe);
+                    await _context.SaveChangesAsync();
+                }
+                //delete all recipe lines that contained this item
+                foreach (var line in RecipeLines)
+                {
+                    _context.RecipeLines.Remove(line);
+                    await _context.SaveChangesAsync();
+                }
+                //delete the item
                 _context.Items.Remove(Item);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Inventory");
         }
     }
 }

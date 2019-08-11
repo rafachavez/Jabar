@@ -24,10 +24,15 @@ namespace Jabar.Pages.AssemblyRecipes
 
         public IActionResult OnGet()
         {
-        ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
+            var items = from i in _context.Items
+                        where i.IsAssembled == false
+                        select i;
+            //this should now only show items that arent already assemblies
+            ViewData["ItemId"] = new SelectList(items, "ItemId", "ItemName");
             return Page();
         }
 
+        [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
 
         [BindProperty(SupportsGet =true)]
@@ -41,10 +46,15 @@ namespace Jabar.Pages.AssemblyRecipes
             }
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == AssemblyRecipe.ItemId);
             Item.IsAssembled = true;
+            
+            Item.LastModifiedBy = "AlphaTech"; //change to user
+            Item.LastModifiedDate = DateTime.Today;
             _context.AssemblyRecipes.Add(AssemblyRecipe);
             await _context.SaveChangesAsync();
+            Item.AssemblyRecipeId = AssemblyRecipe.AssemblyRecipeId;//this isnt set until after the context is saved
+            await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Item.AssemblyRecipeId });
         }
     }
 }

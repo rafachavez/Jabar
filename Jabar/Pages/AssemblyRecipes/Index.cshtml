@@ -23,7 +23,7 @@
 @foreach (var item in Model.AssemblyRecipe) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Item.ItemId)
+                @Html.DisplayFor(modelItem => item.Item.ItemName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.AssemblyRecipeId">Edit</a> |

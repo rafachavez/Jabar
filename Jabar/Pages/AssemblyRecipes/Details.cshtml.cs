@@ -41,8 +41,8 @@ namespace Jabar.Pages.AssemblyRecipes
                 return NotFound();
             }
 
-            //AssemblyRecipe = await _context.AssemblyRecipes
-            //    .Include(a => a.Assembly).FirstOrDefaultAsync(m => m.AssemblyRecipeId == id);
+            AssemblyRecipe = await _context.AssemblyRecipes
+                .Include(a => a.Item).FirstOrDefaultAsync(m => m.AssemblyRecipeId == id);
 
             if (AssemblyRecipe == null)
             {

@@ -129,7 +129,7 @@ namespace Jabar.Pages.RecipeLines
                                 where i.AssemblyRecipeId == myItem.AssemblyRecipeId
                                 select i;
                     IList<RecipeLine> newLines = lines.ToList();
-
+                    //RECURSION!!!!
                     return notCircular(newLines);
                 }                
             }

@@ -61,6 +61,8 @@ namespace Jabar.Pages.RecipeLines
 
             IList<RecipeLine> recipeLines = lines.ToList();
 
+            //I need to make sure Im also passing the item that is trying to be added to the 
+            //assembly into notCircular
             recipeLines.Insert(0, RecipeLine);
 
             //need to make sure its not adding itself
@@ -106,7 +108,7 @@ namespace Jabar.Pages.RecipeLines
                 return false;
             }
 
-            //check loops... NOT WORKING
+            //check loops...WORKING
             foreach (var line in recipeLines)
             {
 

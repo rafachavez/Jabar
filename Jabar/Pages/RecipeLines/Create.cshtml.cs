@@ -25,7 +25,17 @@ namespace Jabar.Pages.RecipeLines
         {
             ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
 
-            ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
+            //these next 4 statements prevent the list of available items for an assembly from containing itself
+            AssemblyRecipe = _context.AssemblyRecipes
+                .Include(a => a.Item).FirstOrDefault(m => m.AssemblyRecipeId == RecipeId);
+
+            var items = from i in _context.Items
+                        where i.ItemId != AssemblyRecipe.ItemId
+                        select i;
+
+            IList<Item> myItems = items.ToList();
+
+            ViewData["ItemId"] = new SelectList(myItems, "ItemId", "ItemName");
             return Page();
         }
 
@@ -66,7 +76,7 @@ namespace Jabar.Pages.RecipeLines
             recipeLines.Insert(0, RecipeLine);
 
             //need to make sure its not adding itself
-            if (notCircular(AssemblyRecipe, recipeLines))//.ItemId != RecipeLine.ItemId)
+            if (notCircular(recipeLines))//.ItemId != RecipeLine.ItemId)
             {
                 //need to increase count when adding items that are 
                 //already a part of the assembly recipe
@@ -100,19 +110,18 @@ namespace Jabar.Pages.RecipeLines
         /// <param name="assemblyRecipe"></param>
         /// <param name="recipeLines"></param>
         /// <returns></returns>
-        private bool notCircular(AssemblyRecipe assemblyRecipe, IList<RecipeLine> recipeLines)
+        private bool notCircular(IList<RecipeLine> recipeLines)
         {
-            //stop if it's itself... working
-            if (assemblyRecipe.ItemId == RecipeLine.ItemId)
-            {
-                return false;
-            }
-
             //check loops...WORKING
             foreach (var line in recipeLines)
             {
-
+                if (line.ItemId == AssemblyRecipe.ItemId)
+                {
+                    return false;
+                }
                 Item myItem = _context.Items.FirstOrDefault(m => m.ItemId == line.ItemId);
+                AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == myItem.AssemblyRecipeId);
+                
                 if (myItem.IsAssembled)
                 {
                     var lines = from i in _context.RecipeLines
@@ -120,13 +129,9 @@ namespace Jabar.Pages.RecipeLines
                                 select i;
                     IList<RecipeLine> newLines = lines.ToList();
 
-                    AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == myItem.AssemblyRecipeId);
-                    return notCircular(assembly, newLines);
-                }
-
-                
+                    return notCircular(newLines);
+                }                
             }
-
             return true;
         }
     }

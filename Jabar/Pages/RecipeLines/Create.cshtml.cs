@@ -115,6 +115,7 @@ namespace Jabar.Pages.RecipeLines
             //check loops...WORKING
             foreach (var line in recipeLines)
             {
+                //omg it finally works correctly!
                 if (line.ItemId == AssemblyRecipe.ItemId)
                 {
                     return false;

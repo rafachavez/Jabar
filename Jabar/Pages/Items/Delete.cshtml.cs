@@ -72,6 +72,7 @@ namespace Jabar.Pages.Items
                 foreach (var line in RecipeLines)
                 {
                     _context.RecipeLines.Remove(line);
+                    await _context.SaveChangesAsync();
                 }
                 //delete the item
                 _context.Items.Remove(Item);

@@ -70,7 +70,16 @@ namespace Jabar.Pages.Vendors
             {
                 if(item.VendorId == Vendor.VendorId)
                 {
-                    Vendor vendor =  _context.Vendors.FirstOrDefault();
+                    Vendor vendor =  _context.Vendors.FirstOrDefault(v=>v.VendorName == "Vendor Deleted");
+
+                    if(vendor == null)
+                    {
+                        vendor = new Vendor();
+                        vendor.VendorName = "Vendor Deleted";
+                        vendor.LastModifiedBy = "AphlaTech db protection";//maybe change to user name
+                        vendor.LastModifiedDate = DateTime.Today;
+                    }
+
                     item.PreferredVendor = vendor;
                     item.VendorId = vendor.VendorId;
                     item.LastModifiedBy = "db change"; //change to user

@@ -55,6 +55,12 @@ namespace Jabar.Pages.Vendors
             Items = await _context.Items.ToListAsync();
             Vendors = await _context.Vendors.ToListAsync();
             //if user is trying to delete the last vendor just make it again
+
+            if(Vendor.VendorName == "Vendor Deleted")
+            {
+                return RedirectToPage("./Index");
+            }
+
             if (Vendors.Count <= 1)
             {
                 Vendor defaultVendor = new Vendor();
@@ -78,6 +84,8 @@ namespace Jabar.Pages.Vendors
                         vendor.VendorName = "Vendor Deleted";
                         vendor.LastModifiedBy = "AphlaTech db protection";//maybe change to user name
                         vendor.LastModifiedDate = DateTime.Today;
+                        _context.Vendors.Add(vendor);
+                        await _context.SaveChangesAsync();
                     }
 
                     item.PreferredVendor = vendor;

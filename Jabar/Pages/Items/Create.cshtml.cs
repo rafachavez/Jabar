@@ -34,6 +34,14 @@ namespace Jabar.Pages.Items
             {
                 return Page();
             }
+            //stop from adding the same item twice
+            Item temp = _context.Items.FirstOrDefault(i => i.ItemName == Item.ItemName);
+
+            if (temp != null)
+            {
+                return RedirectToPage("/Inventory");
+            }
+
             Item.LastModifiedBy = "AlphaTech";//TODO: change this to the logged in user
             Item.LastModifiedDate = DateTime.Today;
             _context.Items.Add(Item);

@@ -39,7 +39,7 @@ namespace Jabar.Pages.Items
 
             if (temp != null)
             {
-                return RedirectToPage("/Inventory");
+                return Page();
             }
 
             Item.LastModifiedBy = "AlphaTech";//TODO: change this to the logged in user

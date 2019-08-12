@@ -27,25 +27,27 @@
                 <label asp-for="Item.OnHandQty" class="control-label"></label>
                 <input asp-for="Item.OnHandQty" class="form-control" />
                 <span asp-validation-for="Item.OnHandQty" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ListRetailCost" class="control-label"></label>
-                <input asp-for="Item.ListRetailCost" class="form-control" />
-                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
-            </div>
+            </div>           
             <div class="form-group">
                 <label asp-for="Item.ReorderQty" class="control-label"></label>
-                <input asp-for="Item.ReorderQty" class="form-control" />
+                <input asp-for="Item.ReorderQty" value="5" class="form-control" />
                 <span asp-validation-for="Item.ReorderQty" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.MaxQty" class="control-label"></label>
-                <input asp-for="Item.MaxQty" class="form-control" />
+                <input asp-for="Item.MaxQty" value="10" class="form-control" />
                 <span asp-validation-for="Item.MaxQty" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Item.ListRetailCost" class="control-label"></label>
+                <input asp-for="Item.ListRetailCost" value="1" class="form-control" />
+                <span asp-validation-for="Item.ListRetailCost" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Item.MeasureAmnt" class="control-label"></label>
-                <input asp-for="Item.MeasureAmnt" class="form-control" />
+                <input asp-for="Item.MeasureAmnt" value="1" class="form-control" />
                 <span asp-validation-for="Item.MeasureAmnt" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -60,7 +62,7 @@
             </div>*@
             <div class="form-group">
                 <label asp-for="Item.MeasureID" class="control-label"></label>
-                <input asp-for="Item.MeasureID" class="form-control" />
+                <input asp-for="Item.MeasureID" value="1" class="form-control" />
                 <span asp-validation-for="Item.MeasureID" class="text-danger"></span>
             </div>
             @*<div class="form-group form-check">

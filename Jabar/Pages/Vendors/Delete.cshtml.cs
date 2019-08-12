@@ -25,6 +25,9 @@ namespace Jabar.Pages.Vendors
         [BindProperty(SupportsGet =true)]
         public IList<Item> Items { get; set; }
 
+        [BindProperty(SupportsGet =true)]
+        public IList<Vendor> Vendors { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -50,6 +53,18 @@ namespace Jabar.Pages.Vendors
 
             Vendor = await _context.Vendors.FindAsync(id);
             Items = await _context.Items.ToListAsync();
+            Vendors = await _context.Vendors.ToListAsync();
+            //if user is trying to delete the last vendor just make it again
+            if (Vendors.Count <= 1)
+            {
+                Vendor defaultVendor = new Vendor();
+                defaultVendor.VendorName = "No Preferred Vendor";
+                defaultVendor.LastModifiedBy = "Please don't delete this";
+                defaultVendor.LastModifiedDate = DateTime.Today;
+                Vendors.Insert(0, defaultVendor);
+                _context.Attach(Vendors).State = EntityState.Modified;
+                //await _context.SaveChangesAsync();
+            }
 
             foreach (var item in Items)
             {

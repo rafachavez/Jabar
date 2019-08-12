@@ -8,6 +8,11 @@ namespace Jabar.Models
     public class Vendor
     {
         //
+        public Vendor()
+        {
+
+        }
+
         public int VendorId { get; set; }
         public string VendorName { get; set; }
         public string VendorAddress { get; set; }

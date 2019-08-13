@@ -13,31 +13,36 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RecipeLine.ItemId" class="control-label"></label>
                 <select asp-for="RecipeLine.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
             </div>
+            <script>
+                $(document).ready(function () {
+                    $('.js-example-basic-single').select2();
+                });
+            </script>
             @*<div class="form-group">
-                <label asp-for="RecipeLine.AssemblyRecipeId" class="control-label"></label>
-                <select asp-for="RecipeLine.AssemblyRecipeId" class="form-control" asp-items="ViewBag.AssemblyRecipeId"></select>
-            </div>*@
+                    <label asp-for="RecipeLine.AssemblyRecipeId" class="control-label"></label>
+                    <select asp-for="RecipeLine.AssemblyRecipeId" class="form-control" asp-items="ViewBag.AssemblyRecipeId"></select>
+                </div>*@
             <div class="form-group">
                 <label asp-for="RecipeLine.RequiredItemQty" class="control-label"></label>
                 <input asp-for="RecipeLine.RequiredItemQty" class="form-control" />
                 <span asp-validation-for="RecipeLine.RequiredItemQty" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-            <label asp-for="RecipeLine.LastModifiedBy" class="control-label"></label>
-            <input asp-for="RecipeLine.LastModifiedBy" class="form-control" />
-            <span asp-validation-for="RecipeLine.LastModifiedBy" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="RecipeLine.LastModifiedDate" class="control-label"></label>
-            <input asp-for="RecipeLine.LastModifiedDate" class="form-control" />
-            <span asp-validation-for="RecipeLine.LastModifiedDate" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="RecipeLine.LastModifiedBy" class="control-label"></label>
+                    <input asp-for="RecipeLine.LastModifiedBy" class="form-control" />
+                    <span asp-validation-for="RecipeLine.LastModifiedBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RecipeLine.LastModifiedDate" class="control-label"></label>
+                    <input asp-for="RecipeLine.LastModifiedDate" class="form-control" />
+                    <span asp-validation-for="RecipeLine.LastModifiedDate" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -47,10 +52,13 @@
 
 <div>
     @*<a asp-page="./Details" asp-route-id="@Model.RecipeLine.ItemId">Details</a>*@
-    
+
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+    });
 }

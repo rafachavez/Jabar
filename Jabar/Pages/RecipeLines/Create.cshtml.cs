@@ -21,7 +21,7 @@ namespace Jabar.Pages.RecipeLines
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task OnGet()
         {
             ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
 
@@ -32,12 +32,13 @@ namespace Jabar.Pages.RecipeLines
             var items = from i in _context.Items
                         where i.ItemId != AssemblyRecipe.ItemId
                         select i;
-
-            IList<Item> myItems = items.ToList();
+            IList<Item> myItems =  items.ToList();   
 
             ViewData["ItemId"] = new SelectList(myItems, "ItemId", "ItemName");
-            return Page();
+
         }
+
+        
 
         [BindProperty(SupportsGet = true)]
         public RecipeLine RecipeLine { get; set; }
@@ -122,7 +123,7 @@ namespace Jabar.Pages.RecipeLines
                 }
                 Item myItem = _context.Items.FirstOrDefault(m => m.ItemId == line.ItemId);
                 AssemblyRecipe assembly = _context.AssemblyRecipes.FirstOrDefault(r => r.AssemblyRecipeId == myItem.AssemblyRecipeId);
-                
+
                 if (myItem.IsAssembled)
                 {
                     var lines = from i in _context.RecipeLines
@@ -131,7 +132,7 @@ namespace Jabar.Pages.RecipeLines
                     IList<RecipeLine> newLines = lines.ToList();
                     //RECURSION!!!!
                     return notCircular(newLines);
-                }                
+                }
             }
             return true;
         }

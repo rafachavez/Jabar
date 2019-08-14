@@ -20,6 +20,8 @@ namespace Jabar.Pages.Orders
             _context = context;
         }
 
+
+
         //This is for the Vendor select list
         [BindProperty(SupportsGet = true)]
         public Vendor VendorsModel { get; set; }
@@ -36,25 +38,17 @@ namespace Jabar.Pages.Orders
         public string IdItem { get; set; }
         public Dictionary<string, int> itemQueue = new Dictionary<string, int>();
 
-        //parts in queue
-        public struct QueueParts
-        {
-            public QueueParts(string strValue, int intValue)
-            {
-                StringItem = strValue;
-                IntegerQty = intValue;
-            }
-            public string StringItem { get; set; }
-            public int IntegerQty { get; set; }
-
-        }
         
-        List<QueueParts> queueItems = new List<QueueParts>();
-        
-
+        [BindProperty]
+        public OrderItem OrderItem { get; set; }
+        public List<OrderItem> OrderItemModel { get; set; }
+        [BindProperty]
+        public PurchaseOrder PurchaseOrder { get; set; }
         public IActionResult OnGet()
         {
-   
+            var order = from i in _context.OrderItems
+                        select i;
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "VendorId", "VendorName");
 
             VendorsModelId = _context.Vendors.Select(x => new SelectListItem
             {
@@ -69,13 +63,11 @@ namespace Jabar.Pages.Orders
                 Text = x.ItemName
             })
                 .ToList();
+            OrderItemModel = _context.OrderItems.ToList();
             return Page();
         }
 
-        [BindProperty]
-        public OrderItem OrderItem { get; set; }
-        [BindProperty]
-        public PurchaseOrder PurchaseOrder { get; set; }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -163,7 +155,16 @@ namespace Jabar.Pages.Orders
         /// <returns></returns>
         public async Task<IActionResult> OnPostAddItemAsync(string name)
         {
+            //Vendor Info
 
+         
+            
+            PurchaseOrder.VendorId = Int32.Parse(OrderItem.VendorSKU);
+            PurchaseOrder.LastModifiedBy = "Alpha Tech Team";
+            PurchaseOrder.LastModifiedDate = DateTime.Today;
+            _context.PurchaseOrders.Add(PurchaseOrder);
+
+            //Item Info
             ItemName = _context.Items.Select(x => new SelectListItem
             {
                 Value = x.ItemId.ToString(),
@@ -172,12 +173,23 @@ namespace Jabar.Pages.Orders
                 .ToList();
 
             string iName = ItemName.Where(p => p.Value == Items.ItemId.ToString()).FirstOrDefault().Text;
-            string iId = ItemName.Where(p => p.Value == Items.ItemId.ToString()).FirstOrDefault().Value;
+            string sId = ItemName.Where(p => p.Value == Items.ItemId.ToString()).FirstOrDefault().Value;
 
             if (iName != null && Items.MeasureID != 0 && OrderItem.QuantityOrdered != 0 && OrderItem.Price != 0)
             {
                 itemQueue.Add(iName, OrderItem.QuantityOrdered);
             }
+
+            
+
+
+            OrderItem.ItemId = Int32.Parse(sId);
+            OrderItem.PurchaseOrderId = PurchaseOrder.PurchaseOrderId;
+            OrderItem.LastModifiedDate = DateTime.Today;
+            OrderItem.LastModifiedBy = "AlphaTech Team";
+
+            _context.OrderItems.Add(OrderItem);
+            
 
             await _context.SaveChangesAsync();
             return RedirectToPage();

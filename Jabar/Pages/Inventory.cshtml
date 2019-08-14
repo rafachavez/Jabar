@@ -27,7 +27,7 @@
 
     <div class="tab-content col-12">
         <div role="tabpanel" class="tab-pane active" id="all">
-            This will contain all products
+            <!--This will contain all products-->
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -125,7 +125,7 @@
             -->
         </div>
         <div role="tabpanel" class="tab-pane" id="toReorder">
-            This will contain all products that have an onhand quantity less than the associated reorder value
+            <!--This will contain all products that have an onhand quantity less than the associated reorder value-->
             <!-- TODO Loop through all products, checking the filter, and display all results whose on hand quantity is less than the associated reorder quantity -->
             <!-- Columns needed >>
                complete - Product name (hyperlink to associated product page),
@@ -160,7 +160,7 @@
                     @foreach (var item in Model.Items)
                     {
 
-                        @if (item.OnHandQty <= item.ReorderQty  && item.IsAssembled == false)//I think we wont be reordering whole assemblies
+                        @if (item.OnHandQty <= item.ReorderQty && item.IsAssembled == false)//I think we wont be reordering whole assemblies
                         {
                             <tr class="border">
                                 <td class="col-2">
@@ -195,10 +195,10 @@
                                 <td class="col-2">
 
                                     <a asp-page="/Vendors/Details" asp-route-id="@item.VendorId" class="btn btn-outline-dark">Vendor</a>
-                                    
+
                                     @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                                        <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                                        >*@
+                                <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                                >*@
                                 </td>
                             </tr>
                         }
@@ -226,6 +226,7 @@
                         @Html.DisplayNameFor(model => model.Assemblies[0].Description)
                     </th>*@
                             <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark">Create New Assembly</a>
+                            <hr />
                             <th>
                                 Assemblies
                             </th>
@@ -250,7 +251,7 @@
                                         @Html.DisplayFor(modelItem => item.Description)
                                     </td>
                                     <td class="col-2">
-                                        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-dark">Edit Assembly</a>
+                                        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-outline-dark">Edit Assembly</a>
                                     </td>
                                 </tr>
                             }

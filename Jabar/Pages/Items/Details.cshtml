@@ -94,13 +94,14 @@
 <div>
     @if (Model.Item.IsAssembled)
     {
-        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@Model.Item.AssemblyRecipeId" class="btn btn-dark">Edit Assembly</a>
+        <a asp-page="/AssemblyRecipes/Details" asp-route-id="@Model.Item.AssemblyRecipeId" class="btn btn-outline-dark col-2">Edit Assembly</a>
     }
     else
     {
-        <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark">Create Assembly</a>
+        <a asp-page="/AssemblyRecipes/Create" class="btn btn-outline-dark col-2">Create Assembly</a>
     }
 
-    <a asp-page="./Edit" asp-route-id="@Model.Item.ItemId" class="btn btn-outline-dark">Edit</a>
-    <a asp-page="/Inventory" class="btn btn-outline-dark">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Item.ItemId" class="btn btn-outline-dark col-2">Edit</a>
+    <a asp-page="/Inventory" class="btn btn-outline-dark col-2">Back to List</a>
+    <a asp-page="./Delete" asp-route-id="@Model.Item.ItemId" class="btn btn-danger col-2 float-right">Delete Item</a>
 </div>

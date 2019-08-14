@@ -25,10 +25,10 @@
                 @Html.DisplayFor(modelItem => item.VendorName)
             </td>
             <td class="float-right">
-                <a asp-page="./Edit" asp-route-id="@item.VendorId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.VendorId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.VendorId">Delete</a> |
-                <a asp-page="./PurchaseHistory" asp-route-id="@item.VendorId">Purchase History</a>
+                <a asp-page="./Edit" asp-route-id="@item.VendorId" class="btn btn-outline-dark col-2">Edit</a> 
+                <a asp-page="./Details" asp-route-id="@item.VendorId" class="btn btn-outline-dark col-3">Details</a> 
+                <a asp-page="./Delete" asp-route-id="@item.VendorId" class="btn btn-danger col-3">Delete</a> 
+                <a asp-page="./PurchaseHistory" asp-route-id="@item.VendorId" class="btn btn-outline-dark col-3">Purchase History</a>
             </td>
         </tr>
 }

@@ -2,7 +2,7 @@
 @model Jabar.Pages.AssemblyRecipes.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Assembly";
 }
 
 <h1>Create</h1>
@@ -18,14 +18,15 @@
                 <select asp-for="AssemblyRecipe.ItemId" class ="form-control" asp-items="ViewBag.ItemId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-dark" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index" class="btn btn-outline-dark">Assembly List</a>
+    <a asp-page="/Inventory" class="btn btn-outline-dark">Inventory List</a>
 </div>
 
 @section Scripts {

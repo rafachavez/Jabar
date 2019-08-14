@@ -31,14 +31,20 @@ namespace Jabar.Models
         /// Description of the item
         /// </summary>
         public string Description { get; set; }
+
+        [Display(Name = "On Hand")]
         /// <summary>
         /// How many do we have on hand
         /// </summary>
         public int OnHandQty { get; set; }
+
+        [Display(Name = "Retail Price")]
         /// <summary>
         /// how much do they cost or are they sold for
         /// </summary>
         public double ListRetailCost { get; set; }
+
+        [Display(Name = "Reorder Quantity")]
         /// <summary>
         /// Minimum amount to have onhand before 
         /// more need to be ordered..

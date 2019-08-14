@@ -2,13 +2,13 @@
 @model Jabar.Pages.AssemblyRecipes.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Assembly Index";
 }
 
-<h1>Index</h1>
+<h1>Assembly Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-outline-dark">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -26,9 +26,8 @@
                 @Html.DisplayFor(modelItem => item.Item.ItemName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.AssemblyRecipeId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.AssemblyRecipeId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AssemblyRecipeId">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-outline-dark col-3">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AssemblyRecipeId" class="btn btn-danger col-3">Delete</a>
             </td>
         </tr>
 }

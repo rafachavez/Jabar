@@ -61,5 +61,27 @@ namespace Jabar.Pages.AssemblyRecipes
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAssembleAsync(int id)
+        {
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+            foreach (var line in RecipeLines)
+            {
+                Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
+                Item.OnHandQty -= line.RequiredItemQty;
+                _context.Attach(Item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToPage("AssemblyRecipes/Details", new { id });
+        }
+
+
     }
 }

@@ -32,10 +32,9 @@ namespace Jabar.Pages.RecipeLines
             var items = from i in _context.Items
                         where i.ItemId != AssemblyRecipe.ItemId
                         select i;
-            IList<Item> myItems =  items.ToList();   
+            IList<Item> myItems = await items.ToListAsync();   
 
             ViewData["ItemId"] = new SelectList(myItems, "ItemId", "ItemName");
-
         }
 
         

@@ -2,28 +2,25 @@
 @model Jabar.Pages.RecipeLines.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Assembly Line";
 }
 
 <h1>Edit</h1>
 
-<h4>RecipeLine</h4>
+<h4>Assembly Line</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RecipeLine.RecipeLineId" />
+            <input type="hidden" asp-for="RecipeLine.AssemblyRecipeId" />
             <div class="form-group">
                 <label asp-for="RecipeLine.ItemId" class="control-label"></label>
-                <select asp-for="RecipeLine.ItemId" class="form-control disabled" asp-items="ViewBag.ItemId"></select>
+                <select asp-for="RecipeLine.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
                 <span asp-validation-for="RecipeLine.ItemId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="RecipeLine.AssemblyRecipe.Item.ItemName" class="control-label"></label>
-                <select asp-for="RecipeLine.AssemblyRecipeId" class="form-control disabled" asp-items="ViewBag.AssemblyRecipeId"></select>
-                <span asp-validation-for="RecipeLine.AssemblyRecipeId" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="RecipeLine.RequiredItemQty" class="control-label"></label>
                 <input asp-for="RecipeLine.RequiredItemQty" class="form-control" />

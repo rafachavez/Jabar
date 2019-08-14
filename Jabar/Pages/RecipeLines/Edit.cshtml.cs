@@ -50,6 +50,10 @@ namespace Jabar.Pages.RecipeLines
                 return Page();
             }
 
+
+            RecipeLine.LastModifiedBy = "AlphTech"; //change to user
+            RecipeLine.LastModifiedDate = DateTime.Today;
+
             _context.Attach(RecipeLine).State = EntityState.Modified;
 
             try

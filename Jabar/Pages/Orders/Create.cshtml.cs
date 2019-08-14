@@ -33,8 +33,29 @@ namespace Jabar.Pages.Orders
         public IList<Item> ItemList { get; set; }
         [BindProperty(SupportsGet = true)]
         public IList<int> Index { get; set; }
+        public string IdItem { get; set; }
+        public Dictionary<string, int> itemQueue = new Dictionary<string, int>();
+
+        //parts in queue
+        public struct QueueParts
+        {
+            public QueueParts(string strValue, int intValue)
+            {
+                StringItem = strValue;
+                IntegerQty = intValue;
+            }
+            public string StringItem { get; set; }
+            public int IntegerQty { get; set; }
+
+        }
+        
+        List<QueueParts> queueItems = new List<QueueParts>();
+        
+
         public IActionResult OnGet()
         {
+   
+
             VendorsModelId = _context.Vendors.Select(x => new SelectListItem
             {
                 Value = x.VendorId.ToString(),
@@ -126,14 +147,45 @@ namespace Jabar.Pages.Orders
                     }
                 }
 
-                _context.Items.Add(Items);
-                await _context.SaveChangesAsync();
+                
 
             }
             
 
             return RedirectToPage();
         }
+
+        /// <summary>
+        /// This is the method called by asp-page-handler="AddItem"
+        /// it gets id from asp-route-name="some string"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostAddItemAsync(string name)
+        {
+
+            ItemName = _context.Items.Select(x => new SelectListItem
+            {
+                Value = x.ItemId.ToString(),
+                Text = x.ItemName
+            })
+                .ToList();
+
+            string iName = ItemName.Where(p => p.Value == Items.ItemId.ToString()).FirstOrDefault().Text;
+            string iId = ItemName.Where(p => p.Value == Items.ItemId.ToString()).FirstOrDefault().Value;
+
+            if (iName != null && Items.MeasureID != 0 && OrderItem.QuantityOrdered != 0 && OrderItem.Price != 0)
+            {
+                itemQueue.Add(iName, OrderItem.QuantityOrdered);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToPage();
+        }
+
+
+
+       
 
     }
 }

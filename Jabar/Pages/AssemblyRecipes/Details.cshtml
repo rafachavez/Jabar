@@ -47,7 +47,20 @@
 
                     <tr class="border">
                         <td class="col-2">
-                            @Html.DisplayFor(modelItem => line.Item.ItemName)
+                            @if (line.Item.IsAssembled)
+                            {
+                                <span style="color:darkgreen; font-weight:bold" class="align-self-center">
+                                    <a asp-page="./Details" asp-route-id="@line.Item.AssemblyRecipeId">
+                                        @Html.DisplayFor(modelItem => line.Item.ItemName)
+                                    </a>
+
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => line.Item.ItemName)
+                            }
+
                         </td>
 
                         <td class="col-2">

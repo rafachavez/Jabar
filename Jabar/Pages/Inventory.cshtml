@@ -152,6 +152,11 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Items[0].ReorderQty)
                         </th>
+                        <th>
+                            <a asp-page="/Inventory" asp-route-sortOrder="@Model.VendorSort" class="btn-dark">
+                                @Html.DisplayNameFor(model => model.Items[0].VendorId)
+                            </a>                            
+                        </th>
 
                         <th></th>
                     </tr>

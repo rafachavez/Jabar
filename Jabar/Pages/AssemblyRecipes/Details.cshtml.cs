@@ -78,8 +78,8 @@ namespace Jabar.Pages.AssemblyRecipes
                 await _context.SaveChangesAsync();
             }
 
-
-            return RedirectToPage("AssemblyRecipes/Details", new { id });
+            return RedirectToPage();
+           // return RedirectToPage("AssemblyRecipes/Details", new { id });
         }
 
 

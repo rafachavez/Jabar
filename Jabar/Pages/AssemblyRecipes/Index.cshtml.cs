@@ -49,11 +49,15 @@ namespace Jabar.Pages.AssemblyRecipes
             {
                 Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
                 Item.OnHandQty -= line.RequiredItemQty;
+                Item.LastModifiedBy = "AlphaTech"; // change to user
+                Item.LastModifiedDate = DateTime.Today;
                 _context.Attach(Item).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);
             Item.OnHandQty++;
+            Item.LastModifiedBy = "AlphaTech"; // change to user
+            Item.LastModifiedDate = DateTime.Today;
             _context.Attach(Item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return RedirectToPage();
@@ -72,11 +76,15 @@ namespace Jabar.Pages.AssemblyRecipes
             {
                 Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
                 Item.OnHandQty += line.RequiredItemQty;
+                Item.LastModifiedBy = "AlphaTech"; // change to user
+                Item.LastModifiedDate = DateTime.Today;
                 _context.Attach(Item).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);
             Item.OnHandQty--;
+            Item.LastModifiedBy = "AlphaTech"; // change to user
+            Item.LastModifiedDate = DateTime.Today;
             _context.Attach(Item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return RedirectToPage();

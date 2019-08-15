@@ -55,7 +55,7 @@ namespace Jabar.Pages.RecipeLines
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/AssemblyRecipes/Details", new { id = RecipeLine.AssemblyRecipeId });
         }
     }
 }

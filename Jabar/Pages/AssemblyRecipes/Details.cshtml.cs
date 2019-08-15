@@ -34,6 +34,10 @@ namespace Jabar.Pages.AssemblyRecipes
         [BindProperty(SupportsGet = true)]
         public int itemId { get; set; }//this is populated by the hidden input
 
+
+        [BindProperty(SupportsGet = true)]
+        public int assItemId { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -61,5 +65,61 @@ namespace Jabar.Pages.AssemblyRecipes
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAssembleAsync(int id)
+        {
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+            foreach (var line in RecipeLines)
+            {
+                Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
+                Item.OnHandQty -= line.RequiredItemQty;
+                Item.LastModifiedBy = "AlphaTech"; // change to user
+                Item.LastModifiedDate = DateTime.Today;
+                _context.Attach(Item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == assItemId);
+            Item.OnHandQty++;
+            Item.LastModifiedBy = "AlphaTech"; // change to user
+            Item.LastModifiedDate = DateTime.Today;
+            _context.Attach(Item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            //return RedirectToPage();
+            return RedirectToPage("/AssemblyRecipes/Details", new { id });
+        }
+
+        public async Task<IActionResult> OnPostDisAssembleAsync(int id)
+        {
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+            foreach (var line in RecipeLines)
+            {
+                Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
+                Item.OnHandQty += line.RequiredItemQty;
+                Item.LastModifiedBy = "AlphaTech"; // change to user
+                Item.LastModifiedDate = DateTime.Today;
+                _context.Attach(Item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == assItemId);
+            Item.OnHandQty--;
+            Item.LastModifiedBy = "AlphaTech"; // change to user
+            Item.LastModifiedDate = DateTime.Today;
+            _context.Attach(Item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            //return RedirectToPage();
+            return RedirectToPage("/AssemblyRecipes/Details", new { id });
+        }
+
+
     }
 }

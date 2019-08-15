@@ -13,15 +13,21 @@
         </div>
         <div class="col">
             <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Items
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Part 1</a>
-                    <a class="dropdown-item" href="#">Part 2</a>
-                    <a class="dropdown-item" href="#">Part 3</a>
-                </div>
-            </div>  
+                @*<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Items
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Part 1</a>
+                        <a class="dropdown-item" href="#">Part 2</a>
+                        <a class="dropdown-item" href="#">Part 3</a>
+                    </div>*@
+                <form method="post">
+                    <div class="form-group">
+                        <select asp-for="AssemblyRecipe.ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
+                    </div>
+                </form>
+                
+            </div>
         </div>
         <div class="col">
             <label>Qty</label>
@@ -31,26 +37,76 @@
 </div>
 
 <div class="row p-2 border border-dark">
-    
-    <div class="col-sm-6">
-        Name
-    </div>
-    <div class="col-sm-2">
-        Nededed
-    </div>
-    <div class="col-sm-2">
-        OnHand
-    </div>
-    <div class="col-sm-2">
-        HaveParts
-    </div>
-   
+
+    @*<div class="col-sm-6">
+            Name
+        </div>
+        <div class="col-sm-2">
+            Nededed
+        </div>
+        <div class="col-sm-2">
+            OnHand
+        </div>
+        <div class="col-sm-2">
+            HaveParts
+        </div>*@
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <hr />
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    Needed
+                </th>
+                <th>
+                    On Hand
+                </th>
+                <th>
+                    Have Parts
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.RecipeLines)
+            {
+                <input type="hidden" id="itemId" name="itemId" value="@line.ItemId" />
+
+
+                <tr class="border">
+                    <td class="col-2">
+                        @Html.DisplayFor(modelItem => line.Item.ItemName)
+                    </td>
+
+                    <td class="col-2">
+                        @Html.DisplayFor(modelItem => line.RequiredItemQty)
+                    </td>
+                    <td class="col-2">
+                        @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                    </td>
+                    <td class="col-2">
+                        @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
 </div>
+
+
 
 <div class="container p-2">
     <div class="row">
         <div class="col-sm-6">
-            <button type="button" class="btn btn-success btn-outline-dark">Check Missing</button>
+            <button asp-page-handler="Check" asp-route-id="@Model.AssemblyRecipe.ItemId" class="btn btn-success btn-outline-dark">Check Missing</button>
+
         </div>
         <div class="col-sm-3">
             <button type="button" class="btn btn-warning btn-outline-dark">Assemble</button>

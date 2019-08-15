@@ -22,6 +22,7 @@ namespace Jabar.Pages
 
         public string NameSort { get; set; }
         public string QtySort { get; set; }
+        public string VendorSort { get; set; }
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
@@ -49,6 +50,7 @@ namespace Jabar.Pages
         {
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             QtySort = sortOrder == "OnHandQty" ? "OnHandQty_desc" : "OnHandQty";
+            VendorSort = sortOrder == "vendor" ? "vendor" : "vendor_desc";
             var items = from i in _context.Items
                          select i;
 
@@ -65,6 +67,12 @@ namespace Jabar.Pages
                     break;
                 case "name":
                     items = items.OrderBy(s => s.ItemName);
+                    break;
+                case "vendor":
+                    items = items.OrderBy(s => s.VendorId);
+                    break;
+                case "vendor_desc":
+                    items = items.OrderByDescending(s => s.VendorId);
                     break;
                 default:
                     //no reorder

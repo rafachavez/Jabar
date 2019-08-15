@@ -42,7 +42,8 @@ namespace Jabar.Pages.Items
                 return Page();
             }
 
-            Item.LastModifiedBy = "AlphaTech";//TODO: change this to the logged in user
+            //Item.LastModifiedBy = "AlphaTech";//TODO: change this to the logged in user
+            Item.LastModifiedBy = User.Identity.Name;
             Item.LastModifiedDate = DateTime.Today;
             _context.Items.Add(Item);
             await _context.SaveChangesAsync();

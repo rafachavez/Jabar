@@ -63,7 +63,6 @@
                                     <a asp-page="./Details" asp-route-id="@line.Item.AssemblyRecipeId">
                                         @Html.DisplayFor(modelItem => line.Item.ItemName)
                                     </a>
-
                                 </span>
                             }
                             else
@@ -81,7 +80,23 @@
                         </td>
 
                         <td class="col-2">
-                            @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                            @if (line.Item.OnHandQty < line.RequiredItemQty)
+                            {
+                                <span style="color:red; font-weight:bolder" class="align-self-center">
+                                    @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                                </span>
+                            }
+                            else if (line.Item.OnHandQty == line.RequiredItemQty)
+                            {
+                                <span style="color:darkgoldenrod; font-weight:bolder" class="align-self-center">
+                                    @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => line.Item.OnHandQty)
+                            }
+
                         </td>
 
                         <td>
@@ -98,7 +113,7 @@
     </form>
 </div>
 <div>
-    
+
     <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-outline-dark col-3">Add Item</a>
     <a asp-page="/Inventory" class="btn btn-outline-dark col-3">Inventory List</a>
     <a asp-page="./Index" class="btn btn-outline-dark col-3">Assembly List</a>

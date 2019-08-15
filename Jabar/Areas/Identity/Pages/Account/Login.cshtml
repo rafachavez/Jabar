@@ -31,19 +31,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-outline-dark col-5">Log in</button>
                 </div>
+                <hr />
                 <div class="form-group">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-outline-dark col-5">Forgot your password?</a>
                     </p>
 
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-dark col-5">Register as a new user</a>
                     </p>
 
                     <p>
-                        <a asp-page="./AdminUsers" asp-route-returnUrl="@Model.ReturnUrl">View users</a>
+                        <a asp-page="./AdminUsers" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-dark col-5">View users</a>
                     </p>
 
                 </div>

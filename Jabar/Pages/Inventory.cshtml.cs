@@ -73,6 +73,7 @@ namespace Jabar.Pages
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
+        //public TabContainer tb { get; set; }
 
         //public ViewResult List(int productPage = 1)
         //    => View(_context.Items
@@ -85,16 +86,23 @@ namespace Jabar.Pages
         public async Task OnGetAsync(string sortOrder, int productPage = 1)
         {
 
-            
-
-            
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             QtySort = sortOrder == "OnHandQty" ? "OnHandQty_desc" : "OnHandQty";
             VendorSort = sortOrder == "vendor" ? "vendor" : "vendor_desc";
             
             var items = from i in _context.Items
                         select i;
-            Count = items.Count();
+
+            var reorderItems = from i in _context.Items
+                               where i.OnHandQty <= i.ReorderQty
+                               select i;
+
+            var assembledItems = from i in _context.Items
+                                 where i.IsAssembled == true
+                                 select i;
+
+
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -125,22 +133,21 @@ namespace Jabar.Pages
             if (!string.IsNullOrEmpty(SearchString))
             {
                 items = items.Where(s => s.ItemName.Contains(SearchString));
+                reorderItems = reorderItems.Where(s => s.ItemName.Contains(SearchString));
+                assembledItems = assembledItems.Where(s => s.ItemName.Contains(SearchString));
+                PageSize = 50;
             }
-            
+            Count = items.Count();
             items = items.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
             Items = await items.AsNoTracking().ToListAsync();
 
-            var reorderItems = from i in _context.Items
-                               where i.OnHandQty <= i.ReorderQty
-                               select i;
+           
 
             ReorderCount = reorderItems.Count();
             reorderItems = reorderItems.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
             ReorderItems = await reorderItems.AsNoTracking().ToListAsync();
 
-            var assembledItems = from i in _context.Items
-                                 where i.IsAssembled == true
-                                 select i;
+           
             assembledItems = assembledItems.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
             AssembledItems = await assembledItems.AsNoTracking().ToListAsync();
             AssemblyCount = _context.AssemblyRecipes.Count();

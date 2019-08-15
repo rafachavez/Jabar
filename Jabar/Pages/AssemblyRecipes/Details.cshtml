@@ -17,12 +17,17 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.AssemblyRecipe.Item.ItemName)
         </dd>
+        <dd class="col-sm-10">
+            Assembled: @Html.DisplayFor(model => model.AssemblyRecipe.Item.OnHandQty)
+        </dd>
     </dl>
 </div>
 
 <div>
-    <form>
-
+    <form method="post">
+        <button asp-page-handler="Assemble" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-success">Assemble</button> |
+        <button asp-page-handler="DisAssemble" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-outline-info">Disassemble</button>
+        <input type="hidden" id="assItemId" name="assItemId" value="@Model.AssemblyRecipe.Item.ItemId" />
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -82,7 +87,7 @@
                 }
             </tbody>
         </table>
-        
+
     </form>
 </div>
 <div>   

@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.AssemblyRecipe[0].Item)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssemblyRecipe[0].Item.OnHandQty)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -26,8 +29,17 @@
                 @Html.DisplayFor(modelItem => item.Item.ItemName)
             </td>
             <td>
-                <a asp-page="./Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-outline-dark col-3">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AssemblyRecipeId" class="btn btn-danger col-3">Delete</a>
+                @Html.DisplayFor(modelItem => item.Item.OnHandQty)
+            </td>
+            <td>
+                <form method="post">
+                    <input type="hidden" id="itemId" name="itemId" value="@item.ItemId" />
+                    <button asp-page-handler="Assemble" asp-route-id="@item.AssemblyRecipeId" class="btn btn-success">Assemble</button> |
+                    <button asp-page-handler="DisAssemble" asp-route-id="@item.AssemblyRecipeId" class="btn btn-outline-info">Disassemble</button> |
+                    <a asp-page="./Details" asp-route-id="@item.AssemblyRecipeId" class="btn btn-outline-dark col-3">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.AssemblyRecipeId" class="btn btn-danger col-3">Delete</a>
+                </form>
+
             </td>
         </tr>
 }

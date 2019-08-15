@@ -19,12 +19,68 @@ namespace Jabar.Pages.AssemblyRecipes
             _context = context;
         }
 
+        [BindProperty(SupportsGet = true)]
         public IList<AssemblyRecipe> AssemblyRecipe { get;set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int itemId { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public Item Item { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public IList<RecipeLine> RecipeLines { get; set; }
 
         public async Task OnGetAsync()
         {
             AssemblyRecipe = await _context.AssemblyRecipes
                 .Include(a => a.Item).ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostAssembleAsync(int id)
+        {
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+            foreach (var line in RecipeLines)
+            {
+                Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
+                Item.OnHandQty -= line.RequiredItemQty;
+                _context.Attach(Item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);
+            Item.OnHandQty++;
+            _context.Attach(Item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToPage();
+            // return RedirectToPage("AssemblyRecipes/Details", new { id });
+        }
+
+        public async Task<IActionResult> OnPostDisAssembleAsync(int id)
+        {
+
+            var lines = from i in _context.RecipeLines
+                        where i.AssemblyRecipeId == id
+                        select i;
+            RecipeLines = await lines.ToListAsync();
+
+            foreach (var line in RecipeLines)
+            {
+                Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
+                Item.OnHandQty += line.RequiredItemQty;
+                _context.Attach(Item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);
+            Item.OnHandQty--;
+            _context.Attach(Item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToPage();
+            // return RedirectToPage("AssemblyRecipes/Details", new { id });
         }
 
     }

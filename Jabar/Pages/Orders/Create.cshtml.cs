@@ -44,10 +44,16 @@ namespace Jabar.Pages.Orders
         public List<OrderItem> OrderItemModel { get; set; }
         [BindProperty]
         public PurchaseOrder PurchaseOrder { get; set; }
-        public IActionResult OnGet()
+        public int POCreated { get; set;}
+        public int ItemCreatedId { get; set; }
+
+
+        //public IActionResult OnGet(int? vInt)
+        public async Task<IActionResult> OnGet(int? vInt)
         {
-            var order = from i in _context.OrderItems
-                        select i;
+
+            
+            
             ViewData["VendorId"] = new SelectList(_context.Vendors, "VendorId", "VendorName");
 
             VendorsModelId = _context.Vendors.Select(x => new SelectListItem
@@ -63,7 +69,15 @@ namespace Jabar.Pages.Orders
                 Text = x.ItemName
             })
                 .ToList();
-            OrderItemModel = _context.OrderItems.ToList();
+          if(vInt.HasValue)
+           {
+                OrderItemModel = _context.OrderItems.Where(s => s.PurchaseOrderId == POCreated).ToList();
+            }
+            else
+            {
+                OrderItemModel = new List<OrderItem>();
+            }
+
             return Page();
         }
 
@@ -155,14 +169,15 @@ namespace Jabar.Pages.Orders
         /// <returns></returns>
         public async Task<IActionResult> OnPostAddItemAsync(string name)
         {
-            //Vendor Info
-
-         
             
-            PurchaseOrder.VendorId = Int32.Parse(OrderItem.VendorSKU);
-            PurchaseOrder.LastModifiedBy = "Alpha Tech Team";
-            PurchaseOrder.LastModifiedDate = DateTime.Today;
-            _context.PurchaseOrders.Add(PurchaseOrder);
+                PurchaseOrder.VendorId = Int32.Parse(OrderItem.VendorSKU);
+                PurchaseOrder.LastModifiedBy = "Alpha Tech Team";
+                PurchaseOrder.LastModifiedDate = DateTime.Today;
+                _context.PurchaseOrders.Add(PurchaseOrder);
+                POCreated = PurchaseOrder.PurchaseOrderId;
+
+            
+           
 
             //Item Info
             ItemName = _context.Items.Select(x => new SelectListItem
@@ -184,7 +199,7 @@ namespace Jabar.Pages.Orders
 
 
             OrderItem.ItemId = Int32.Parse(sId);
-            OrderItem.PurchaseOrderId = PurchaseOrder.PurchaseOrderId;
+            OrderItem.PurchaseOrderId = POCreated;
             OrderItem.LastModifiedDate = DateTime.Today;
             OrderItem.LastModifiedBy = "AlphaTech Team";
 

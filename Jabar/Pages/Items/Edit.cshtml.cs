@@ -47,8 +47,7 @@ namespace Jabar.Pages.Items
             {
                 return Page();
             }
-            //Item.LastModifiedBy = "AlphaTech"; //change to user
-            Item.LastModifiedBy = "AlphaTech"; //change to user
+            Item.LastModifiedBy = User.Identity.Name; //change to user
             Item.LastModifiedDate = DateTime.Today;
             _context.Attach(Item).State = EntityState.Modified;
 

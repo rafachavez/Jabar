@@ -32,6 +32,7 @@ namespace Jabar.Pages.RecipeLines
             var items = from i in _context.Items
                         where i.ItemId != AssemblyRecipe.ItemId
                         select i;
+            items = items.OrderBy(s => s.ItemName);
             IList<Item> myItems = await items.ToListAsync();   
 
             ViewData["ItemId"] = new SelectList(myItems, "ItemId", "ItemName");

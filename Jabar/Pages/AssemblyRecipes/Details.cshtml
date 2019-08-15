@@ -22,6 +22,7 @@
 
 <div>
     <form>
+
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -32,9 +33,10 @@
                         Description
                     </th>
                     <th>
-                        Quantitiy
+                        Quantitiy Needed
                     </th>
 
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -43,7 +45,7 @@
                 {
                     //this is used to populate itemId on the page model...
                     //it allows the single Item to be selected
-                    <input type="hidden" id="itemId" name="itemId" value="@line.ItemId." />
+                    <input type="hidden" id="itemId" name="itemId" value="@line.ItemId" />
 
                     <tr class="border">
                         <td class="col-2">
@@ -69,17 +71,25 @@
                         <td class="col-2">
                             @Html.DisplayFor(modelItem => line.RequiredItemQty)
                         </td>
+
                         <td>
-                            <a asp-page="/RecipeLines/Delete" asp-route-id="@line.RecipeLineId" class="btn btn-danger">Delete</a>
+                            <a asp-page="/RecipeLines/edit" asp-route-id="@line.RecipeLineId" class="btn btn-dark">Edit Line</a>
+                        </td>
+                        <td>
+                            <a asp-page="/RecipeLines/Delete" asp-route-id="@line.RecipeLineId" class="btn btn-danger">Delete Line</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        
     </form>
 </div>
 <div>
-
+    @*<form>
+        <button asp-page-handler="Assemble" asp-route-id="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-success">Assemble</button>
+    </form>*@
+    
     <a asp-page="/RecipeLines/Create" asp-route-RecipeId="@Model.AssemblyRecipe.AssemblyRecipeId" class="btn btn-outline-dark col-3">Add Item</a>
     <a asp-page="/Inventory" class="btn btn-outline-dark col-3">Inventory List</a>
     <a asp-page="./Index" class="btn btn-outline-dark col-3">Assembly List</a>

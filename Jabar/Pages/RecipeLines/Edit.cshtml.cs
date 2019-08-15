@@ -20,7 +20,7 @@ namespace Jabar.Pages.RecipeLines
             _context = context;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet =true)]
         public RecipeLine RecipeLine { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -39,7 +39,7 @@ namespace Jabar.Pages.RecipeLines
                 return NotFound();
             }
            ViewData["AssemblyRecipeId"] = new SelectList(_context.AssemblyRecipes, "AssemblyRecipeId", "AssemblyRecipeId");
-           ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemId");
+           ViewData["ItemId"] = new SelectList(_context.Items, "ItemId", "ItemName");
             return Page();
         }
 
@@ -49,6 +49,10 @@ namespace Jabar.Pages.RecipeLines
             {
                 return Page();
             }
+
+
+            RecipeLine.LastModifiedBy = "AlphTech"; //change to user
+            RecipeLine.LastModifiedDate = DateTime.Today;
 
             _context.Attach(RecipeLine).State = EntityState.Modified;
 
@@ -68,7 +72,7 @@ namespace Jabar.Pages.RecipeLines
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/AssemblyRecipes/Details", new { id = RecipeLine.AssemblyRecipeId });
         }
 
         private bool RecipeLineExists(int id)

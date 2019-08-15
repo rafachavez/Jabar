@@ -26,5 +26,6 @@ namespace Jabar.Pages.AssemblyRecipes
             AssemblyRecipe = await _context.AssemblyRecipes
                 .Include(a => a.Item).ToListAsync();
         }
+
     }
 }

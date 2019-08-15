@@ -26,7 +26,34 @@ namespace Jabar.Pages
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+
+        [BindProperty(SupportsGet = true)]
+        public int Count { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int AssemblyCount { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int ReorderCount { get; set; }
+        public int PageSize { get; set; } = 10;
+
+        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+
+        public int ReorderTotalPages => (int)Math.Ceiling(decimal.Divide(ReorderCount, PageSize));
+
+        public int AssemblyTotalPages => (int)Math.Ceiling(decimal.Divide(AssemblyCount, PageSize));
+
         public IList<Item> Items { get; set; }
+
+        public IList<Item> ReorderItems { get; set; }
+
+        public IList<Item> AssembledItems { get; set; }
+
+
+        public PagingInfo PagingInfo { get; set; }
+
+
+
 
         [BindProperty(SupportsGet = true)]
         public Item Item { get; set; }
@@ -46,14 +73,28 @@ namespace Jabar.Pages
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
-        public async Task OnGetAsync(string sortOrder)
+
+        //public ViewResult List(int productPage = 1)
+        //    => View(_context.Items
+        //        .OrderBy(p => p.ProductID)
+        //        .Skip((productPage - 1) * PageSize)
+        //        .Take(PageSize));
+
+
+
+        public async Task OnGetAsync(string sortOrder, int productPage = 1)
         {
+
+            
+
+            
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             QtySort = sortOrder == "OnHandQty" ? "OnHandQty_desc" : "OnHandQty";
             VendorSort = sortOrder == "vendor" ? "vendor" : "vendor_desc";
+            
             var items = from i in _context.Items
-                         select i;
-
+                        select i;
+            Count = items.Count();
             switch (sortOrder)
             {
                 case "name_desc":
@@ -79,13 +120,33 @@ namespace Jabar.Pages
                     break;
             }
 
+
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 items = items.Where(s => s.ItemName.Contains(SearchString));
             }
-
-            Items = await items.AsNoTracking().ToListAsync();
             
+            items = items.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
+            Items = await items.AsNoTracking().ToListAsync();
+
+            var reorderItems = from i in _context.Items
+                               where i.OnHandQty <= i.ReorderQty
+                               select i;
+
+            ReorderCount = reorderItems.Count();
+            reorderItems = reorderItems.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
+            ReorderItems = await reorderItems.AsNoTracking().ToListAsync();
+
+            var assembledItems = from i in _context.Items
+                                 where i.IsAssembled == true
+                                 select i;
+            assembledItems = assembledItems.Skip((CurrentPage - 1) * PageSize).Take(PageSize);
+            AssembledItems = await assembledItems.AsNoTracking().ToListAsync();
+            AssemblyCount = _context.AssemblyRecipes.Count();
+            
+
+
             AssemblyRecipes = await _context.AssemblyRecipes.ToListAsync();
             RecipeLines = await _context.RecipeLines.ToListAsync();
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == itemId);//get an item :D
@@ -111,7 +172,7 @@ namespace Jabar.Pages
 
         public async Task<IActionResult> OnPostAddAsync(int id)
         {
-           
+
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
             Item.OnHandQty++;
             _context.Attach(Item).State = EntityState.Modified;
@@ -142,9 +203,9 @@ namespace Jabar.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnPostSubtractAsync(int id, string tab = "")
         {
-            
+
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == id);
-           
+
             //subtract one from it
             Item.OnHandQty--;
             //if(Item.OnHandQty < 0)
@@ -178,12 +239,12 @@ namespace Jabar.Pages
         //used by createItemModal
         public async Task<IActionResult> OnPostCreateAsync()
         {
-            
+
             Items = await _context.Items.ToListAsync();
             Item.LastModifiedDate = DateTime.Today;
             Item.LastModifiedBy = "AlphaTech Team";//this has to come out later to be replaced with whoever is logged in
             Item.MeasureID = 1;//this will need to be changed later
-           
+
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();
@@ -192,7 +253,7 @@ namespace Jabar.Pages
             //dont add duplicately named items
             foreach (var item in Items)
             {
-                if(item.ItemName == Item.ItemName)
+                if (item.ItemName == Item.ItemName)
                 {
                     //indicate failure due to identical items
                     return RedirectToPage();
@@ -205,18 +266,18 @@ namespace Jabar.Pages
             return RedirectToPage();
         }
 
-      
+
         //used by getDetailsModal
-   
-      public bool getDetails(int? id)
+
+        public bool getDetails(int? id)
         {
             if (id == null)
             {
                 return false;
             }
 
-            Item =  _context.Items.FirstOrDefault(m => m.ItemId == id);
-            
+            Item = _context.Items.FirstOrDefault(m => m.ItemId == id);
+
             if (Item == null)
             {
                 return false;

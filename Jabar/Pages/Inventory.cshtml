@@ -24,13 +24,28 @@
         <li><a href="#toReorder" aria-controls="toReorder" role="tab" data-toggle="tab" class="btn btn-outline-dark">To Reorder</a></li>
         <li><a href="#assemblies" aria-controls="assemblies" role="tab" data-toggle="tab" class="btn btn-outline-dark">Assemblies</a></li>
     </ul>
+    
+
 
     <div class="tab-content col-12">
         <div role="tabpanel" class="tab-pane active" id="all">
             <!--This will contain all products-->
+            <div>
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a asp-page="/Inventory" asp-route-CurrentPage="@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
             <table class="table table-striped">
+
+
                 <thead class="thead-dark">
                     <tr>
+
                         <th>
                             <a asp-page="/Inventory" asp-route-sortOrder="@Model.NameSort" class="btn-dark">
                                 @Html.DisplayNameFor(model => model.Items[0].ItemName)
@@ -55,6 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <input type="hidden" id="Count" name="Count" value="@Model.Items.Count" />
                     @foreach (var item in Model.Items)
                     {
 
@@ -69,28 +85,28 @@
                             <td>
                                 @if (item.OnHandQty <= item.ReorderQty)
                                 {
-                                <form method="post" class="list-group-horizontal align-self-stretch">
-                                    <!-- since this is in a post method asp-page-handler="subtract" goes to the razor page code and -->
-                                    <!-- looks for an onpost or onpostasync method with subtract in it, so in this case it goes to  -->
-                                    <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
-                                    <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
-                                    <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
-                                    <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
-                                    <span style="color:red; font-weight:bold" class="align-self-center">
-                                        @item.OnHandQty
-                                    </span>
-                                    <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill border-dark">add</button>
-                                </form>
+                                    <form method="post" class="list-group-horizontal align-self-stretch">
+                                        <!-- since this is in a post method asp-page-handler="subtract" goes to the razor page code and -->
+                                        <!-- looks for an onpost or onpostasync method with subtract in it, so in this case it goes to  -->
+                                        <!-- OnPostSubtractAsync() which takes an int id which is passed via the asp-route-id="" tag... -->
+                                        <!-- but it doesnt have to be id, they just have to match... so it could be asp-route-nutz, as  -->
+                                        <!-- long as OnPostSubtractAsync(int nutz) exists in the razor page code... I think -->
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill badge-danger">sub</button>
+                                        <span style="color:red; font-weight:bold" class="align-self-center">
+                                            @item.OnHandQty
+                                        </span>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge align-self-end badge-pill border-dark">add</button>
+                                    </form>
                                 }
                                 else
                                 {
-                            <form method="post" class="list-group-horizontal">
-                                <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">sub</button>
-                                <span style="color:black; ">
-                                    @item.OnHandQty
-                                </span>
-                                <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">add</button>
-                            </form>
+                                    <form method="post" class="list-group-horizontal">
+                                        <button asp-page-handler="Subtract" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">sub</button>
+                                        <span style="color:black; ">
+                                            @item.OnHandQty
+                                        </span>
+                                        <button asp-page-handler="Add" asp-route-id="@item.ItemId" class="badge badge-pill border-dark">add</button>
+                                    </form>
                                 }
 
                             </td>
@@ -106,8 +122,8 @@
                                 @*<a asp-page-handler="Details" asp-route-id="@item.ItemId" onclick="@Model.getDetails(@item.ItemId)" data-ItemIndex="@item" class="btn btn-dark" data-toggle="modal" data-target="#getDetailsModal">Details</a>*@
                                 <a asp-page="/Items/Delete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
                                 @*<a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                                    <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                                    >*@
+                            <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                            >*@
                             </td>
                         </tr>
 
@@ -115,25 +131,38 @@
                 </tbody>
             </table>
 
+
+
+
             <!-- TODO Loop through all products, checking the filter, and display all results -->
             <!-- Columns needed >>
-                Product name (hyperlink to associated product),
-                On hand quantity for the product and a button that will let the user edit the quantity,
-                In transit value for the product,
-                Reorder value for the product,
-                A field that includes an assembly button (only if the item can be assembled)
-            -->
+        Product name (hyperlink to associated product),
+        On hand quantity for the product and a button that will let the user edit the quantity,
+        In transit value for the product,
+        Reorder value for the product,
+        A field that includes an assembly button (only if the item can be assembled)
+    -->
         </div>
         <div role="tabpanel" class="tab-pane" id="toReorder">
             <!--This will contain all products that have an onhand quantity less than the associated reorder value-->
             <!-- TODO Loop through all products, checking the filter, and display all results whose on hand quantity is less than the associated reorder quantity -->
             <!-- Columns needed >>
-               complete - Product name (hyperlink to associated product page),
-               needs work - On hand quantity for the product and a button that will let the user edit the quantity,
-                In transit value for the product,
-                Reorder value for the product,
-                A button that lets the user order more of the associated product
-            -->
+       complete - Product name (hyperlink to associated product page),
+       needs work - On hand quantity for the product and a button that will let the user edit the quantity,
+        In transit value for the product,
+        Reorder value for the product,
+        A button that lets the user order more of the associated product
+    -->
+            <div>
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.ReorderTotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a asp-page="/Inventory" asp-route-CurrentPage="@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -155,14 +184,15 @@
                         <th>
                             <a asp-page="/Inventory" asp-route-sortOrder="@Model.VendorSort" class="btn-dark">
                                 @Html.DisplayNameFor(model => model.Items[0].VendorId)
-                            </a>                            
+                            </a>
                         </th>
 
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Items)
+                    <input type="hidden" id="Count" name="Count" value="@Model.Items.Count" />
+                    @foreach (var item in Model.ReorderItems)
                     {
 
                         @if (item.OnHandQty <= item.ReorderQty && item.IsAssembled == false)//I think we wont be reordering whole assemblies
@@ -212,7 +242,7 @@
             </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="assemblies">
-            
+
             <!-- TODO Loop through all products, checking the filter, and display all products that can be assembled -->
             <!-- Columns needed >>
         Product name (hyperlink to associated product page),
@@ -220,7 +250,17 @@
         A button that lets the user create an assembly for the item
         -->
             <form>
-                <br />
+                
+                <div>
+                    <ul class="pagination">
+                        @for (var i = 1; i <= Model.AssemblyTotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a asp-page="/Inventory" asp-route-CurrentPage="@i" class="page-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
@@ -238,13 +278,14 @@
 
                             <th></th>
                             <th></th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Items)
+                        <input type="hidden" id="Count" name="Count" value="@Model.AssemblyRecipes.Count" />
+                        @foreach (var item in Model.AssembledItems)
                         {
-                            <input type="hidden" id="itemId" name="itemId" value="@item.ItemId." />
+                            <input type="hidden" id="itemId" name="itemId" value="@item.ItemId" />
                             @if (item.IsAssembled)
                             {
                                 <tr class="border">
@@ -261,14 +302,17 @@
                                 </tr>
                             }
                         }
-                        
+
                     </tbody>
                 </table>
-                
+
             </form>
+
         </div>
+        
     </div>
 </div>
+
 <a asp-page="/Items/Create" class="floating_circle_button">+</a>
 @*<a asp-page="ItemCreate" class="floating_circle_button" data-toggle="modal" data-target="#createItemModal">+</a>*@
 

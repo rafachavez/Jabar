@@ -79,6 +79,7 @@ namespace Jabar.Pages.AssemblyRecipes
                 Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == line.ItemId);
                 Item.OnHandQty -= line.RequiredItemQty;
                 Item.LastModifiedBy = "AlphaTech"; // change to user
+                //Item.LastModifiedBy = User.Identity.Name; // change to user
                 Item.LastModifiedDate = DateTime.Today;
                 _context.Attach(Item).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
@@ -86,6 +87,7 @@ namespace Jabar.Pages.AssemblyRecipes
             Item = await _context.Items.FirstOrDefaultAsync(m => m.ItemId == assItemId);
             Item.OnHandQty++;
             Item.LastModifiedBy = "AlphaTech"; // change to user
+            //Item.LastModifiedBy = "AlphaTech"; // change to user
             Item.LastModifiedDate = DateTime.Today;
             _context.Attach(Item).State = EntityState.Modified;
             await _context.SaveChangesAsync();

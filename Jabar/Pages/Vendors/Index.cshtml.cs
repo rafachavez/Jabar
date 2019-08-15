@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Jabar.Data;
 using Jabar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jabar.Pages.Vendors
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly Jabar.Data.ApplicationDbContext _context;
